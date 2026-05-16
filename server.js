@@ -76,11 +76,11 @@ app.post("/guardar-respuestas", auth, async (req, res) => {
   const hoja = workbook.getWorksheet("Respuestas");
 
   hoja.addRow({
-    usuario,
-    doctorado,
-    maestria,
-    ingles,
-    fecha: new Date().toLocaleString()
+  usuario: usuario,
+  doctorado: doctorado,
+  maestria: maestria,
+  ingles: ingles,
+  fecha: new Date().toLocaleString()
   });
 
   await workbook.xlsx.writeFile(archivoExcel);

@@ -55,37 +55,55 @@ app.get("/usuario", auth, (req, res) => {
 });
 
 app.post("/guardar-respuestas", auth, async (req, res) => {
-  const { doctorado, maestria, ingles } = req.body;
-  const usuario = req.session.usuario.usuario;
+  try {
+    const { doctorado, maestria, ingles } = req.body;
+    const usuario = req.session.usuario.usuario;
 
-  const workbook = new ExcelJS.Workbook();
+    const workbook = new ExcelJS.Workbook();
+    let hoja;
 
-  if (fs.existsSync(archivoExcel)) {
-    await workbook.xlsx.readFile(archivoExcel);
-  } else {
-    const hoja = workbook.addWorksheet("Respuestas");
-    hoja.columns = [
-      { header: "Usuario", key: "usuario", width: 20 },
-      { header: "Doctorado", key: "doctorado", width: 15 },
-      { header: "Maestría", key: "maestria", width: 15 },
-      { header: "Curso de inglés", key: "ingles", width: 20 },
-      { header: "Fecha", key: "fecha", width: 25 }
-    ];
+    if (fs.existsSync(archivoExcel)) {
+      await workbook.xlsx.readFile(archivoExcel);
+      hoja = workbook.getWorksheet("Respuestas");
+
+      if (!hoja) {
+        hoja = workbook.addWorksheet("Respuestas");
+      }
+    } else {
+      hoja = workbook.addWorksheet("Respuestas");
+    }
+
+    if (hoja.rowCount === 0) {
+      hoja.columns = [
+        { header: "Usuario", key: "usuario", width: 20 },
+        { header: "Doctorado", key: "doctorado", width: 15 },
+        { header: "Maestría", key: "maestria", width: 15 },
+        { header: "Curso de inglés", key: "ingles", width: 20 },
+        { header: "Fecha", key: "fecha", width: 25 }
+      ];
+    }
+
+    hoja.addRow({
+      usuario: usuario,
+      doctorado: doctorado,
+      maestria: maestria,
+      ingles: ingles,
+      fecha: new Date().toLocaleString()
+    });
+
+    await workbook.xlsx.writeFile(archivoExcel);
+
+    res.json({
+      mensaje: `Nueva fila guardada para ${usuario}. Total de filas: ${hoja.rowCount}`
+    });
+
+  } catch (error) {
+    console.error("Error guardando respuestas:", error);
+
+    res.status(500).json({
+      mensaje: "Error guardando respuestas"
+    });
   }
-
-  const hoja = workbook.getWorksheet("Respuestas");
-
-  hoja.addRow({
-  usuario: usuario,
-  doctorado: doctorado,
-  maestria: maestria,
-  ingles: ingles,
-  fecha: new Date().toLocaleString()
-  });
-
-  await workbook.xlsx.writeFile(archivoExcel);
-  res.json({ mensaje: `Respuestas guardadas para ${usuario}` });
-  //res.json({ mensaje: "Respuestas guardadas correctamente" });
 });
 
 app.get("/descargar-excel", auth, (req, res) => {

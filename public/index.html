@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Login</title>
+</head>
+<body>
+
+<h1>Ingreso al sistema</h1>
+
+<input id="usuario" placeholder="Usuario">
+<br><br>
+
+<input id="password" type="password" placeholder="Contraseña">
+<br><br>
+
+<button onclick="login()">Ingresar</button>
+
+<p id="mensaje"></p>
+
+<script>
+async function login() {
+  const res = await fetch("/login", {
+    method: "POST",
+    headers: {"Content-Type": "application/json"},
+    body: JSON.stringify({
+      usuario: document.getElementById("usuario").value,
+      password: document.getElementById("password").value
+    })
+  });
+
+  const data = await res.json();
+
+  if (res.ok) {
+    window.location.href = "cuestionario.html";
+  } else {
+    document.getElementById("mensaje").textContent = data.mensaje;
+  }
+}
+</script>
+
+</body>
+</html>

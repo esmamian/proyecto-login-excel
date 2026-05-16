@@ -4,6 +4,7 @@ const path = require("path");
 const ExcelJS = require("exceljs");
 const fs = require("fs");
 
+const archivoDatos = "respuestas.json";
 const app = express();
 const archivoExcel = "respuestas.xlsx";
 
@@ -55,67 +56,74 @@ app.get("/usuario", auth, (req, res) => {
 });
 
 app.post("/guardar-respuestas", auth, async (req, res) => {
-  try {
-    const { doctorado, maestria, ingles } = req.body;
-    const usuario = req.session.usuario.usuario;
+  const { doctorado, maestria, ingles } = req.body;
 
-    const workbook = new ExcelJS.Workbook();
-    let hoja;
+  const usuario = req.session.usuario.usuario;
 
-    if (fs.existsSync(archivoExcel)) {
-      await workbook.xlsx.readFile(archivoExcel);
-      hoja = workbook.getWorksheet("Respuestas");
+  let respuestas = [];
 
-      if (!hoja) {
-        hoja = workbook.addWorksheet("Respuestas");
-      }
-    } else {
-      hoja = workbook.addWorksheet("Respuestas");
-    }
-
-    if (hoja.rowCount === 0) {
-      hoja.columns = [
-        { header: "Usuario", key: "usuario", width: 20 },
-        { header: "Doctorado", key: "doctorado", width: 15 },
-        { header: "Maestría", key: "maestria", width: 15 },
-        { header: "Curso de inglés", key: "ingles", width: 20 },
-        { header: "Fecha", key: "fecha", width: 25 }
-      ];
-    }
-
-    hoja.addRow({
-      usuario: usuario,
-      doctorado: doctorado,
-      maestria: maestria,
-      ingles: ingles,
-      fecha: new Date().toLocaleString()
-    });
-
-    await workbook.xlsx.writeFile(archivoExcel);
-
-    res.json({
-      mensaje: `Nueva fila guardada para ${usuario}. Total de filas: ${hoja.rowCount}`
-    });
-
-  } catch (error) {
-    console.error("Error guardando respuestas:", error);
-
-    res.status(500).json({
-      mensaje: "Error guardando respuestas"
-    });
+  if (fs.existsSync(archivoDatos)) {
+    const contenido = fs.readFileSync(archivoDatos, "utf8");
+    respuestas = JSON.parse(contenido);
   }
+
+  respuestas.push({
+    usuario: usuario,
+    doctorado: doctorado,
+    maestria: maestria,
+    ingles: ingles,
+    fecha: new Date().toLocaleString()
+  });
+
+  fs.writeFileSync(
+    archivoDatos,
+    JSON.stringify(respuestas, null, 2)
+  );
+
+  res.json({
+    mensaje: `Respuesta guardada para ${usuario}. Total registros: ${respuestas.length}`
+  });
 });
 
-app.get("/descargar-excel", auth, (req, res) => {
+app.get("/descargar-excel", auth, async (req, res) => {
   if (req.session.usuario.rol !== "admin") {
     return res.status(403).send("Solo el administrador puede descargar");
   }
 
-  if (!fs.existsSync(archivoExcel)) {
+  if (!fs.existsSync(archivoDatos)) {
     return res.status(404).send("Aún no hay respuestas guardadas");
   }
 
-  res.download(archivoExcel);
+  const contenido = fs.readFileSync(archivoDatos, "utf8");
+  const respuestas = JSON.parse(contenido);
+
+  const workbook = new ExcelJS.Workbook();
+  const hoja = workbook.addWorksheet("Respuestas");
+
+  hoja.columns = [
+    { header: "Usuario", key: "usuario", width: 20 },
+    { header: "Doctorado", key: "doctorado", width: 15 },
+    { header: "Maestría", key: "maestria", width: 15 },
+    { header: "Curso de inglés", key: "ingles", width: 20 },
+    { header: "Fecha", key: "fecha", width: 25 }
+  ];
+
+  respuestas.forEach(r => {
+    hoja.addRow(r);
+  });
+
+  res.setHeader(
+    "Content-Type",
+    "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+  );
+
+  res.setHeader(
+    "Content-Disposition",
+    "attachment; filename=respuestas.xlsx"
+  );
+
+  await workbook.xlsx.write(res);
+  res.end();
 });
 
 app.post("/logout", auth, (req, res) => {

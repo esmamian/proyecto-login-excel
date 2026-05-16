@@ -1,0 +1,13 @@
+{
+  "name": "proyecto-login-excel",
+  "version": "1.0.0",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "express-session": "^1.18.0",
+    "exceljs": "^4.4.0"
+  }
+}

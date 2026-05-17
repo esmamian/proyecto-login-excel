@@ -11,6 +11,7 @@
 
   <h1>Formación Académica</h1>
   <h2 id="bienvenida"></h2>
+  <form id="formulario">
 
   <button  class="button1" onclick="window.location.href = 'principal.html'";>
      Volver al menú
@@ -292,6 +293,7 @@ document.getElementById("formulario").addEventListener("submit", async function(
     method: "POST",
     headers: {"Content-Type": "application/json"},
     body: JSON.stringify({
+      seccion: "Formación Académica",
       doctorado: datos.get("doctorado"),
       maestria: datos.get("maestria"),
       ingles: datos.get("ingles")
@@ -302,5 +304,6 @@ document.getElementById("formulario").addEventListener("submit", async function(
 
   document.getElementById("mensaje").textContent = data.mensaje;
 });
+
   
 </script>  

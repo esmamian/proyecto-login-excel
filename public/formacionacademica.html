@@ -294,7 +294,7 @@ document.getElementById("formulario").addEventListener("submit", async function(
     headers: {"Content-Type": "application/json"},
     body: JSON.stringify({
       seccion: "Formación Académica",
-      doctorado: datos.get("doctorado"),
+      doctorado: datos.get("numDoctorado"),
       maestria: datos.get("maestria"),
       ingles: datos.get("ingles")
     })

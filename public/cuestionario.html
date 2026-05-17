@@ -12,9 +12,22 @@
 <form id="formulario">
 
   <p>¿Tiene doctorado?</p>
-  <label><input type="radio" name="doctorado" value="Sí" required> Sí</label>
-  <label><input type="radio" name="doctorado" value="No"> No</label>
 
+<label>
+  <input type="radio" name="doctorado" value="Sí" onclick="mostrarCantidad('cantDoctorado')">
+  Sí
+</label>
+
+<label>
+  <input type="radio" name="doctorado" value="No" onclick="ocultarCantidad('cantDoctorado')">
+  No
+</label>
+
+<div id="cantDoctorado" style="display:none; margin-top:10px;">
+  <label>¿Cuántos?</label>
+  <input type="number" min="0" step="1" id="numDoctorado" placeholder="0">
+</div>
+  
   <p>¿Tiene maestría?</p>
   <label><input type="radio" name="maestria" value="Sí" required> Sí</label>
   <label><input type="radio" name="maestria" value="No"> No</label>
@@ -62,6 +75,18 @@ async function cargarUsuario() {
   }
 }
 
+function mostrarCantidad(id) {
+  document.getElementById(id).style.display = "block";
+}
+
+function ocultarCantidad(id) {
+  const contenedor = document.getElementById(id);
+  contenedor.style.display = "none";
+
+  const input = contenedor.querySelector("input");
+  input.value = "";
+} 
+
 document.getElementById("formulario").addEventListener("submit", async function(e) {
   e.preventDefault();
 
@@ -72,6 +97,7 @@ document.getElementById("formulario").addEventListener("submit", async function(
     headers: {"Content-Type": "application/json"},
     body: JSON.stringify({
       doctorado: datos.get("doctorado"),
+      cantidadDoctorado: document.getElementById("numDoctorado").value
       maestria: datos.get("maestria"),
       ingles: datos.get("ingles")
     })

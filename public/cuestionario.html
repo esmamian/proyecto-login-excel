@@ -3,222 +3,39 @@
 <head>
   <meta charset="UTF-8">
   <title>Cuestionario</title>
-
-  <style>
-
-    body {
-      font-family: Arial;
-      padding: 40px;
-      background: #f2f4f7;
-    }
-
-    .contenedor {
-      background: white;
-      padding: 30px;
-      border-radius: 10px;
-      width: 700px;
-      margin: auto;
-    }
-
-    h1 {
-      color: #1f4e79;
-    }
-
-    button {
-      padding: 10px 20px;
-      margin-top: 20px;
-      cursor: pointer;
-    }
-
-  </style>
 </head>
-
 <body>
 
-<div class="contenedor">
+<h1>Cuestionario</h1>
+<h2 id="bienvenida"></h2>
 
-  <h1>Cuestionario</h1>
+<form id="formulario">
 
-  <h2 id="bienvenida"></h2>
+  <p>¿Tiene doctorado?</p>
+  <label><input type="radio" name="doctorado" value="Sí" required> Sí</label>
+  <label><input type="radio" name="doctorado" value="No"> No</label>
 
-  <form id="formulario">
+  <p>¿Tiene maestría?</p>
+  <label><input type="radio" name="maestria" value="Sí" required> Sí</label>
+  <label><input type="radio" name="maestria" value="No"> No</label>
 
-    <p>¿Tiene doctorado?</p>
+  <p>¿Tiene curso de inglés?</p>
+  <label><input type="radio" name="ingles" value="Sí" required> Sí</label>
+  <label><input type="radio" name="ingles" value="No"> No</label>
 
-    <label>
-      <input type="radio" name="doctorado" value="Sí" required>
-      Sí
-    </label>
+  <br><br>
 
-    <label>
-      <input type="radio" name="doctorado" value="No">
-      No
-    </label>
+  <button type="submit">Guardar respuestas</button>
 
-    <hr>
+</form>
 
-    <p>¿Tiene maestría?</p>
+<br>
 
-    <label>
-      <input type="radio" name="maestria" value="Sí" required>
-      Sí
-    </label>
+<button id="btnExcel" style="display:none;" onclick="descargarExcel()">
+  Descargar Excel
+</button>
 
-    <label>
-      <input type="radio" name="maestria" value="No">
-      No
-    </label>
-
-    <hr>
-
-    <p>¿Tiene curso de inglés?</p>
-
-    <label>
-      <input type="radio" name="ingles" value="Sí" required>
-      Sí
-    </label>
-
-    <label>
-      <input type="radio" name="ingles" value="No">
-      No
-    </label>
-
-    <br><br>
-
-    <button type="submit">
-      Guardar respuestas
-    </button>
-
-  </form>
-
-  <br>
-
-  <button
-    id="btnExcel"
-    style="display:none;"
-    onclick="descargarExcel()"
-  >
-    Descargar Excel
-  </button>
-
-  <br>
-
-  <button onclick="logout()">
-    Cerrar sesión
-  </button>
-
-  <p id="mensaje"></p>
-
-</div>
-
-<script>
-
-let usuarioActual = null;
-
-
-// ------------------------------------
-// CARGAR USUARIO
-// ------------------------------------
-
-async function cargarUsuario() {
-
-  const res = await fetch("/usuario");
-
-  if (!res.ok) {
-
-    window.location.href = "index.html";
-    return;
-  }
-
-  usuarioActual = await res.json();
-
-  document.getElementById("bienvenida").textContent =
-    "Bienvenido: " + usuarioActual.usuario;
-
-
-  // Mostrar botón admin
-
-  if (usuarioActual.rol === "admin") {
-
-    document.getElementById("btnExcel")
-      .style.display = "inline-block";
-  }
-}
-
-
-// ------------------------------------
-// GUARDAR RESPUESTAS
-// ------------------------------------
-
-document.getElementById("formulario")
-.addEventListener("submit", async function(e) {
-
-  e.preventDefault();
-
-  const datos = new FormData(this);
-
-  const res = await fetch("/guardar-respuestas", {
-
-    method: "POST",
-
-    headers: {
-      "Content-Type": "application/json"
-    },
-
-    body: JSON.stringify({
-
-      doctorado: datos.get("doctorado"),
-
-      maestria: datos.get("maestria"),
-
-      ingles: datos.get("ingles")
-
-    })
-
-  });
-
-  const data = await res.json();
-
-  document.getElementById("mensaje")
-    .textContent = data.mensaje;
-
-});
-
-
-// ------------------------------------
-// DESCARGAR EXCEL
-// ------------------------------------
-
-function descargarExcel() {
-
-  window.location.href = "/descargar-excel";
-}
-
-
-// ------------------------------------
-// LOGOUT
-// ------------------------------------
-
-async function logout() {
-
-  await fetch("/logout", {
-    method: "POST"
-  });
-
-  window.location.href = "index.html";
-}
-
-
-// ------------------------------------
-// INICIAR
-// ------------------------------------
-
-cargarUsuario();
-
-</script>
-
-</body>
-</html><br><br>
+<br><br>
 
 <button onclick="logout()">Cerrar sesión</button>
 

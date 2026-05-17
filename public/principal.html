@@ -21,3 +21,20 @@
   <button onclick="cerrarSesion()">Cerrar sesión</button>
   <button onclick="exportarExcel()">Descargar Excel</button>
 </div>
+
+<script>
+let usuarioActual = null;
+
+async function cargarUsuario() {
+  const res = await fetch("/usuario");
+
+  if (!res.ok) {
+    window.location.href = "index.html";
+    return;
+  }
+  usuarioActual = await res.json();
+
+    document.getElementById("bienvenida").textContent =
+    "Usuario: " + usuarioActual.usuario;
+
+<\script>

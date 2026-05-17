@@ -33,7 +33,16 @@ async function cargarUsuario() {
     window.location.href = "index.html";
     return;
   }
+
   usuarioActual = await res.json();
+
+  document.getElementById("bienvenida").textContent =
+    "Usuario: " + usuarioActual.usuario;
+
+  if (usuarioActual.rol === "admin") {
+    document.getElementById("btnExcel").style.display = "inline-block";
+  }
+}
 
   async function logout() {
   await fetch("/logout", { method: "POST" });

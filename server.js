@@ -31,7 +31,7 @@ pool.query(`
     id SERIAL PRIMARY KEY,
     usuario TEXT NOT NULL,
     doctorado TEXT,
-    cantidad_doctorado,
+    cantidad_doctorado INTEGER,
     maestria TEXT,
     ingles TEXT,
     fecha TIMESTAMP DEFAULT CURRENT_TIMESTAMP

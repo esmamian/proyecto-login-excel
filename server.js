@@ -31,6 +31,7 @@ pool.query(`
     id SERIAL PRIMARY KEY,
     usuario TEXT NOT NULL,
     doctorado TEXT,
+    cantidad_doctorado,
     maestria TEXT,
     ingles TEXT,
     fecha TIMESTAMP DEFAULT CURRENT_TIMESTAMP
@@ -93,14 +94,14 @@ app.get("/usuario", auth, (req, res) => {
 // Guardar respuestas en PostgreSQL
 app.post("/guardar-respuestas", auth, async (req, res) => {
   try {
-    const { doctorado, maestria, ingles } = req.body;
+    const { doctorado, cantidad_doctorado, maestria, ingles } = req.body;
     const usuario = req.session.usuario.usuario;
 
     await pool.query(
       `INSERT INTO respuestas 
-       (usuario, doctorado, maestria, ingles)
-       VALUES ($1, $2, $3, $4)`,
-      [usuario, doctorado, maestria, ingles]
+       (usuario, doctorado, cantidad_doctorado, maestria, ingles)
+       VALUES ($1, $2, $3, $4, $5)`,
+      [usuario, doctorado, cantidad_doctorado, maestria, ingles]
     );
 
     res.json({
@@ -127,6 +128,7 @@ app.get("/descargar-excel", auth, async (req, res) => {
       SELECT 
         usuario, 
         doctorado, 
+        cantidad_doctorado,
         maestria, 
         ingles, 
         fecha
@@ -140,6 +142,7 @@ app.get("/descargar-excel", auth, async (req, res) => {
     hoja.columns = [
       { header: "Usuario", key: "usuario", width: 20 },
       { header: "Doctorado", key: "doctorado", width: 15 },
+      { header: "Número Doctorado", key: "cantidad_doctorado", width: 15 },
       { header: "Maestría", key: "maestria", width: 15 },
       { header: "Curso de inglés", key: "ingles", width: 20 },
       { header: "Fecha", key: "fecha", width: 25 }
@@ -149,6 +152,7 @@ app.get("/descargar-excel", auth, async (req, res) => {
       hoja.addRow({
         usuario: row.usuario,
         doctorado: row.doctorado,
+        cantidad_doctorado: row.cantidad_doctorado,
         maestria: row.maestria,
         ingles: row.ingles,
         fecha: row.fecha

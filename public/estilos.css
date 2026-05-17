@@ -44,3 +44,81 @@ button {
   border-radius: 8px;
   cursor: pointer;
 }
+
+
+    .titulo {
+      background: #1f4e79;
+      color: white;
+      padding: 15px;
+      text-align: center;
+      font-size: 24px;
+      font-weight: bold;
+    }
+
+    .item {
+      border-top: 1px solid #999;
+      padding: 25px;
+    }
+
+    .fila {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .texto {
+      width: 70%;
+      font-size: 18px;
+    }
+
+    .botones {
+      width: 25%;
+      text-align: center;
+    }
+
+    button {
+      width: 70px;
+      padding: 10px;
+      margin: 5px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 15px;
+      color: white;
+    }
+
+    .si {
+      background: #2e8b57;
+    }
+
+    .no {
+      background: #c0392b;
+    }
+
+    .cantidad {
+      margin-top: 15px;
+      display: none;
+    }
+
+    .cantidad label {
+      font-size: 16px;
+      margin-right: 10px;
+    }
+
+    .cantidad input {
+      width: 80px;
+      padding: 8px;
+      font-size: 16px;
+    }
+
+    .resultado {
+      margin-top: 30px;
+      text-align: center;
+    }
+
+    #salida {
+      margin-top: 20px;
+      font-size: 18px;
+      color: #1f4e79;
+    }
+  

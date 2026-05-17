@@ -142,7 +142,7 @@ app.get("/descargar-excel", auth, async (req, res) => {
     hoja.columns = [
       { header: "Usuario", key: "usuario", width: 20 },
       { header: "Doctorado", key: "doctorado", width: 15 },
-      { header: "Número Doctorado", key: "cantidad_doctorado", width: 15 },
+      { header: "Número_Doctorado", key: "cantidad_doctorado", width: 15 },
       { header: "Maestría", key: "maestria", width: 15 },
       { header: "Curso de inglés", key: "ingles", width: 20 },
       { header: "Fecha", key: "fecha", width: 25 }

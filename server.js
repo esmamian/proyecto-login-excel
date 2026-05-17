@@ -100,7 +100,7 @@ app.post("/guardar-respuestas", auth, async (req, res) => {
       `INSERT INTO respuestas 
        (usuario, doctorado, maestria, ingles)
        VALUES ($1, $2, $3, $4)`,
-      [usuario, doctorado, cantidad_doctorado, maestria, ingles]
+      [usuario, doctorado, maestria, ingles]
     );
 
     res.json({

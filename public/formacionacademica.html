@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Cuestionario ASPU - Universidad del Cauca</title>
+  <link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+
+<div class="contenedor">
+
+  <div class="titulo">
+    Formación Académica
+  </div>
+  
+  <a href="principal.html">Volver al menú</a>
+
+  <!-- ITEM 1 -->
+
+  <div class="item">
+
+    <div class="fila">
+
+      <div class="texto">
+        Título de Doctor
+      </div>
+
+      <div class="botones">
+        <button class="si" onclick="mostrarCantidad('doctor')">Sí</button>
+        <button class="no" onclick="ocultarCantidad('doctor')">No</button>
+      </div>
+
+    </div>
+
+    <div class="cantidad" id="doctor">
+      <label>¿Cuántos?</label>
+      <input type="number" min="0" onchange="guardar('Doctor', this.value)">
+    </div>
+
+  </div>
+
+  <!-- ITEM 2 -->
+
+  <div class="item">
+
+    <div class="fila">
+
+      <div class="texto">
+        Título de Magíster o Especialista médico-quirúrgico en el área objeto de la convocatoria
+      </div>
+
+      <div class="botones">
+        <button class="si" onclick="mostrarCantidad('magister')">Sí</button>
+        <button class="no" onclick="ocultarCantidad('magister')">No</button>
+      </div>
+
+    </div>
+
+    <div class="cantidad" id="magister">
+      <label>¿Cuántos?</label>
+      <input type="number" min="0" onchange="guardar('Magister', this.value)">
+    </div>
+
+  </div>
+
+  <!-- ITEM 3 -->
+
+  <div class="item">
+
+    <div class="fila">
+
+      <div class="texto">
+        Título de especialista en el área objeto de la convocatoria
+      </div>
+
+      <div class="botones">
+        <button class="si" onclick="mostrarCantidad('especialista')">Sí</button>
+        <button class="no" onclick="ocultarCantidad('especialista')">No</button>
+      </div>
+
+    </div>
+
+    <div class="cantidad" id="especialista">
+      <label>¿Cuántos?</label>
+      <input type="number" min="0" onchange="guardar('Especialista', this.value)">
+    </div>
+
+  </div>
+
+  <!-- ITEM 4 -->
+
+  <div class="item">
+
+    <div class="fila">
+
+      <div class="texto">
+        Título adicional de posgrado en el campo de la pedagogía o educación
+      </div>
+
+      <div class="botones">
+        <button class="si" onclick="mostrarCantidad('pedagogia')">Sí</button>
+        <button class="no" onclick="ocultarCantidad('pedagogia')">No</button>
+      </div>
+
+    </div>
+
+    <div class="cantidad" id="pedagogia">
+      <label>¿Cuántos?</label>
+      <input type="number" min="0" onchange="guardar('Pedagogía', this.value)">
+    </div>
+
+  </div>
+
+  <!-- ITEM 5 -->
+
+  <div class="item">
+
+    <div class="fila">
+
+      <div class="texto">
+        Título de pregrado en áreas complementarias
+      </div>
+
+      <div class="botones">
+        <button class="si" onclick="mostrarCantidad('pregrado')">Sí</button>
+        <button class="no" onclick="ocultarCantidad('pregrado')">No</button>
+      </div>
+
+    </div>
+
+    <div class="cantidad" id="pregrado">
+      <label>¿Cuántos?</label>
+      <input type="number" min="0" onchange="guardar('Pregrado', this.value)">
+    </div>
+
+  </div>
+  
+  <!-- ITEM 6 -->
+
+  <div class="item">
+
+    <div class="fila">
+
+      <div class="texto">
+          Cursos de formación continuada relacionados con el área objeto de la convocatoria (0,5 puntos por cada 60 horas certificadas)
+      </div>
+
+      <div class="botones">
+        <button class="si" onclick="mostrarCantidad('cursoscontinuada')">Sí</button>
+        <button class="no" onclick="ocultarCantidad('cursoscontinuada')">No</button>
+      </div>
+
+    </div>
+
+    <div class="cantidad" id="cursoscontinuada">
+      <label>¿Cuántos?</label>
+      <input type="number" min="0" onchange="guardar('Cursos Formación Continuada', this.value)">
+    </div>
+
+  </div>
+
+  <!-- ITEM 7 -->
+
+  <div class="item">
+
+    <div class="fila">
+
+      <div class="texto">
+          Inglés nivel C2 (MCER) certificado
+      </div>
+
+      <div class="botones">
+        <button class="si" onclick="mostrarCantidad('inglesC2')">Sí</button>
+        <button class="no" onclick="ocultarCantidad('inglesC2')">No</button>
+      </div>
+
+    </div>
+
+    <div class="cantidad" id="inglesC2">
+      <label>¿Cuántos?</label>
+      <input type="number" min="0" onchange="guardar('Inglés C2', this.value)">
+    </div>
+
+  </div>
+ 
+ <!-- ITEM 8 -->
+
+ <div class="item">
+
+   <div class="fila">
+
+     <div class="texto">
+         Inglés nivel C1 (MCER) certificado
+     </div>
+
+     <div class="botones">
+       <button class="si" onclick="mostrarCantidad('inglesC1')">Sí</button>
+       <button class="no" onclick="ocultarCantidad('inglesC1')">No</button>
+     </div>
+
+   </div>
+
+   <div class="cantidad" id="inglesC1">
+     <label>¿Cuántos?</label>
+     <input type="number" min="0" onchange="guardar('Inglés C1', this.value)">
+   </div>
+
+ </div>
+ 
+ <!-- ITEM 9 -->
+
+ <div class="item">
+
+   <div class="fila">
+
+     <div class="texto">
+         Inglés nivel B2 (MCER) certificado
+     </div>
+
+     <div class="botones">
+       <button class="si" onclick="mostrarCantidad('inglesB2')">Sí</button>
+       <button class="no" onclick="ocultarCantidad('inglesB2')">No</button>
+     </div>
+
+   </div>
+
+   <div class="cantidad" id="inglesB2">
+     <label>¿Cuántos?</label>
+     <input type="number" min="0" onchange="guardar('Inglés B2', this.value)">
+   </div>
+
+ </div>
+
+</div>
+
+<div class="resultado">
+
+  <h2>Resumen</h2>
+
+  <div id="salida"></div>
+
+</div>

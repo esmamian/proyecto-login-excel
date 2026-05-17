@@ -19,7 +19,7 @@ app.use(express.static(path.join(__dirname, "public")));
 
 // Conexión a PostgreSQL en Render
 const pool = new Pool({
-  connectionString: process.env.DATABASE_URL,
+  connectionString: process.env.AFILIADOS,
   ssl: {
     rejectUnauthorized: false
   }

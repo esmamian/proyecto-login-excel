@@ -57,6 +57,31 @@ app.get("/usuario", auth, (req, res) => {
   res.json(req.session.usuario);
 });
 
+const pool = new Pool({
+  connectionString: process.env.DATABASE_URL,
+  ssl: {
+    rejectUnauthorized: false
+  }
+});
+
+pool.query(`
+  CREATE TABLE IF NOT EXISTS respuestas (
+    id SERIAL PRIMARY KEY,
+    usuario TEXT,
+    doctorado TEXT,
+    maestria TEXT,
+    ingles TEXT,
+    fecha TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+  )
+`);
+
+await pool.query(
+  `INSERT INTO respuestas
+   (usuario, doctorado, maestria, ingles)
+   VALUES ($1, $2, $3, $4)`,
+  [usuario, doctorado, maestria, ingles]
+);
+
 app.post("/guardar-respuestas", auth, async (req, res) => {
   const { doctorado, maestria, ingles } = req.body;
 

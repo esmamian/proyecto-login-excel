@@ -17,6 +17,16 @@ h1 {
   color: #1f4e79;
 }
 
+.button1 {
+  margin-top: 20px;
+  padding: 12px;
+  background: #8ac7b9;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
 .menu a {
   display: block;
   margin: 15px 0;
@@ -34,17 +44,6 @@ h1 {
   padding: 15px;
   border-radius: 10px;
 }
-
-button1 {
-  margin-top: 20px;
-  padding: 12px;
-  background: #a83232;
-  color: white;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-}
-
 
     .titulo {
       background: #1f4e79;

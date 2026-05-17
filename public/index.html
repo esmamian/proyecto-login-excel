@@ -3,40 +3,149 @@
 <head>
   <meta charset="UTF-8">
   <title>Login</title>
+
+  <style>
+
+    body {
+      font-family: Arial;
+      background: #f2f4f7;
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      height: 100vh;
+    }
+
+    .contenedor {
+
+      background: white;
+
+      padding: 40px;
+
+      border-radius: 10px;
+
+      width: 400px;
+
+      box-shadow: 0 0 10px rgba(0,0,0,0.2);
+    }
+
+    h1 {
+      text-align: center;
+      color: #1f4e79;
+    }
+
+    input {
+
+      width: 100%;
+
+      padding: 10px;
+
+      margin-top: 10px;
+
+      box-sizing: border-box;
+    }
+
+    button {
+
+      width: 100%;
+
+      padding: 12px;
+
+      margin-top: 20px;
+
+      background: #1f4e79;
+
+      color: white;
+
+      border: none;
+
+      cursor: pointer;
+    }
+
+    button:hover {
+
+      background: #163a5a;
+    }
+
+    #mensaje {
+
+      margin-top: 20px;
+
+      color: red;
+
+      text-align: center;
+    }
+
+  </style>
 </head>
+
 <body>
 
-<h1>Ingreso al sistema</h1>
+<div class="contenedor">
 
-<input id="usuario" placeholder="Usuario">
-<br><br>
+  <h1>Ingreso al sistema</h1>
 
-<input id="password" type="password" placeholder="Contraseña">
-<br><br>
+  <input
+    id="usuario"
+    placeholder="Usuario"
+  >
 
-<button onclick="login()">Ingresar</button>
+  <input
+    id="password"
+    type="password"
+    placeholder="Contraseña"
+  >
 
-<p id="mensaje"></p>
+  <button onclick="login()">
+    Ingresar
+  </button>
+
+  <p id="mensaje"></p>
+
+</div>
 
 <script>
+
 async function login() {
+
+  const usuario =
+    document.getElementById("usuario").value;
+
+  const password =
+    document.getElementById("password").value;
+
+
   const res = await fetch("/login", {
+
     method: "POST",
-    headers: {"Content-Type": "application/json"},
+
+    headers: {
+      "Content-Type": "application/json"
+    },
+
     body: JSON.stringify({
-      usuario: document.getElementById("usuario").value,
-      password: document.getElementById("password").value
+      usuario,
+      password
     })
+
   });
+
 
   const data = await res.json();
 
+
   if (res.ok) {
+
     window.location.href = "cuestionario.html";
+
   } else {
-    document.getElementById("mensaje").textContent = data.mensaje;
+
+    document.getElementById("mensaje")
+      .textContent = data.mensaje;
   }
 }
+
 </script>
 
 </body>

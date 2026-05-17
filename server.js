@@ -4,6 +4,8 @@ const path = require("path");
 const ExcelJS = require("exceljs");
 const fs = require("fs");
 
+const { Pool } = require("pg");
+
 const archivoDatos = "respuestas.json";
 const app = express();
 const archivoExcel = "respuestas.xlsx";

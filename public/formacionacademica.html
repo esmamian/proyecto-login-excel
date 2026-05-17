@@ -309,25 +309,67 @@ function ocultarCantidad(id) {
   input.value = "";
 } 
 
-document.getElementById("formulario").addEventListener("submit", async function(e) {
+document.getElementById("formulario")
+.addEventListener("submit", async function(e) {
+
   e.preventDefault();
 
   const datos = new FormData(this);
 
   const res = await fetch("/guardar-respuestas", {
+
     method: "POST",
-    headers: {"Content-Type": "application/json"},
+
+    headers: {
+      "Content-Type": "application/json"
+    },
+
     body: JSON.stringify({
+
       seccion: "Formación Académica",
-      doctorado: datos.get("numDoctorado"),
-      maestria: datos.get("maestria"),
-      ingles: datos.get("ingles")
+
+      doctorado: datos.get("doctorado"),
+      cantidadDoctorado: datos.get("numDoctorado"),
+
+      magister: datos.get("magister"),
+      cantidadMagister: datos.get("numMagister"),
+
+      especialista: datos.get("especialista"),
+      cantidadEspecialista: datos.get("numEspecialista"),
+
+      pedagogia: datos.get("pedagogia"),
+      cantidadPedagogia: datos.get("numPedagogia"),
+
+      pregrado: datos.get("pregrado"),
+      cantidadPregrado: datos.get("numPregrado"),
+
+      cursosContinuada: datos.get("cursoscontinuada"),
+      cantidadCursosContinuada:
+        datos.get("numCursosContinuada"),
+
+      inglesC2: datos.get("inglesC2"),
+      cantidadInglesC2:
+        datos.get("numInglesC2"),
+
+      inglesC1: datos.get("inglesC1"),
+      cantidadInglesC1:
+        datos.get("numInglesC1"),
+
+      inglesB2: datos.get("inglesB2"),
+      cantidadInglesB2:
+        datos.get("numInglesB2")
+
     })
+
   });
 
   const data = await res.json();
 
-  document.getElementById("mensaje").textContent = data.mensaje;
+  alert("Los datos se salvaron satisfactoriamente");
+
+  document.getElementById("mensaje")
+    .textContent = data.mensaje;
+
 });
 
   

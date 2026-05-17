@@ -28,18 +28,21 @@
         Título de Doctor
       </div>
 
-      <div class="botones">
-        <button class="si" onclick="mostrarCantidad('doctor')">Sí</button>
-        <button class="no" onclick="ocultarCantidad('doctor')">No</button>
-      </div>
+      <label>
+  <input type="radio" name="doctorado" value="Sí" onclick="mostrarCantidad('cantDoctorado')">
+  Sí
+</label>
 
-    </div>
+<label>
+  <input type="radio" name="doctorado" value="No" onclick="ocultarCantidad('cantDoctorado')">
+  No
+</label>
 
-  
-    <div class="cantidad" id="doctor" style="display:none; margin-top:10px;">
-      <label>¿Cuántos?</label>
-      <input type="number" min="0" step="1" id="numDoctorado" placeholder="0">
-    </div>
+<div id="cantDoctorado" style="display:none; margin-top:10px;">
+  <label>¿Cuántos?</label>
+  <input type="number" min="0" step="1" id="numDoctorado" placeholder="0">
+</div>
+      
 
   </div>
 

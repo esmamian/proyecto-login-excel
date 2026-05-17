@@ -1,0 +1,46 @@
+body {
+  font-family: Arial, sans-serif;
+  background: #eef3f8;
+  padding: 40px;
+}
+
+.contenedor {
+  max-width: 700px;
+  margin: auto;
+  background: white;
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+h1 {
+  color: #1f4e79;
+}
+
+.menu a {
+  display: block;
+  margin: 15px 0;
+  padding: 15px;
+  background: #1f4e79;
+  color: white;
+  text-decoration: none;
+  border-radius: 8px;
+  text-align: center;
+}
+
+.avance {
+  margin-top: 25px;
+  background: #f4f7fb;
+  padding: 15px;
+  border-radius: 10px;
+}
+
+button {
+  margin-top: 20px;
+  padding: 12px;
+  background: #a83232;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}

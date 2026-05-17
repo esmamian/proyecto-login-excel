@@ -34,8 +34,12 @@ async function cargarUsuario() {
   }
   usuarioActual = await res.json();
 
-    document.getElementById("bienvenida").textContent =
-    "Usuario: " + usuarioActual.usuario;
+  async function logout() {
+  await fetch("/logout", { method: "POST" });
+  window.location.href = "index.html";
+}
+
+cargarUsuario();
 
 <\script>
 <\body>

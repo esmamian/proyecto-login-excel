@@ -18,8 +18,10 @@
     <a href="ProductividadArtistica.html">1.4 Productividad Artística (si aplica)</a>
   </div>
 
-  <button onclick="logout() ">Cerrar sesión</button>
-  <button onclick="exportarExcel()">Descargar Excel</button>
+  <button onclick="logout()">Cerrar sesión</button>
+  
+<button id="btnExcel" onclick="descargarExcel()">Descargar Excel </button>
+
 </div>
 
   
@@ -44,6 +46,10 @@ async function cargarUsuario() {
   }
 }
 
+function descargarExcel() {
+  window.location.href = "/descargar-excel";
+}
+  
   async function logout() {
   await fetch("/logout", { method: "POST" });
   window.location.href = "index.html";

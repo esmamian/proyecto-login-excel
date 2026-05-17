@@ -280,5 +280,25 @@ function ocultarCantidad(id) {
   const input = contenedor.querySelector("input");
   input.value = "";
 } 
+
+document.getElementById("formulario").addEventListener("submit", async function(e) {
+  e.preventDefault();
+
+  const datos = new FormData(this);
+
+  const res = await fetch("/guardar-respuestas", {
+    method: "POST",
+    headers: {"Content-Type": "application/json"},
+    body: JSON.stringify({
+      doctorado: datos.get("doctorado"),
+      maestria: datos.get("maestria"),
+      ingles: datos.get("ingles")
+    })
+  });
+
+  const data = await res.json();
+
+  document.getElementById("mensaje").textContent = data.mensaje;
+});
   
 </script>  

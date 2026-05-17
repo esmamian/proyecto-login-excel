@@ -21,7 +21,7 @@ h1 {
   width: 140px;
   padding: 10px;
   margin: 5px;
-  background: #8AC7B9;
+  background: #163760;
   border: none;
   border-radius: 8px;
   cursor: pointer;
@@ -30,7 +30,7 @@ h1 {
 }
 
 .button1:hover {
-  background: #72b3a4;
+  background: #475b70;
 }
 
 .menu a {
@@ -93,15 +93,18 @@ h1 {
     }
 
     .si {
-      background: #2e8b57;
+      background: #8AC7B9;
     }
 
     .si:hover {
-    background: #256b44;
+      background: #72b3a4;
     }
 
     .no {
-      background: #c0392b;
+      background: #6786A5;
+    }
+    .no:hover {
+      background: #475b70;
     }
 
     .cantidad {

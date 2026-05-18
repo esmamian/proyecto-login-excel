@@ -59,6 +59,24 @@ pool.query(`
     ingles_b2 TEXT,
     cantidad_ingles_b2 INTEGER,
 
+    exp_docente TEXT,
+    cantidad_exp_docente INTEGER,
+
+    exp_profesional TEXT,
+    cantidad_exp_profesional INTEGER,
+
+    exp_clinica TEXT,
+    cantidad_exp_clinica INTEGER,
+
+    proy_investigacion TEXT,
+    cantidad_proy_investigacion INTEGER,
+
+    proy_social TEXT,
+    cantidad_proy_social INTEGER,
+
+    exp_academico_admin TEXT,
+    cantidad_exp_academico_admin INTEGER,
+
     fecha TIMESTAMP DEFAULT CURRENT_TIMESTAMP
   )
 `).then(() => {
@@ -156,7 +174,25 @@ app.post("/guardar-respuestas", auth, async (req, res) => {
       cantidadInglesC1,
 
       inglesB2,
-      cantidadInglesB2
+      cantidadInglesB2,
+
+      expDocente,
+      cantidadExpDocente,
+
+      expProfesional,
+      cantidadExpProfesional,
+
+      expClinica,
+      cantidadExpClinica,
+      
+      proyInvestigacion,
+      cantidadProyInvestigacion,
+      
+      proySocial,
+      cantidadProySocial,
+      
+      expAcademicoAdmin,
+      cantidadExpAcademicoAdmin
     } = req.body;
 
     const usuario = req.session.usuario.usuario;
@@ -191,7 +227,25 @@ app.post("/guardar-respuestas", auth, async (req, res) => {
         cantidad_ingles_c1,
 
         ingles_b2,
-        cantidad_ingles_b2
+        cantidad_ingles_b2,
+
+        exp_docente,
+        cantidad_exp_docente,
+        
+        exp_profesional,
+        cantidad_exp_profesional,
+        
+        exp_clinica,
+        cantidad_exp_clinica,
+        
+        proy_investigacion,
+        cantidad_proy_investigacion,
+        
+        proy_social,
+        cantidad_proy_social,
+        
+        exp_academico_admin,
+        cantidad_exp_academico_admin
       )
       VALUES (
         $1, $2,
@@ -203,7 +257,13 @@ app.post("/guardar-respuestas", auth, async (req, res) => {
         $13, $14,
         $15, $16,
         $17, $18,
-        $19, $20
+        $19, $20,
+        $21, $22,
+        $23, $24,
+        $25, $26,
+        $27, $28,
+        $29, $30,
+        $31, $32
       )`,
       [
         usuario,
@@ -234,7 +294,25 @@ app.post("/guardar-respuestas", auth, async (req, res) => {
         numeroONull(cantidadInglesC1),
 
         inglesB2,
-        numeroONull(cantidadInglesB2)
+        numeroONull(cantidadInglesB2),
+
+        expDocente,
+        numeroONull(cantidadExpDocente),
+        
+        expProfesional,
+        numeroONull(cantidadExpProfesional),
+        
+        expClinica,
+        numeroONull(cantidadExpClinica),
+        
+        proyInvestigacion,
+        numeroONull(cantidadProyInvestigacion),
+        
+        proySocial,
+        numeroONull(cantidadProySocial),
+        
+        expAcademicoAdmin,
+        numeroONull(cantidadExpAcademicoAdmin)
       ]
     );
 
@@ -298,6 +376,24 @@ app.get("/descargar-excel", auth, async (req, res) => {
 
       { header: "Inglés B2", key: "ingles_b2", width: 15 },
       { header: "Cant. B2", key: "cantidad_ingles_b2", width: 15 },
+
+      { header: "Exp. Docente", key: "exp_docente", width: 18 },
+      { header: "Cant. Exp. Docente", key: "cantidad_exp_docente", width: 20 },
+      
+      { header: "Exp. Profesional", key: "exp_profesional", width: 20 },
+      { header: "Cant. Exp. Profesional", key: "cantidad_exp_profesional", width: 22 },
+      
+      { header: "Exp. Clínica", key: "exp_clinica", width: 18 },
+      { header: "Cant. Exp. Clínica", key: "cantidad_exp_clinica", width: 20 },
+      
+      { header: "Proyectos Investigación", key: "proy_investigacion", width: 24 },
+      { header: "Cant. Proyectos Investigación", key: "cantidad_proy_investigacion", width: 28 },
+      
+      { header: "Proyectos Sociales", key: "proy_social", width: 22 },
+      { header: "Cant. Proyectos Sociales", key: "cantidad_proy_social", width: 26 },
+      
+      { header: "Exp. Académico-Admin", key: "exp_academico_admin", width: 24 },
+      { header: "Cant. Exp. Académico-Admin", key: "cantidad_exp_academico_admin", width: 28 },
 
       { header: "Fecha", key: "fecha", width: 25 }
     ];

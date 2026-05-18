@@ -50,4 +50,39 @@
   </form>
 </div>
 </body>
+
+  <script>
+
+let usuarioActual = null;
+
+async function cargarUsuario() {
+  const res = await fetch("/usuario");
+
+  if (!res.ok) {
+    window.location.href = "index.html";
+    return;
+  }
+
+  usuarioActual = await res.json();
+
+  
+  document.getElementById("bienvenida").textContent =
+    "Usuario: " + usuarioActual.usuario;
+}
+
+cargarUsuario();  
+  
+function mostrarCantidad(id) {
+  document.getElementById(id).style.display = "block";
+}
+
+function ocultarCantidad(id) {
+  const contenedor = document.getElementById(id);
+  contenedor.style.display = "none";
+
+  const input = contenedor.querySelector("input");
+  input.value = "";
+} 
+
+  </script>
 </html>

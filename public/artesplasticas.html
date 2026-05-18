@@ -13,11 +13,11 @@
   <h2 id="bienvenida"></h2>
   <form id="formularioartes">
 
-  <button  class="button1" onclick="window.location.href = 'formacionacademica.html.html'";>
+  <button  class="button1" onclick="window.location.href = 'formacionacademica.html'";>
      Volver al menú
   </button>
   
- <!-- ITEM 2 -->
+ <!-- ITEM 1 -->
 
 <div class="item">
   <div class="fila">
@@ -50,6 +50,45 @@
   </div>
 </div>
 
+
+ <!-- ITEM 2 -->
+
+<div class="item">
+  <div class="fila">
+
+    <div class="texto">
+      Curadurías Artísticas
+    </div>
+
+    <div id="curartisticas" class="cantidad">
+      <label>¿Cuántos internacional?</label>
+      <input type="number" min="0" step="1" id="numcurartisticasinter" name="numcurartisticasinter" placeholder="0">
+
+      <label>¿Cuántas nacional?</label>
+      <input type="number" min="0" step="1" id="numcurartisticasnal" name="numcurartisticasnal" placeholder="0">
+
+      <label>¿Cuántas regional?</label>
+      <input type="number" min="0" step="1" id="numcurartisticasreg" name="numcurartisticasreg" placeholder="0">
+      
+    </div>
+
+    <div class="opciones">
+      <label>
+        <input type="radio" name="curartisticas" value="Sí" onclick="mostrarCantidad('curartisticas')">
+        Sí
+      </label>
+
+      <label>
+        <input type="radio" name="curartisticas" value="No" onclick="ocultarCantidad('curartisticas')">
+        No
+      </label>
+    </div>
+
+  </div>
+</div>
+
+
+    
 
   </form>
 </div>

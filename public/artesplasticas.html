@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Cuestionario Artes Plásticas</title>
+  <link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+
+<div class="contenedor">
+
+  <h1>Artes Plásticas</h1>
+  <h2 id="bienvenida"></h2>
+  <form id="formularioartes">
+
+  <button  class="button1" onclick="window.location.href = 'productividadartistica.html.html'";>
+     Volver al menú
+  </button>
+  
+ <!-- ITEM 2 -->
+
+<div class="item">
+  <div class="fila">
+
+    <div class="texto">
+      Exposición individual
+    </div>
+
+    <div id="Expindividual" class="cantidad">
+      <label>¿Cuántos individual?</label>
+      <input type="number" min="0" step="1" id="numExpindividual" name="numExpindividual" placeholder="0">
+    </div>
+
+    <div class="opciones">
+      <label>
+        <input type="radio" name="Expindividual" value="Sí" onclick="mostrarCantidad('cantMagister')">
+        Sí
+      </label>
+
+      <label>
+        <input type="radio" name="Expindividual" value="No" onclick="ocultarCantidad('cantMagister')">
+        No
+      </label>
+    </div>
+
+  </div>
+</div>
+
+
+  </form>
+</div>
+</body>
+</html>

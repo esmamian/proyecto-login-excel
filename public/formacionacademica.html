@@ -20,30 +20,55 @@
 
   <!-- ITEM 1 -->
 
-  <div class="item">
+  <!-- ITEM 1 -->
 
-    <div class="fila">
+<div class="item">
 
-      <div class="texto">
-        Título de Doctor
-      </div>
+  <div class="fila">
 
-      <div id="cantDoctorado" style="display:none; margin-top:10px;">
-        <label>¿Cuántos?</label>
-        <input type="number" min="0" step="1" id="numDoctorado" name="numDoctorado" placeholder="0">
-      </div>
+    <div class="texto">
+      Título de Doctor
+    </div>
+
+    <div id="cantDoctorado" class="cantidad">
+      <label>¿Cuántos?</label>
+
+      <input
+        type="number"
+        min="0"
+        step="1"
+        id="numDoctorado"
+        name="numDoctorado"
+        placeholder="0">
+    </div>
+
+    <div class="opciones">
 
       <label>
-        <input type="radio" name="doctorado" value="Sí" onclick="mostrarCantidad('cantDoctorado')">
-          Sí
+        <input
+          type="radio"
+          name="doctorado"
+          value="Sí"
+          onclick="mostrarCantidad('cantDoctorado')">
+
+        Sí
       </label>
 
       <label>
-        <input type="radio" name="doctorado" value="No" onclick="ocultarCantidad('cantDoctorado')">
-          No
-      </label>      
+        <input
+          type="radio"
+          name="doctorado"
+          value="No"
+          onclick="ocultarCantidad('cantDoctorado')">
+
+        No
+      </label>
 
     </div>
+
+  </div>
+
+</div>
 
  <!-- ITEM 2 -->
 

@@ -1144,23 +1144,19 @@
   </div>
 </div>
 
-<button  class="button1" onclick="window.location.href = 'principal.html'";>
-     Guardar Respuestas
-</button>  
+<button type="button" class="button1" onclick="window.location.href='principal.html'">
+  Volver al menú
+</button>
 
-  <button type="submit">Guardar respuestas</button>
-
-
-    <button type="submit" class="button1">
+<button type="submit" class="button1">
   Guardar respuestas
 </button>
 
 <p id="mensaje"></p>
 
 </form>
-  
-<script>
 
+<script>
 let usuarioActual = null;
 
 async function cargarUsuario() {
@@ -1173,13 +1169,12 @@ async function cargarUsuario() {
 
   usuarioActual = await res.json();
 
-  
   document.getElementById("bienvenida").textContent =
     "Usuario: " + usuarioActual.usuario;
 }
 
-cargarUsuario();  
-  
+cargarUsuario();
+
 function mostrarCantidad(id) {
   document.getElementById(id).style.display = "block";
 }
@@ -1188,28 +1183,26 @@ function ocultarCantidad(id) {
   const contenedor = document.getElementById(id);
   contenedor.style.display = "none";
 
-  const input = contenedor.querySelector("input");
-  input.value = "";
-} 
+  const inputs = contenedor.querySelectorAll("input");
+
+  inputs.forEach(input => {
+    input.value = "";
+  });
+}
 
 document.getElementById("formulario")
 .addEventListener("submit", async function(e) {
-
   e.preventDefault();
 
   const datos = new FormData(this);
 
   const res = await fetch("/guardar-respuestas", {
-
     method: "POST",
-
     headers: {
       "Content-Type": "application/json"
     },
-
     body: JSON.stringify({
-
-      seccion: "Formación Académica",
+      seccion: "Formulario completo",
 
       doctorado: datos.get("doctorado"),
       cantidadDoctorado: datos.get("numDoctorado"),
@@ -1227,20 +1220,16 @@ document.getElementById("formulario")
       cantidadPregrado: datos.get("numPregrado"),
 
       cursosContinuada: datos.get("cursoscontinuada"),
-      cantidadCursosContinuada:
-        datos.get("numCursosContinuada"),
+      cantidadCursosContinuada: datos.get("numCursosContinuada"),
 
       inglesC2: datos.get("inglesC2"),
-      cantidadInglesC2:
-        datos.get("numInglesC2"),
+      cantidadInglesC2: datos.get("numInglesC2"),
 
       inglesC1: datos.get("inglesC1"),
-      cantidadInglesC1:
-        datos.get("numInglesC1"),
+      cantidadInglesC1: datos.get("numInglesC1"),
 
       inglesB2: datos.get("inglesB2"),
-      cantidadInglesB2:
-        datos.get("numInglesB2"),
+      cantidadInglesB2: datos.get("numInglesB2"),
 
       expDocente: datos.get("expDocente"),
       cantidadExpDocente: datos.get("numExpDocente"),
@@ -1262,55 +1251,56 @@ document.getElementById("formulario")
 
       libroEditorial: datos.get("libroEditorial"),
       cantidadLibroEditorial: datos.get("numLibroEditorial"),
-      
+
       patente: datos.get("patente"),
       cantidadPatente: datos.get("numPatente"),
-      
+
       capituloLibro: datos.get("capituloLibro"),
       cantidadCapituloLibro: datos.get("numCapituloLibro"),
-      
+
       articuloA1: datos.get("articuloA1"),
       cantidadArticuloA1: datos.get("numArticuloA1"),
-      
+
       articuloA2: datos.get("articuloA2"),
       cantidadArticuloA2: datos.get("numArticuloA2"),
-      
+
       articuloB: datos.get("articuloB"),
       cantidadArticuloB: datos.get("numArticuloB"),
-      
+
       articuloC: datos.get("articuloC"),
       cantidadArticuloC: datos.get("numArticuloC"),
-      
+
       eventoInternacional: datos.get("eventoInternacional"),
       cantidadEventoInternacional: datos.get("numEventoInternacional"),
-      
+
       eventoNacional: datos.get("eventoNacional"),
       cantidadEventoNacional: datos.get("numEventoNacional"),
-      
+
       posgradoLaureado: datos.get("posgradoLaureado"),
       cantidadPosgradoLaureado: datos.get("numPosgradoLaureado"),
-      
+
       posgradoMeritorio: datos.get("posgradoMeritorio"),
       cantidadPosgradoMeritorio: datos.get("numPosgradoMeritorio"),
-      
+
       pregradoLaureado: datos.get("pregradoLaureado"),
       cantidadPregradoLaureado: datos.get("numPregradoLaureado"),
-      
+
       pregradoMeritorio: datos.get("pregradoMeritorio"),
       cantidadPregradoMeritorio: datos.get("numPregradoMeritorio")
-
     })
-
   });
 
   const data = await res.json();
 
-  alert("Los datos se salvaron satisfactoriamente");
+  if (res.ok) {
+    alert("Los datos se salvaron satisfactoriamente");
+  } else {
+    alert("Error: " + data.mensaje);
+  }
 
-  document.getElementById("mensaje")
-    .textContent = data.mensaje;
-
+  document.getElementById("mensaje").textContent = data.mensaje;
 });
+</script>
 
-  
-</script>  
+</body>
+</html>

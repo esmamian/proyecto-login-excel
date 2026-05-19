@@ -393,8 +393,7 @@ app.post("/guardar-respuestas", auth, async (req, res) => {
         $51, $52,
         $53, $54,
         $55, $56,
-        $57, $58,
-        $59, $60
+        $57, $58
       )`,
       [
         usuario,

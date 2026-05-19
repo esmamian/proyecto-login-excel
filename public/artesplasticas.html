@@ -120,14 +120,16 @@
   </div>
 </div>
 
-    
+  <button type="submit" class="button1">
+    Guardar respuestas
+  </button>
+
+  <p id="mensaje"></p>
 
   </form>
 </div>
-</body>
 
-  <script>
-
+<script>
 let usuarioActual = null;
 
 async function cargarUsuario() {
@@ -140,23 +142,68 @@ async function cargarUsuario() {
 
   usuarioActual = await res.json();
 
-  
   document.getElementById("bienvenida").textContent =
     "Usuario: " + usuarioActual.usuario;
 }
 
-cargarUsuario();  
-  
+cargarUsuario();
+
 function mostrarCantidad(id) {
   document.getElementById(id).style.display = "block";
 }
 
 function ocultarCantidad(id) {
   const contenedor = document.getElementById(id);
+
   contenedor.style.display = "none";
 
-  const input = contenedor.querySelector("input");
-  input.value = "";
-} 
+  const inputs = contenedor.querySelectorAll("input");
 
-  </script>
+  inputs.forEach(input => {
+    input.value = "";
+  });
+}
+
+document.getElementById("formularioartes")
+.addEventListener("submit", async function(e) {
+  e.preventDefault();
+
+  const datos = new FormData(this);
+
+  const res = await fetch("/guardar-artes", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      seccion: "Artes Plásticas",
+
+      exposicion: datos.get("Expindividual"),
+      cantidadExposicionIndividual: datos.get("numExpindividual"),
+      cantidadExposicionColectiva: datos.get("numExpcolectiva"),
+
+      curadurias: datos.get("curartisticas"),
+      cantidadCuraduriasInternacional: datos.get("numcurartisticasinter"),
+      cantidadCuraduriasNacional: datos.get("numcurartisticasnal"),
+      cantidadCuraduriasRegional: datos.get("numcurartisticasreg"),
+
+      premios: datos.get("premios"),
+      cantidadPremiosInternacional: datos.get("numpremiosinter"),
+      cantidadPremiosNacional: datos.get("numpremiosnal")
+    })
+  });
+
+  const data = await res.json();
+
+  if (res.ok) {
+    alert("Los datos se salvaron satisfactoriamente");
+  } else {
+    alert("Error: " + (data.detalle || data.mensaje));
+  }
+
+  document.getElementById("mensaje").textContent = data.mensaje;
+});
+</script>
+
+</body>
+</html>

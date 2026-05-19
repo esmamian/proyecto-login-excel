@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Cuestionario Artes Plásticas</title>
+  <link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+
+<div class="contenedor">
+
+  <h1>Artes Plásticas</h1>
+  <h2 id="bienvenida"></h2>
+  <form id="formularioartes">
+
+<button type="button" class="button1" onclick="window.location.href='principal.html'">
+  Volver al menú
+</button>
+  
+ <!-- ITEM 1 -->
+
+<div class="item">
+  <div class="fila">
+
+    <div class="texto">
+      Exposición
+    </div>
+
+    <div id="Expindividual" class="cantidad">
+      <label>¿Cuántos individual?</label>
+      <input type="number" min="0" step="1" id="numExpindividual" name="numExpindividual" placeholder="0">
+
+      <label>¿Cuántas colectivas?</label>
+      <input type="number" min="0" step="1" id="numExpcolectiva" name="numExpcolectiva" placeholder="0">
+      
+    </div>
+
+    <div class="opciones">
+      <label>
+        <input type="radio" name="Expindividual" value="Sí" onclick="mostrarCantidad('Expindividual')">
+        Sí
+      </label>
+
+      <label>
+        <input type="radio" name="Expindividual" value="No" onclick="ocultarCantidad('Expindividual')">
+        No
+      </label>
+    </div>
+
+  </div>
+</div>
+
+
+ <!-- ITEM 2 -->
+
+<div class="item">
+  <div class="fila">
+
+    <div class="texto">
+      Curadurías Artísticas
+    </div>
+
+    <div id="curartisticas" class="cantidad">
+      <label>¿Cuántos internacional?</label>
+      <input type="number" min="0" step="1" id="numcurartisticasinter" name="numcurartisticasinter" placeholder="0">
+
+      <label>¿Cuántas nacional?</label>
+      <input type="number" min="0" step="1" id="numcurartisticasnal" name="numcurartisticasnal" placeholder="0">
+
+      <label>¿Cuántas regional?</label>
+      <input type="number" min="0" step="1" id="numcurartisticasreg" name="numcurartisticasreg" placeholder="0">
+      
+    </div>
+
+    <div class="opciones">
+      <label>
+        <input type="radio" name="curartisticas" value="Sí" onclick="mostrarCantidad('curartisticas')">
+        Sí
+      </label>
+
+      <label>
+        <input type="radio" name="curartisticas" value="No" onclick="ocultarCantidad('curartisticas')">
+        No
+      </label>
+    </div>
+
+  </div>
+</div>
+
+<!-- ITEM 3 -->
+
+<div class="item">
+  <div class="fila">
+
+    <div class="texto">
+      Premio debidamente certificado
+    </div>
+
+    <div id="premios" class="cantidad">
+      <label>¿Cuántos internacional?</label>
+      <input type="number" min="0" step="1" id="numpremiosinter" name="numpremiosinter" placeholder="0">
+
+      <label>¿Cuántos nacional?</label>
+      <input type="number" min="0" step="1" id="numpremiosnal" name="numpremiosnal" placeholder="0">
+      
+    </div>
+
+    <div class="opciones">
+      <label>
+        <input type="radio" name="premios" value="Sí" onclick="mostrarCantidad('premios')">
+        Sí
+      </label>
+
+      <label>
+        <input type="radio" name="premios" value="No" onclick="ocultarCantidad('premios')">
+        No
+      </label>
+    </div>
+
+  </div>
+</div>
+
+  <button type="button" class="button1" onclick="window.location.href='principal.html'">
+  Volver al menú
+</button>  
+
+  <button type="submit" class="button1">
+    Guardar respuestas
+  </button>
+
+  <p id="mensaje"></p>
+
+  </form>
+</div>
+
+<script>
+let usuarioActual = null;
+
+async function cargarUsuario() {
+  const res = await fetch("/usuario");
+
+  if (!res.ok) {
+    window.location.href = "index.html";
+    return;
+  }
+
+  usuarioActual = await res.json();
+
+  document.getElementById("bienvenida").textContent =
+    "Usuario: " + usuarioActual.usuario;
+}
+
+cargarUsuario();
+
+function mostrarCantidad(id) {
+  document.getElementById(id).style.display = "block";
+}
+
+function ocultarCantidad(id) {
+  const contenedor = document.getElementById(id);
+
+  contenedor.style.display = "none";
+
+  const inputs = contenedor.querySelectorAll("input");
+
+  inputs.forEach(input => {
+    input.value = "";
+  });
+}
+
+document.getElementById("formularioartes")
+.addEventListener("submit", async function(e) {
+  e.preventDefault();
+
+  const datos = new FormData(this);
+
+  const res = await fetch("/guardar-artes", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      seccion: "Artes Plásticas",
+
+      exposicion: datos.get("Expindividual"),
+      cantidadExposicionIndividual: datos.get("numExpindividual"),
+      cantidadExposicionColectiva: datos.get("numExpcolectiva"),
+
+      curadurias: datos.get("curartisticas"),
+      cantidadCuraduriasInternacional: datos.get("numcurartisticasinter"),
+      cantidadCuraduriasNacional: datos.get("numcurartisticasnal"),
+      cantidadCuraduriasRegional: datos.get("numcurartisticasreg"),
+
+      premios: datos.get("premios"),
+      cantidadPremiosInternacional: datos.get("numpremiosinter"),
+      cantidadPremiosNacional: datos.get("numpremiosnal")
+    })
+  });
+
+  const data = await res.json();
+
+  if (res.ok) {
+    alert("Los datos se salvaron satisfactoriamente");
+  } else {
+    alert("Error: " + (data.detalle || data.mensaje));
+  }
+
+  document.getElementById("mensaje").textContent = data.mensaje;
+});
+</script>
+
+</body>
+</html>

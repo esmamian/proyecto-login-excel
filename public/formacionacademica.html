@@ -1295,7 +1295,8 @@ document.getElementById("formulario")
   if (res.ok) {
     alert("Los datos se salvaron satisfactoriamente");
   } else {
-    alert("Error: " + data.mensaje);
+    detalle: error.message
+    alert("Error: " + data.detalle);
   }
 
   document.getElementById("mensaje").textContent = data.mensaje;

@@ -124,6 +124,36 @@ pool.query(`
   console.error("Error creando tabla:", error);
 });
 
+//Tabla Artes
+
+pool.query(`
+  CREATE TABLE IF NOT EXISTS respuestas_artes (
+    id SERIAL PRIMARY KEY,
+    usuario TEXT NOT NULL,
+    seccion TEXT,
+
+    exposicion TEXT,
+    cantidad_exposicion_individual INTEGER,
+    cantidad_exposicion_colectiva INTEGER,
+
+    curadurias TEXT,
+    cantidad_curadurias_internacional INTEGER,
+    cantidad_curadurias_nacional INTEGER,
+    cantidad_curadurias_regional INTEGER,
+
+    premios TEXT,
+    cantidad_premios_internacional INTEGER,
+    cantidad_premios_nacional INTEGER,
+
+    fecha TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+  )
+`).then(() => {
+  console.log("Tabla respuestas_artes lista");
+}).catch(error => {
+  console.error("Error creando tabla artes:", error);
+});
+
+
 // Usuarios del sistema
 const usuarios = [
   { usuario: "ana", password: "1234", rol: "estudiante" },
@@ -631,6 +661,147 @@ app.get("/descargar-excel", auth, async (req, res) => {
     res.status(500).send("Error generando Excel");
   }
 });
+
+//Guardar artes
+
+app.post("/guardar-artes", auth, async (req, res) => {
+  try {
+    const {
+      seccion,
+
+      exposicion,
+      cantidadExposicionIndividual,
+      cantidadExposicionColectiva,
+
+      curadurias,
+      cantidadCuraduriasInternacional,
+      cantidadCuraduriasNacional,
+      cantidadCuraduriasRegional,
+
+      premios,
+      cantidadPremiosInternacional,
+      cantidadPremiosNacional
+    } = req.body;
+
+    const usuario = req.session.usuario.usuario;
+
+    await pool.query(
+      `INSERT INTO respuestas_artes (
+        usuario,
+        seccion,
+
+        exposicion,
+        cantidad_exposicion_individual,
+        cantidad_exposicion_colectiva,
+
+        curadurias,
+        cantidad_curadurias_internacional,
+        cantidad_curadurias_nacional,
+        cantidad_curadurias_regional,
+
+        premios,
+        cantidad_premios_internacional,
+        cantidad_premios_nacional
+      )
+      VALUES (
+        $1, $2,
+        $3, $4, $5,
+        $6, $7, $8, $9,
+        $10, $11, $12
+      )`,
+      [
+        usuario,
+        seccion,
+
+        exposicion,
+        numeroONull(cantidadExposicionIndividual),
+        numeroONull(cantidadExposicionColectiva),
+
+        curadurias,
+        numeroONull(cantidadCuraduriasInternacional),
+        numeroONull(cantidadCuraduriasNacional),
+        numeroONull(cantidadCuraduriasRegional),
+
+        premios,
+        numeroONull(cantidadPremiosInternacional),
+        numeroONull(cantidadPremiosNacional)
+      ]
+    );
+
+    res.json({
+      mensaje: `Respuestas de Artes guardadas correctamente para ${usuario}`
+    });
+
+  } catch (error) {
+    console.error("Error guardando respuestas de Artes:", error);
+
+    res.status(500).json({
+      mensaje: "Error guardando respuestas de Artes",
+      detalle: error.message
+    });
+  }
+});
+
+app.get("/descargar-artes", auth, async (req, res) => {
+  try {
+    if (req.session.usuario.rol !== "admin") {
+      return res.status(403).send("Solo el administrador puede descargar");
+    }
+
+    const resultado = await pool.query(`
+      SELECT *
+      FROM respuestas_artes
+      ORDER BY fecha ASC
+    `);
+
+    const workbook = new ExcelJS.Workbook();
+    const hoja = workbook.addWorksheet("Artes Plásticas");
+
+    hoja.columns = [
+      { header: "Usuario", key: "usuario", width: 20 },
+      { header: "Sección", key: "seccion", width: 25 },
+
+      { header: "Exposición", key: "exposicion", width: 18 },
+      { header: "Cant. Individual", key: "cantidad_exposicion_individual", width: 20 },
+      { header: "Cant. Colectiva", key: "cantidad_exposicion_colectiva", width: 20 },
+
+      { header: "Curadurías", key: "curadurias", width: 18 },
+      { header: "Curaduría Internacional", key: "cantidad_curadurias_internacional", width: 25 },
+      { header: "Curaduría Nacional", key: "cantidad_curadurias_nacional", width: 25 },
+      { header: "Curaduría Regional", key: "cantidad_curadurias_regional", width: 25 },
+
+      { header: "Premios", key: "premios", width: 18 },
+      { header: "Premios Internacional", key: "cantidad_premios_internacional", width: 25 },
+      { header: "Premios Nacional", key: "cantidad_premios_nacional", width: 25 },
+
+      { header: "Fecha", key: "fecha", width: 25 }
+    ];
+
+    resultado.rows.forEach(row => {
+      hoja.addRow(row);
+    });
+
+    hoja.getRow(1).font = { bold: true };
+
+    res.setHeader(
+      "Content-Type",
+      "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+    );
+
+    res.setHeader(
+      "Content-Disposition",
+      "attachment; filename=artes_plasticas.xlsx"
+    );
+
+    await workbook.xlsx.write(res);
+    res.end();
+
+  } catch (error) {
+    console.error("Error generando Excel de Artes:", error);
+    res.status(500).send("Error generando Excel de Artes");
+  }
+});
+
 
 // Cerrar sesión
 app.post("/logout", auth, (req, res) => {

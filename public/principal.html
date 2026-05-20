@@ -28,20 +28,40 @@
   
 <button id="btnExcel" style="display:none;" onclick="descargarExcel()">Descargar Excel </button>
   
-<button class="button1" onclick="window.location.href='/descargar-artes'">
+<button
+  id="btnArtes"
+  class="button1"
+  style="display:none"
+  onclick="window.location.href='/descargar-artes'">
+
   Descargar Artes Plásticas
 </button>
 
-  <button class="button1" onclick="window.location.href='/descargar-diseno'">
-  Descargar Diseño
-</button>
+<button
+  id="btnComunicacion"
+  class="button1"
+  style="display:none"
+  onclick="window.location.href='/descargar-comunicacion'">
 
-<button class="button1" onclick="window.location.href='/descargar-comunicacion'">
   Descargar Comunicación
 </button>
 
-<button class="button1" onclick="window.location.href='/descargar-musica'">
+<button
+  id="btnMusica"
+  class="button1"
+  style="display:none"
+  onclick="window.location.href='/descargar-musica'">
+
   Descargar Música
+</button>
+
+<button
+  id="btnDiseno"
+  class="button1"
+  style="display:none"
+  onclick="window.location.href='/descargar-diseno'">
+
+  Descargar Diseño
 </button>
 
 </div>
@@ -51,6 +71,7 @@
 let usuarioActual = null;
 
 async function cargarUsuario() {
+
   const res = await fetch("/usuario");
 
   if (!res.ok) {
@@ -63,8 +84,20 @@ async function cargarUsuario() {
   document.getElementById("bienvenida").textContent =
     "Usuario: " + usuarioActual.usuario;
 
+  // SOLO ADMIN VE LOS BOTONES
   if (usuarioActual.rol === "admin") {
-    document.getElementById("btnExcel").style.display = "inline-block";
+
+    document.getElementById("btnArtes")
+      .style.display = "inline-block";
+
+    document.getElementById("btnComunicacion")
+      .style.display = "inline-block";
+
+    document.getElementById("btnMusica")
+      .style.display = "inline-block";
+
+    document.getElementById("btnDiseno")
+      .style.display = "inline-block";
   }
 }
 

@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Cuestionario Música</title>
+  <link rel="stylesheet" href="estilos.css">
+</head>
+
+<body>
+
+<div class="contenedor">
+
+  <h1>Música</h1>
+  <h2 id="bienvenida"></h2>
+
+  <form id="formulariomusica">
+
+    <button type="button" class="button1" onclick="window.location.href='principal.html'">
+      Volver al menú
+    </button>
+
+    <!-- ITEM 1 -->
+    <div class="item">
+      <div class="fila">
+
+        <div class="texto">
+          Obra de creación musical
+        </div>
+
+        <div id="obraMusical" class="cantidad">
+          <label>¿Cuántas internacional?</label>
+          <input type="number" min="0" step="1" id="numObraMusicalInter" name="numObraMusicalInter" placeholder="0">
+
+          <label>¿Cuántas nacional?</label>
+          <input type="number" min="0" step="1" id="numObraMusicalNal" name="numObraMusicalNal" placeholder="0">
+
+          <label>¿Cuántas regional/local?</label>
+          <input type="number" min="0" step="1" id="numObraMusicalReg" name="numObraMusicalReg" placeholder="0">
+        </div>
+
+        <div class="opciones">
+          <label>
+            <input type="radio" name="obraMusical" value="Sí" onclick="mostrarCantidad('obraMusical')">
+            Sí
+          </label>
+
+          <label>
+            <input type="radio" name="obraMusical" value="No" onclick="ocultarCantidad('obraMusical')">
+            No
+          </label>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ITEM 2 -->
+    <div class="item">
+      <div class="fila">
+
+        <div class="texto">
+          Obra musical premiada
+        </div>
+
+        <div id="obraMusicalPremiada" class="cantidad">
+          <label>¿Cuántas internacional?</label>
+          <input type="number" min="0" step="1" id="numObraMusicalPremiadaInter" name="numObraMusicalPremiadaInter" placeholder="0">
+
+          <label>¿Cuántas nacional?</label>
+          <input type="number" min="0" step="1" id="numObraMusicalPremiadaNal" name="numObraMusicalPremiadaNal" placeholder="0">
+        </div>
+
+        <div class="opciones">
+          <label>
+            <input type="radio" name="obraMusicalPremiada" value="Sí" onclick="mostrarCantidad('obraMusicalPremiada')">
+            Sí
+          </label>
+
+          <label>
+            <input type="radio" name="obraMusicalPremiada" value="No" onclick="ocultarCantidad('obraMusicalPremiada')">
+            No
+          </label>
+        </div>
+
+      </div>
+    </div>
+
+    <button type="button" class="button1" onclick="window.location.href='principal.html'">
+      Volver al menú
+    </button>
+
+    <button type="submit" class="button1">
+      Guardar respuestas
+    </button>
+
+    <p id="mensaje"></p>
+
+  </form>
+</div>
+
+<script>
+let usuarioActual = null;
+
+async function cargarUsuario() {
+  const res = await fetch("/usuario");
+
+  if (!res.ok) {
+    window.location.href = "index.html";
+    return;
+  }
+
+  usuarioActual = await res.json();
+
+  document.getElementById("bienvenida").textContent =
+    "Usuario: " + usuarioActual.usuario;
+}
+
+cargarUsuario();
+
+function mostrarCantidad(id) {
+  document.getElementById(id).style.display = "block";
+}
+
+function ocultarCantidad(id) {
+  const contenedor = document.getElementById(id);
+  contenedor.style.display = "none";
+
+  const inputs = contenedor.querySelectorAll("input");
+
+  inputs.forEach(input => {
+    input.value = "";
+  });
+}
+
+document.getElementById("formulariomusica")
+.addEventListener("submit", async function(e) {
+  e.preventDefault();
+
+  const datos = new FormData(this);
+
+  const res = await fetch("/guardar-musica", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      seccion: "Música",
+
+      obraMusical: datos.get("obraMusical"),
+      cantidadObraMusicalInter: datos.get("numObraMusicalInter"),
+      cantidadObraMusicalNal: datos.get("numObraMusicalNal"),
+      cantidadObraMusicalReg: datos.get("numObraMusicalReg"),
+
+      obraMusicalPremiada: datos.get("obraMusicalPremiada"),
+      cantidadObraMusicalPremiadaInter: datos.get("numObraMusicalPremiadaInter"),
+      cantidadObraMusicalPremiadaNal: datos.get("numObraMusicalPremiadaNal")
+    })
+  });
+
+  const data = await res.json();
+
+  if (res.ok) {
+    alert("Los datos se salvaron satisfactoriamente");
+  } else {
+    alert("Error: " + (data.detalle || data.mensaje));
+  }
+
+  document.getElementById("mensaje").textContent = data.mensaje;
+});
+</script>
+
+</body>
+</html>

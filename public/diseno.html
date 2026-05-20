@@ -26,35 +26,65 @@
       Obra de creación en diseño o comunicación visual
     </div>
 
-    <div id="obra" class="cantidad">
-      <label>¿Cuántos internacional?</label>
-      <input type="number" min="0" step="1" id="numobrainternacional" name="numobrainternacional" placeholder="0">
+    <div id="obraDiseno" class="cantidad">
+
+      <label>¿Cuántas internacional?</label>
+      <input
+        type="number"
+        min="0"
+        step="1"
+        id="numObraDisenoInter"
+        name="numObraDisenoInter"
+        placeholder="0">
 
       <label>¿Cuántas nacional?</label>
-      <input type="number" min="0" step="1" id="numobranacional" name="numobranacional" placeholder="0">
-      
+      <input
+        type="number"
+        min="0"
+        step="1"
+        id="numObraDisenoNal"
+        name="numObraDisenoNal"
+        placeholder="0">
+
       <label>¿Cuántas regional/local?</label>
-      <input type="number" min="0" step="1" id="numobralocal" name="numobralocal" placeholder="0">
-      
+      <input
+        type="number"
+        min="0"
+        step="1"
+        id="numObraDisenoReg"
+        name="numObraDisenoReg"
+        placeholder="0">
+
     </div>
 
     <div class="opciones">
+
       <label>
-        <input type="radio" name="Expindividual" value="Sí" onclick="mostrarCantidad('obra')">
+        <input
+          type="radio"
+          name="obraDiseno"
+          value="Sí"
+          onclick="mostrarCantidad('obraDiseno')">
+
         Sí
       </label>
 
       <label>
-        <input type="radio" name="Expindividual" value="No" onclick="ocultarCantidad('obra')">
+        <input
+          type="radio"
+          name="obraDiseno"
+          value="No"
+          onclick="ocultarCantidad('obraDiseno')">
+
         No
       </label>
+
     </div>
 
   </div>
 </div>
 
-
- <!-- ITEM 2 -->
+<!-- ITEM 2 -->
 
 <div class="item">
   <div class="fila">
@@ -63,25 +93,50 @@
       Obra premiada en concurso o salones
     </div>
 
-    <div id="obraconcurso" class="cantidad">
-      <label>¿Cuántos internacional?</label>
-      <input type="number" min="0" step="1" id="numobrainter" name="numobrainter" placeholder="0">
+    <div id="obraPremiada" class="cantidad">
+
+      <label>¿Cuántas internacional?</label>
+      <input
+        type="number"
+        min="0"
+        step="1"
+        id="numObraPremiadaInter"
+        name="numObraPremiadaInter"
+        placeholder="0">
 
       <label>¿Cuántas nacional?</label>
-      <input type="number" min="0" step="1" id="numobranal" name="numobranal" placeholder="0">
-      
+      <input
+        type="number"
+        min="0"
+        step="1"
+        id="numObraPremiadaNal"
+        name="numObraPremiadaNal"
+        placeholder="0">
+
     </div>
 
     <div class="opciones">
+
       <label>
-        <input type="radio" name="curartisticas" value="Sí" onclick="mostrarCantidad('obraconcurso')">
+        <input
+          type="radio"
+          name="obraPremiada"
+          value="Sí"
+          onclick="mostrarCantidad('obraPremiada')">
+
         Sí
       </label>
 
       <label>
-        <input type="radio" name="curartisticas" value="No" onclick="ocultarCantidad('obraconcurso')">
+        <input
+          type="radio"
+          name="obraPremiada"
+          value="No"
+          onclick="ocultarCantidad('obraPremiada')">
+
         No
       </label>
+
     </div>
 
   </div>

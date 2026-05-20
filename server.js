@@ -153,6 +153,30 @@ pool.query(`
   console.error("Error creando tabla artes:", error);
 });
 
+//Tabla música
+pool.query(`
+  CREATE TABLE IF NOT EXISTS respuestas_musica (
+    id SERIAL PRIMARY KEY,
+    usuario TEXT NOT NULL,
+    seccion TEXT,
+
+    obra_musical TEXT,
+    cantidad_obra_musical_inter INTEGER,
+    cantidad_obra_musical_nal INTEGER,
+    cantidad_obra_musical_reg INTEGER,
+
+    obra_musical_premiada TEXT,
+    cantidad_obra_musical_premiada_inter INTEGER,
+    cantidad_obra_musical_premiada_nal INTEGER,
+
+    fecha TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+  )
+`).then(() => {
+  console.log("Tabla respuestas_musica lista");
+}).catch(error => {
+  console.error("Error creando tabla música:", error);
+});
+
 //Tabla Comunicación Social
 
 pool.query(`

@@ -857,6 +857,128 @@ app.get("/descargar-artes", auth, async (req, res) => {
   }
 });
 
+//Guarda Música
+app.post("/guardar-musica", auth, async (req, res) => {
+  try {
+    const {
+      seccion,
+
+      obraMusical,
+      cantidadObraMusicalInter,
+      cantidadObraMusicalNal,
+      cantidadObraMusicalReg,
+
+      obraMusicalPremiada,
+      cantidadObraMusicalPremiadaInter,
+      cantidadObraMusicalPremiadaNal
+    } = req.body;
+
+    const usuario = req.session.usuario.usuario;
+
+    await pool.query(
+      `INSERT INTO respuestas_musica (
+        usuario,
+        seccion,
+
+        obra_musical,
+        cantidad_obra_musical_inter,
+        cantidad_obra_musical_nal,
+        cantidad_obra_musical_reg,
+
+        obra_musical_premiada,
+        cantidad_obra_musical_premiada_inter,
+        cantidad_obra_musical_premiada_nal
+      )
+      VALUES (
+        $1, $2,
+        $3, $4, $5, $6,
+        $7, $8, $9
+      )`,
+      [
+        usuario,
+        seccion,
+
+        obraMusical,
+        numeroONull(cantidadObraMusicalInter),
+        numeroONull(cantidadObraMusicalNal),
+        numeroONull(cantidadObraMusicalReg),
+
+        obraMusicalPremiada,
+        numeroONull(cantidadObraMusicalPremiadaInter),
+        numeroONull(cantidadObraMusicalPremiadaNal)
+      ]
+    );
+
+    res.json({
+      mensaje: `Respuestas de Música guardadas correctamente para ${usuario}`
+    });
+
+  } catch (error) {
+    console.error("Error guardando respuestas de Música:", error);
+
+    res.status(500).json({
+      mensaje: "Error guardando respuestas de Música",
+      detalle: error.message
+    });
+  }
+});
+
+app.get("/descargar-musica", auth, async (req, res) => {
+  try {
+    if (req.session.usuario.rol !== "admin") {
+      return res.status(403).send("Solo el administrador puede descargar");
+    }
+
+    const resultado = await pool.query(`
+      SELECT *
+      FROM respuestas_musica
+      ORDER BY fecha ASC
+    `);
+
+    const workbook = new ExcelJS.Workbook();
+    const hoja = workbook.addWorksheet("Música");
+
+    hoja.columns = [
+      { header: "Usuario", key: "usuario", width: 20 },
+      { header: "Sección", key: "seccion", width: 25 },
+
+      { header: "Obra musical", key: "obra_musical", width: 22 },
+      { header: "Obra musical internacional", key: "cantidad_obra_musical_inter", width: 28 },
+      { header: "Obra musical nacional", key: "cantidad_obra_musical_nal", width: 24 },
+      { header: "Obra musical regional-local", key: "cantidad_obra_musical_reg", width: 28 },
+
+      { header: "Obra musical premiada", key: "obra_musical_premiada", width: 26 },
+      { header: "Premiada internacional", key: "cantidad_obra_musical_premiada_inter", width: 28 },
+      { header: "Premiada nacional", key: "cantidad_obra_musical_premiada_nal", width: 24 },
+
+      { header: "Fecha", key: "fecha", width: 25 }
+    ];
+
+    resultado.rows.forEach(row => {
+      hoja.addRow(row);
+    });
+
+    hoja.getRow(1).font = { bold: true };
+
+    res.setHeader(
+      "Content-Type",
+      "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+    );
+
+    res.setHeader(
+      "Content-Disposition",
+      "attachment; filename=musica.xlsx"
+    );
+
+    await workbook.xlsx.write(res);
+    res.end();
+
+  } catch (error) {
+    console.error("Error generando Excel de Música:", error);
+    res.status(500).send("Error generando Excel de Música");
+  }
+});
+
 //Guarda Comunicación social 
 
 app.post("/guardar-comunicacion", auth, async (req, res) => {

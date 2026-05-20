@@ -153,6 +153,37 @@ pool.query(`
   console.error("Error creando tabla artes:", error);
 });
 
+//Tabla Comunicación Social
+
+pool.query(`
+  CREATE TABLE IF NOT EXISTS respuestas_comunicacion (
+    id SERIAL PRIMARY KEY,
+    usuario TEXT NOT NULL,
+    seccion TEXT,
+
+    producto_investigacion TEXT,
+    cantidad_producto_investigacion_inter INTEGER,
+    cantidad_producto_investigacion_nal INTEGER,
+    cantidad_producto_investigacion_reg INTEGER,
+
+    producto_comunicacion TEXT,
+    cantidad_producto_comunicacion_inter INTEGER,
+    cantidad_producto_comunicacion_nal INTEGER,
+    cantidad_producto_comunicacion_reg INTEGER,
+
+    premio_periodismo TEXT,
+    cantidad_premio_periodismo_inter INTEGER,
+    cantidad_premio_periodismo_nal INTEGER,
+    cantidad_premio_periodismo_reg INTEGER,
+
+    fecha TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+  )
+`).then(() => {
+  console.log("Tabla respuestas_comunicacion lista");
+}).catch(error => {
+  console.error("Error creando tabla comunicación:", error);
+});
+
 
 // Usuarios del sistema
 const usuarios = [
@@ -799,6 +830,154 @@ app.get("/descargar-artes", auth, async (req, res) => {
   } catch (error) {
     console.error("Error generando Excel de Artes:", error);
     res.status(500).send("Error generando Excel de Artes");
+  }
+});
+
+//Guarda Comunicación social 
+
+app.post("/guardar-comunicacion", auth, async (req, res) => {
+  try {
+    const {
+      seccion,
+
+      productoInvestigacion,
+      cantidadProductoInvestigacionInter,
+      cantidadProductoInvestigacionNal,
+      cantidadProductoInvestigacionReg,
+
+      productoComunicacion,
+      cantidadProductoComunicacionInter,
+      cantidadProductoComunicacionNal,
+      cantidadProductoComunicacionReg,
+
+      premioPeriodismo,
+      cantidadPremioPeriodismoInter,
+      cantidadPremioPeriodismoNal,
+      cantidadPremioPeriodismoReg
+    } = req.body;
+
+    const usuario = req.session.usuario.usuario;
+
+    await pool.query(
+      `INSERT INTO respuestas_comunicacion (
+        usuario,
+        seccion,
+
+        producto_investigacion,
+        cantidad_producto_investigacion_inter,
+        cantidad_producto_investigacion_nal,
+        cantidad_producto_investigacion_reg,
+
+        producto_comunicacion,
+        cantidad_producto_comunicacion_inter,
+        cantidad_producto_comunicacion_nal,
+        cantidad_producto_comunicacion_reg,
+
+        premio_periodismo,
+        cantidad_premio_periodismo_inter,
+        cantidad_premio_periodismo_nal,
+        cantidad_premio_periodismo_reg
+      )
+      VALUES (
+        $1, $2,
+        $3, $4, $5, $6,
+        $7, $8, $9, $10,
+        $11, $12, $13, $14
+      )`,
+      [
+        usuario,
+        seccion,
+
+        productoInvestigacion,
+        numeroONull(cantidadProductoInvestigacionInter),
+        numeroONull(cantidadProductoInvestigacionNal),
+        numeroONull(cantidadProductoInvestigacionReg),
+
+        productoComunicacion,
+        numeroONull(cantidadProductoComunicacionInter),
+        numeroONull(cantidadProductoComunicacionNal),
+        numeroONull(cantidadProductoComunicacionReg),
+
+        premioPeriodismo,
+        numeroONull(cantidadPremioPeriodismoInter),
+        numeroONull(cantidadPremioPeriodismoNal),
+        numeroONull(cantidadPremioPeriodismoReg)
+      ]
+    );
+
+    res.json({
+      mensaje: `Respuestas de Comunicación guardadas correctamente para ${usuario}`
+    });
+
+  } catch (error) {
+    console.error("Error guardando respuestas de Comunicación:", error);
+
+    res.status(500).json({
+      mensaje: "Error guardando respuestas de Comunicación",
+      detalle: error.message
+    });
+  }
+});
+
+app.get("/descargar-comunicacion", auth, async (req, res) => {
+  try {
+    if (req.session.usuario.rol !== "admin") {
+      return res.status(403).send("Solo el administrador puede descargar");
+    }
+
+    const resultado = await pool.query(`
+      SELECT *
+      FROM respuestas_comunicacion
+      ORDER BY fecha ASC
+    `);
+
+    const workbook = new ExcelJS.Workbook();
+    const hoja = workbook.addWorksheet("Comunicación");
+
+    hoja.columns = [
+      { header: "Usuario", key: "usuario", width: 20 },
+      { header: "Sección", key: "seccion", width: 35 },
+
+      { header: "Producto investigación", key: "producto_investigacion", width: 28 },
+      { header: "Inv. Internacional", key: "cantidad_producto_investigacion_inter", width: 22 },
+      { header: "Inv. Nacional", key: "cantidad_producto_investigacion_nal", width: 18 },
+      { header: "Inv. Regional-Local", key: "cantidad_producto_investigacion_reg", width: 24 },
+
+      { header: "Producto comunicación", key: "producto_comunicacion", width: 30 },
+      { header: "Com. Internacional", key: "cantidad_producto_comunicacion_inter", width: 22 },
+      { header: "Com. Nacional", key: "cantidad_producto_comunicacion_nal", width: 18 },
+      { header: "Com. Regional-Local", key: "cantidad_producto_comunicacion_reg", width: 24 },
+
+      { header: "Premio periodismo", key: "premio_periodismo", width: 25 },
+      { header: "Premio Internacional", key: "cantidad_premio_periodismo_inter", width: 24 },
+      { header: "Premio Nacional", key: "cantidad_premio_periodismo_nal", width: 20 },
+      { header: "Premio Regional-Local", key: "cantidad_premio_periodismo_reg", width: 25 },
+
+      { header: "Fecha", key: "fecha", width: 25 }
+    ];
+
+    resultado.rows.forEach(row => {
+      hoja.addRow(row);
+    });
+
+    hoja.getRow(1).font = { bold: true };
+
+    res.setHeader(
+      "Content-Type",
+      "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+    );
+
+    res.setHeader(
+      "Content-Disposition",
+      "attachment; filename=comunicacion_social_periodismo.xlsx"
+    );
+
+    await workbook.xlsx.write(res);
+    res.end();
+
+  } catch (error) {
+    console.error("Error generando Excel de Comunicación:", error);
+    res.status(500).send("Error generando Excel de Comunicación");
   }
 });
 

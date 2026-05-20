@@ -192,6 +192,57 @@ function ocultarCantidad(id) {
   });
 }
 
+document.getElementById("formulariodiseno")
+.addEventListener("submit", async function(e) {
+  e.preventDefault();
+
+  const datos = new FormData(this);
+
+  const res = await fetch("/guardar-diseno", {
+
+  method: "POST",
+
+  headers: {
+    "Content-Type": "application/json"
+  },
+
+  body: JSON.stringify({
+
+    seccion: "Diseño",
+
+    obraDiseno: datos.get("obraDiseno"),
+
+    cantidadObraDisenoInter:
+      datos.get("numObraDisenoInter"),
+
+    cantidadObraDisenoNal:
+      datos.get("numObraDisenoNal"),
+
+    cantidadObraDisenoReg:
+      datos.get("numObraDisenoReg"),
+
+    obraPremiada: datos.get("obraPremiada"),
+
+    cantidadObraPremiadaInter:
+      datos.get("numObraPremiadaInter"),
+
+    cantidadObraPremiadaNal:
+      datos.get("numObraPremiadaNal")
+
+  })
+
+});
+
+const data = await res.json();
+
+  if (res.ok) {
+    alert("Los datos se salvaron satisfactoriamente");
+  } else {
+    alert("Error: " + (data.detalle || data.mensaje));
+  }
+
+  document.getElementById("mensaje").textContent = data.mensaje;
+});
 
 </script>
 

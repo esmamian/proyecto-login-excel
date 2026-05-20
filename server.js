@@ -153,6 +153,30 @@ pool.query(`
   console.error("Error creando tabla artes:", error);
 });
 
+//Tabla Diseño
+pool.query(`
+  CREATE TABLE IF NOT EXISTS respuestas_diseno (
+    id SERIAL PRIMARY KEY,
+    usuario TEXT NOT NULL,
+    seccion TEXT,
+
+    obra_diseno TEXT,
+    cantidad_obra_diseno_inter INTEGER,
+    cantidad_obra_diseno_nal INTEGER,
+    cantidad_obra_diseno_reg INTEGER,
+
+    obra_premiada TEXT,
+    cantidad_obra_premiada_inter INTEGER,
+    cantidad_obra_premiada_nal INTEGER,
+
+    fecha TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+  )
+`).then(() => {
+  console.log("Tabla respuestas_diseno lista");
+}).catch(error => {
+  console.error("Error creando tabla diseño:", error);
+});
+
 //Tabla música
 pool.query(`
   CREATE TABLE IF NOT EXISTS respuestas_musica (
@@ -854,6 +878,128 @@ app.get("/descargar-artes", auth, async (req, res) => {
   } catch (error) {
     console.error("Error generando Excel de Artes:", error);
     res.status(500).send("Error generando Excel de Artes");
+  }
+});
+
+//Guarda Diseño 
+app.post("/guardar-diseno", auth, async (req, res) => {
+  try {
+    const {
+      seccion,
+
+      obraDiseno,
+      cantidadObraDisenoInter,
+      cantidadObraDisenoNal,
+      cantidadObraDisenoReg,
+
+      obraPremiada,
+      cantidadObraPremiadaInter,
+      cantidadObraPremiadaNal
+    } = req.body;
+
+    const usuario = req.session.usuario.usuario;
+
+    await pool.query(
+      `INSERT INTO respuestas_diseno (
+        usuario,
+        seccion,
+
+        obra_diseno,
+        cantidad_obra_diseno_inter,
+        cantidad_obra_diseno_nal,
+        cantidad_obra_diseno_reg,
+
+        obra_premiada,
+        cantidad_obra_premiada_inter,
+        cantidad_obra_premiada_nal
+      )
+      VALUES (
+        $1, $2,
+        $3, $4, $5, $6,
+        $7, $8, $9
+      )`,
+      [
+        usuario,
+        seccion,
+
+        obraDiseno,
+        numeroONull(cantidadObraDisenoInter),
+        numeroONull(cantidadObraDisenoNal),
+        numeroONull(cantidadObraDisenoReg),
+
+        obraPremiada,
+        numeroONull(cantidadObraPremiadaInter),
+        numeroONull(cantidadObraPremiadaNal)
+      ]
+    );
+
+    res.json({
+      mensaje: `Respuestas de Diseño guardadas correctamente para ${usuario}`
+    });
+
+  } catch (error) {
+    console.error("Error guardando respuestas de Diseño:", error);
+
+    res.status(500).json({
+      mensaje: "Error guardando respuestas de Diseño",
+      detalle: error.message
+    });
+  }
+});
+
+app.get("/descargar-diseno", auth, async (req, res) => {
+  try {
+    if (req.session.usuario.rol !== "admin") {
+      return res.status(403).send("Solo el administrador puede descargar");
+    }
+
+    const resultado = await pool.query(`
+      SELECT *
+      FROM respuestas_diseno
+      ORDER BY fecha ASC
+    `);
+
+    const workbook = new ExcelJS.Workbook();
+    const hoja = workbook.addWorksheet("Diseño");
+
+    hoja.columns = [
+      { header: "Usuario", key: "usuario", width: 20 },
+      { header: "Sección", key: "seccion", width: 25 },
+
+      { header: "Obra diseño", key: "obra_diseno", width: 22 },
+      { header: "Obra diseño internacional", key: "cantidad_obra_diseno_inter", width: 28 },
+      { header: "Obra diseño nacional", key: "cantidad_obra_diseno_nal", width: 24 },
+      { header: "Obra diseño regional-local", key: "cantidad_obra_diseno_reg", width: 28 },
+
+      { header: "Obra premiada", key: "obra_premiada", width: 24 },
+      { header: "Premiada internacional", key: "cantidad_obra_premiada_inter", width: 28 },
+      { header: "Premiada nacional", key: "cantidad_obra_premiada_nal", width: 24 },
+
+      { header: "Fecha", key: "fecha", width: 25 }
+    ];
+
+    resultado.rows.forEach(row => {
+      hoja.addRow(row);
+    });
+
+    hoja.getRow(1).font = { bold: true };
+
+    res.setHeader(
+      "Content-Type",
+      "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+    );
+
+    res.setHeader(
+      "Content-Disposition",
+      "attachment; filename=diseno.xlsx"
+    );
+
+    await workbook.xlsx.write(res);
+    res.end();
+
+  } catch (error) {
+    console.error("Error generando Excel de Diseño:", error);
+    res.status(500).send("Error generando Excel de Diseño");
   }
 });
 

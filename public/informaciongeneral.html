@@ -317,6 +317,23 @@ async function cargarUsuario() {
 
 cargarUsuario();
 
+function mostrarCantidad(id) {
+  document.getElementById(id).style.display = "block";
+}
+
+function ocultarCantidad(id) {
+  const contenedor = document.getElementById(id);
+
+  contenedor.style.display = "none";
+
+  const inputs = contenedor.querySelectorAll("input");
+
+  inputs.forEach(input => {
+    input.value = "";
+  });
+}
+  
+
 document.getElementById("formularioencabezado")
 .addEventListener("submit", async function(e) {
 

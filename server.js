@@ -27,6 +27,32 @@ const pool = new Pool({
 
 // Crear tabla si no existe
 pool.query(`
+  CREATE TABLE IF NOT EXISTS respuestas_encabezado (
+    id SERIAL PRIMARY KEY,
+    usuario TEXT NOT NULL,
+    seccion TEXT,
+
+    fecha_vinculacion DATE,
+    vinculacion_continua TEXT,
+    mismo_departamento TEXT,
+
+    periodos_otc INTEGER,
+    periodos_omt INTEGER,
+    periodos_catedra INTEGER,
+
+    titulos_formacion TEXT,
+    asignaturas TEXT,
+    lineas_investigacion TEXT,
+
+    fecha TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+  )
+`).then(() => {
+  console.log("Tabla respuestas_encabezado lista");
+}).catch(error => {
+  console.error("Error creando tabla encabezado:", error);
+});
+
+pool.query(`
   CREATE TABLE IF NOT EXISTS respuestas (
     id SERIAL PRIMARY KEY,
     usuario TEXT NOT NULL,
@@ -290,6 +316,130 @@ function numeroONull(valor) {
 
   return Number(valor);
 }
+
+//Guarda encabezado
+
+app.post("/guardar-encabezado", auth, async (req, res) => {
+  try {
+    const {
+      seccion,
+      fechaVinculacion,
+      vinculacionContinua,
+      mismoDepartamento,
+      periodosOTC,
+      periodosOMT,
+      periodosCatedra,
+      titulosFormacion,
+      asignaturas,
+      lineasInvestigacion
+    } = req.body;
+
+    const usuario = req.session.usuario.usuario;
+
+    await pool.query(
+      `INSERT INTO respuestas_encabezado (
+        usuario,
+        seccion,
+        fecha_vinculacion,
+        vinculacion_continua,
+        mismo_departamento,
+        periodos_otc,
+        periodos_omt,
+        periodos_catedra,
+        titulos_formacion,
+        asignaturas,
+        lineas_investigacion
+      )
+      VALUES (
+        $1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11
+      )`,
+      [
+        usuario,
+        seccion,
+        fechaVinculacion || null,
+        vinculacionContinua,
+        mismoDepartamento,
+        numeroONull(periodosOTC),
+        numeroONull(periodosOMT),
+        numeroONull(periodosCatedra),
+        titulosFormacion,
+        asignaturas,
+        lineasInvestigacion
+      ]
+    );
+
+    res.json({
+      mensaje: `Información general guardada correctamente para ${usuario}`
+    });
+
+  } catch (error) {
+    console.error("Error guardando encabezado:", error);
+
+    res.status(500).json({
+      mensaje: "Error guardando información general",
+      detalle: error.message
+    });
+  }
+});
+
+app.get("/descargar-encabezado", auth, async (req, res) => {
+  try {
+    if (req.session.usuario.rol !== "admin") {
+      return res.status(403).send("Solo el administrador puede descargar");
+    }
+
+    const resultado = await pool.query(`
+      SELECT *
+      FROM respuestas_encabezado
+      ORDER BY fecha ASC
+    `);
+
+    const workbook = new ExcelJS.Workbook();
+    const hoja = workbook.addWorksheet("Información General");
+
+    hoja.columns = [
+      { header: "Usuario", key: "usuario", width: 20 },
+      { header: "Sección", key: "seccion", width: 25 },
+
+      { header: "Fecha vinculación", key: "fecha_vinculacion", width: 20 },
+      { header: "Vinculación continua", key: "vinculacion_continua", width: 25 },
+      { header: "Mismo departamento", key: "mismo_departamento", width: 25 },
+
+      { header: "Periodos OTC", key: "periodos_otc", width: 18 },
+      { header: "Periodos OMT", key: "periodos_omt", width: 18 },
+      { header: "Periodos hora cátedra", key: "periodos_catedra", width: 24 },
+
+      { header: "Títulos formación", key: "titulos_formacion", width: 45 },
+      { header: "Asignaturas", key: "asignaturas", width: 45 },
+      { header: "Líneas investigación", key: "lineas_investigacion", width: 45 },
+
+      { header: "Fecha registro", key: "fecha", width: 25 }
+    ];
+
+    resultado.rows.forEach(row => {
+      hoja.addRow(row);
+    });
+
+    hoja.getRow(1).font = { bold: true };
+
+    res.setHeader(
+      "Content-Type",
+      "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+    );
+
+    res.setHeader(
+      "Content-Disposition",
+      "attachment; filename=informacion_general.xlsx"
+    );
+
+    await workbook.xlsx.write(res);
+    res.end();
+
+  } catch (error) {
+    console.error("Error generando Excel de información general:", error);
+    res.status(500).send("Error generando Excel de información general");
+  }
+});
 
 // Guardar respuestas
 app.post("/guardar-respuestas", auth, async (req, res) => {

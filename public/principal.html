@@ -96,6 +96,10 @@ async function cargarUsuario() {
   // SOLO ADMIN VE LOS BOTONES
   if (usuarioActual.rol === "admin") {
 
+    
+    document.getElementById("btnExcel")
+      .style.display = "inline-block";
+
     document.getElementById("btnArtes")
       .style.display = "inline-block";
 

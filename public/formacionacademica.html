@@ -1193,7 +1193,44 @@ document.getElementById("formulario")
 .addEventListener("submit", async function(e) {
   e.preventDefault();
 
+  if (!formularioCompleto(this)) {
+  return;
+  }
+
   const datos = new FormData(this);
+
+  function formularioCompleto(formulario) {
+  const radios = {};
+
+  formulario.querySelectorAll('input[type="radio"]').forEach(radio => {
+    radios[radio.name] = true;
+  });
+
+  for (let nombre in radios) {
+    const seleccionado = formulario.querySelector(
+      `input[name="${nombre}"]:checked`
+    );
+
+    if (!seleccionado) {
+      alert("Debe responder todas las preguntas antes de guardar.");
+      return false;
+    }
+
+    if (seleccionado.value === "Sí") {
+      const item = seleccionado.closest(".item");
+      const inputs = item.querySelectorAll('input[type="number"]');
+
+      for (let input of inputs) {
+        if (input.value === "") {
+          alert("Debe completar las cantidades cuando responde Sí.");
+          return false;
+        }
+      }
+    }
+  }
+
+  return true;
+}
 
   const res = await fetch("/guardar-respuestas", {
     method: "POST",

@@ -73,6 +73,14 @@
   Descargar Diseño
 </button>
 
+<button
+  id="btnEncabezado"
+  class="button1"
+  style="display:none"
+  onclick="window.location.href='/descargar-encabezado'">
+  Descargar Información General
+</button>  
+
 </div>
 
   
@@ -95,8 +103,8 @@ async function cargarUsuario() {
 
   // SOLO ADMIN VE LOS BOTONES
   if (usuarioActual.rol === "admin") {
+    document.getElementById("btnEncabezado").style.display = "inline-block";
 
-    
     document.getElementById("btnExcel")
       .style.display = "inline-block";
 

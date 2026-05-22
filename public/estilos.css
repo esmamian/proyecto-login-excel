@@ -182,6 +182,61 @@ h1 {
   color: #1f4e79;
 }
 
+/*AVISO*/
+.avisoTexto {
+
+  margin-top: 30px;
+
+  padding: 25px;
+
+  background: #f4f7fb;
+
+  border-radius: 12px;
+
+  text-align: justify;
+
+  line-height: 1.8;
+
+  font-size: 18px;
+
+  color: #1d2a39;
+}
+
+.botonesAviso {
+
+  margin-top: 30px;
+
+  display: flex;
+
+  gap: 20px;
+}
+
+.button2 {
+
+  width: 180px;
+
+  padding: 14px;
+
+  background: #8b2e2e;
+
+  color: white;
+
+  border: none;
+
+  border-radius: 10px;
+
+  cursor: pointer;
+
+  font-size: 18px;
+
+  font-weight: bold;
+}
+
+.button2:hover {
+
+  background: #6d2323;
+}
+
 /* RESPONSIVE */
 
 @media (max-width: 900px) {

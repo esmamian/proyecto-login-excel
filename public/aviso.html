@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Aviso de confidencialidad</title>
+  <link rel="stylesheet" href="estilos.css">
+</head>
+
+<body>
+
+<div class="contenedor">
+
+  <img src="logoaspu.png" class="logo">
+
+  <h1>Aviso de confidencialidad</h1>
+
+  <div class="avisoTexto">
+
+    <p>
+      <strong>
+        Aviso de confidencialidad y protección de datos:
+      </strong>
+    </p>
+
+    <p>
+      La información recolectada a través de este formulario
+      es de carácter confidencial y será utilizada únicamente
+      por la Junta Directiva de la Asociación Sindical de
+      Profesores Universitarios – ASPU Seccional Universidad
+      del Cauca para fines del seguimiento a la implementación
+      del Plan de Formalización Laboral docente en la
+      Universidad del Cauca.
+    </p>
+
+    <p>
+      Los datos serán tratados conforme a lo establecido en
+      la Ley 1581 de 2012, el Decreto 1377 de 2013 y demás
+      normas que regulan la protección de datos personales
+      en Colombia.
+    </p>
+
+    <p>
+      Al diligenciar este formulario, usted autoriza el
+      tratamiento de su información bajo los principios de
+      acceso y circulación restringida, seguridad,
+      confidencialidad y finalidad.
+    </p>
+
+  </div>
+
+  <div class="botonesAviso">
+
+    <button class="button1" onclick="aceptar()">
+      Aceptar
+    </button>
+
+    <button class="button2" onclick="noAceptar()">
+      No aceptar
+    </button>
+
+  </div>
+
+</div>
+
+<script>
+
+function aceptar() {
+
+  window.location.href = "principal.html";
+}
+
+async function noAceptar() {
+
+  await fetch("/logout", {
+    method: "POST"
+  });
+
+  window.location.href = "index.html";
+}
+
+</script>
+
+</body>
+</html>

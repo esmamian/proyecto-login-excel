@@ -379,7 +379,7 @@
   <div class="fila">
 
     <div class="texto">
-      Experiencia Docente Universitaria obtenida en los últimos 15 años 
+      Experiencia Docente Universitaria obtenida en la Universidad del Cauca 
     </div>
 
     <div id="cantExpDocente" class="cantidad">
@@ -416,6 +416,54 @@
 
   </div>
 </div>
+
+<!-- ITEM 10.1 -->
+
+<div class="item">
+  <div class="fila">
+
+    <div class="texto">
+      Experiencia Docente Universitaria obtenida en otras universidades 
+    </div>
+
+    <div id="cantExpDocenteOtras" class="cantidad">
+      <label>¿Cuántos años en tiempo completo o su equivalente?</label>
+
+      <input
+        type="number"
+        min="0"
+        step="1"
+        id="numExpDocenteOtras"
+        name="numExpDocenteOtras"
+        placeholder="0">
+
+      
+      <label>Año de incio de la experiencia</label>
+      <input type="number" min="0" step="1" id="anoExpDocenteOtras" name="anoExpDocenteOtras" placeholder="0">
+    </div>
+
+    <div class="opciones">
+      <label>
+        <input
+          type="radio"
+          name="expDocenteOtras"
+          value="Sí"
+          onclick="mostrarCantidad('cantExpDocenteOtras')">
+        Sí
+      </label>
+
+      <label>
+        <input
+          type="radio"
+          name="expDocenteOtras"
+          value="No"
+          onclick="ocultarCantidad('cantExpDocenteOtras')">
+        No
+      </label>
+    </div>
+
+  </div>
+</div>    
 
 <!-- ITEM 11 -->
 

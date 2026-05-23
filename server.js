@@ -26,12 +26,16 @@ const pool = new Pool({
 });
 
 // Crear tabla si no existe
+//Información General
 pool.query(`
   CREATE TABLE IF NOT EXISTS respuestas_encabezado (
     id SERIAL PRIMARY KEY,
     usuario TEXT NOT NULL,
     seccion TEXT,
 
+    fecha_nacimiento DATE,
+    lugar_nacimiento TEXT,
+    sexo TEXT,
     estado_civil TEXT,
 
     fecha_vinculacion DATE,
@@ -54,6 +58,7 @@ pool.query(`
   console.error("Error creando tabla encabezado:", error);
 });
 
+//Formación Académica
 pool.query(`
   CREATE TABLE IF NOT EXISTS respuestas (
     id SERIAL PRIMARY KEY,
@@ -325,6 +330,9 @@ app.post("/guardar-encabezado", auth, async (req, res) => {
   try {
     const {
       seccion,
+      fechaNacimiento,
+      lugarNacimiento,
+      sexo,
       estadoCivil,
       fechaVinculacion,
       vinculacionContinua,
@@ -343,6 +351,10 @@ app.post("/guardar-encabezado", auth, async (req, res) => {
       `INSERT INTO respuestas_encabezado (
         usuario,
         seccion,
+        fecha_nacimiento,
+        lugar_nacimiento,
+        sexo,
+        estado_civil,
         estado_civil,
         fecha_vinculacion,
         vinculacion_continua,
@@ -355,11 +367,14 @@ app.post("/guardar-encabezado", auth, async (req, res) => {
         lineas_investigacion
       )
       VALUES (
-        $1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12
+        $1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15
       )`,
       [
         usuario,
         seccion,
+        fechaNacimiento,
+        lugarNacimiento,
+        sexo,
         estadoCivil,
         fechaVinculacion || null,
         vinculacionContinua,
@@ -405,6 +420,11 @@ app.get("/descargar-encabezado", auth, async (req, res) => {
     hoja.columns = [
       { header: "Usuario", key: "usuario", width: 20 },
       { header: "Sección", key: "seccion", width: 25 },
+
+      { header: "Fecha nacimiento", key: "fecha_nacimiento", width: 20 },
+      { header: "Lugar nacimiento", key: "lugar_nacimiento", width: 25 },
+      { header: "Sexo ", key: "sexo", width: 25 },
+      { header: "Estado Civil ", key: "estado_civil", width: 25 },
 
       { header: "Fecha vinculación", key: "fecha_vinculacion", width: 20 },
       { header: "Vinculación continua", key: "vinculacion_continua", width: 25 },

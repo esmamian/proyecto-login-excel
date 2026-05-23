@@ -1339,7 +1339,6 @@ app.post("/guardar-musica", auth, async (req, res) => {
       anoObraMusicalInter,
       cantidadObraMusicalNal,
       anoObraMusicalNal,
-      cantidadObraMusicalReg,
 
       obraMusicalPremiada,
       cantidadObraMusicalPremiadaInter,
@@ -1372,7 +1371,6 @@ app.post("/guardar-musica", auth, async (req, res) => {
         ano_obra_musical_inter,
         cantidad_obra_musical_nal,
         ano_obra_musical_nal,
-        cantidad_obra_musical_reg,
 
         obra_musical_premiada,
         cantidad_obra_musical_premiada_inter,
@@ -1397,7 +1395,7 @@ app.post("/guardar-musica", auth, async (req, res) => {
         $3, $4, $5, $6, $7, $8,
         $9, $10, $11, $12, $13,
         $14, $15, $16, $17, $18,
-        $19, $20, $21, $22, $23
+        $19, $20, $21, $22
       )`,
       [
         usuario,
@@ -1408,7 +1406,6 @@ app.post("/guardar-musica", auth, async (req, res) => {
         numeroONull(anoObraMusicalInter),
         numeroONull(cantidadObraMusicalNal),
         numeroONull(anoObraMusicalNal),
-        numeroONull(cantidadObraMusicalReg),
 
         obraMusicalPremiada,
         numeroONull(cantidadObraMusicalPremiadaInter),
@@ -1471,7 +1468,6 @@ app.get("/descargar-musica", auth, async (req, res) => {
       { header: "Obra musical nacional", key: "cantidad_obra_musical_nal", width: 24 },
       { header: "Año obra musical nacional", key: "ano_obra_musical_nal", width: 28 },
 
-      { header: "Obra musical regional-local", key: "cantidad_obra_musical_reg", width: 28 },
 
       { header: "Arreglos musicales", key: "obra_musical_premiada", width: 26 },
 

@@ -20,106 +20,139 @@
     </button>
 
     <!-- ITEM 1 -->
-    <div class="item">
-      <div class="fila">
+<div class="item">
+  <div class="fila">
 
-        <div class="texto">
-          Productos de investigación-creación
-        </div>
-
-        <div id="productoInvestigacion" class="cantidad">
-          <label>¿Cuántos internacionales?</label>
-          <input type="number" min="0" step="1" id="numProductoInvestigacionInter" name="numProductoInvestigacionInter" placeholder="0">
-
-          <label>¿Cuántos nacionales?</label>
-          <input type="number" min="0" step="1" id="numProductoInvestigacionNal" name="numProductoInvestigacionNal" placeholder="0">
-
-          <label>¿Cuántos regional-local?</label>
-          <input type="number" min="0" step="1" id="numProductoInvestigacionReg" name="numProductoInvestigacionReg" placeholder="0">
-        </div>
-
-        <div class="opciones">
-          <label>
-            <input type="radio" name="productoInvestigacion" value="Sí" onclick="mostrarCantidad('productoInvestigacion')">
-            Sí
-          </label>
-
-          <label>
-            <input type="radio" name="productoInvestigacion" value="No" onclick="ocultarCantidad('productoInvestigacion')">
-            No
-          </label>
-        </div>
-
-      </div>
+    <div class="texto">
+      Productos certificados de investigación-creación
     </div>
 
-    <!-- ITEM 2 -->
-    <div class="item">
-      <div class="fila">
+    <div id="productoInvestigacion" class="cantidad">
 
-        <div class="texto">
-          Productos de comunicación y procesos organizacionales
-        </div>
+      <label>¿Cuántos internacionales?</label>
+      <input type="number" min="0" step="1" id="numProductoInvestigacionInter" name="numProductoInvestigacionInter" placeholder="0">
 
-        <div id="productoComunicacion" class="cantidad">
-          <label>¿Cuántos internacionales?</label>
-          <input type="number" min="0" step="1" id="numProductoComunicacionInter" name="numProductoComunicacionInter" placeholder="0">
+      <label>Año del más antiguo internacional</label>
+      <input type="number" min="1900" max="2026" step="1" id="anoProductoInvestigacionInter" name="anoProductoInvestigacionInter" placeholder="0">
 
-          <label>¿Cuántos nacionales?</label>
-          <input type="number" min="0" step="1" id="numProductoComunicacionNal" name="numProductoComunicacionNal" placeholder="0">
+      <label>¿Cuántos nacionales?</label>
+      <input type="number" min="0" step="1" id="numProductoInvestigacionNal" name="numProductoInvestigacionNal" placeholder="0">
 
-          <label>¿Cuántos regional-local?</label>
-          <input type="number" min="0" step="1" id="numProductoComunicacionReg" name="numProductoComunicacionReg" placeholder="0">
-        </div>
+      <label>Año del más antiguo nacional</label>
+      <input type="number" min="1900" max="2026" step="1" id="anoProductoInvestigacionNal" name="anoProductoInvestigacionNal" placeholder="0">
 
-        <div class="opciones">
-          <label>
-            <input type="radio" name="productoComunicacion" value="Sí" onclick="mostrarCantidad('productoComunicacion')">
-            Sí
-          </label>
+      <label>¿Cuántos regional-local?</label>
+      <input type="number" min="0" step="1" id="numProductoInvestigacionReg" name="numProductoInvestigacionReg" placeholder="0">
 
-          <label>
-            <input type="radio" name="productoComunicacion" value="No" onclick="ocultarCantidad('productoComunicacion')">
-            No
-          </label>
-        </div>
+      <label>Año del más antiguo regional-local</label>
+      <input type="number" min="1900" max="2026" step="1" id="anoProductoInvestigacionReg" name="anoProductoInvestigacionReg" placeholder="0">
 
-      </div>
     </div>
 
-    <!-- ITEM 3 -->
-    <div class="item">
-      <div class="fila">
+    <div class="opciones">
+      <label>
+        <input type="radio" name="productoInvestigacion" value="Sí" onclick="mostrarCantidad('productoInvestigacion')">
+        Sí
+      </label>
 
-        <div class="texto">
-          Premios de periodismo y comunicación
-        </div>
-
-        <div id="premioPeriodismo" class="cantidad">
-          <label>¿Cuántos internacionales?</label>
-          <input type="number" min="0" step="1" id="numPremioPeriodismoInter" name="numPremioPeriodismoInter" placeholder="0">
-
-          <label>¿Cuántos nacionales?</label>
-          <input type="number" min="0" step="1" id="numPremioPeriodismoNal" name="numPremioPeriodismoNal" placeholder="0">
-
-          <label>¿Cuántos regional-local?</label>
-          <input type="number" min="0" step="1" id="numPremioPeriodismoReg" name="numPremioPeriodismoReg" placeholder="0">
-        </div>
-
-        <div class="opciones">
-          <label>
-            <input type="radio" name="premioPeriodismo" value="Sí" onclick="mostrarCantidad('premioPeriodismo')">
-            Sí
-          </label>
-
-          <label>
-            <input type="radio" name="premioPeriodismo" value="No" onclick="ocultarCantidad('premioPeriodismo')">
-            No
-          </label>
-        </div>
-
-      </div>
+      <label>
+        <input type="radio" name="productoInvestigacion" value="No" onclick="ocultarCantidad('productoInvestigacion')">
+        No
+      </label>
     </div>
+
+  </div>
+</div>
+
+<!-- ITEM 2 -->
+<div class="item">
+  <div class="fila">
+
+    <div class="texto">
+      Productos certificados de comunicación y procesos organizacionales
+    </div>
+
+    <div id="productoComunicacion" class="cantidad">
+
+      <label>¿Cuántos internacionales?</label>
+      <input type="number" min="0" step="1" id="numProductoComunicacionInter" name="numProductoComunicacionInter" placeholder="0">
+
+      <label>Año del más antiguo internacional</label>
+      <input type="number" min="1900" max="2026" step="1" id="anoProductoComunicacionInter" name="anoProductoComunicacionInter" placeholder="0">
+
+      <label>¿Cuántos nacionales?</label>
+      <input type="number" min="0" step="1" id="numProductoComunicacionNal" name="numProductoComunicacionNal" placeholder="0">
+
+      <label>Año del más antiguo nacional</label>
+      <input type="number" min="1900" max="2026" step="1" id="anoProductoComunicacionNal" name="anoProductoComunicacionNal" placeholder="0">
+
+      <label>¿Cuántos regional-local?</label>
+      <input type="number" min="0" step="1" id="numProductoComunicacionReg" name="numProductoComunicacionReg" placeholder="0">
+
+      <label>Año del más antiguo regional-local</label>
+      <input type="number" min="1900" max="2026" step="1" id="anoProductoComunicacionReg" name="anoProductoComunicacionReg" placeholder="0">
+
+    </div>
+
+    <div class="opciones">
+      <label>
+        <input type="radio" name="productoComunicacion" value="Sí" onclick="mostrarCantidad('productoComunicacion')">
+        Sí
+      </label>
+
+      <label>
+        <input type="radio" name="productoComunicacion" value="No" onclick="ocultarCantidad('productoComunicacion')">
+        No
+      </label>
+    </div>
+
+  </div>
+</div>
+
+<!-- ITEM 3 -->
+<div class="item">
+  <div class="fila">
+
+    <div class="texto">
+      Premios certificados de periodismo y comunicación
+    </div>
+
+    <div id="premioPeriodismo" class="cantidad">
+
+      <label>¿Cuántos internacionales?</label>
+      <input type="number" min="0" step="1" id="numPremioPeriodismoInter" name="numPremioPeriodismoInter" placeholder="0">
+
+      <label>Año del más antiguo internacional</label>
+      <input type="number" min="1900" max="2026" step="1" id="anoPremioPeriodismoInter" name="anoPremioPeriodismoInter" placeholder="0">
+
+      <label>¿Cuántos nacionales?</label>
+      <input type="number" min="0" step="1" id="numPremioPeriodismoNal" name="numPremioPeriodismoNal" placeholder="0">
+
+      <label>Año del más antiguo nacional</label>
+      <input type="number" min="1900" max="2026" step="1" id="anoPremioPeriodismoNal" name="anoPremioPeriodismoNal" placeholder="0">
+
+      <label>¿Cuántos regional-local?</label>
+      <input type="number" min="0" step="1" id="numPremioPeriodismoReg" name="numPremioPeriodismoReg" placeholder="0">
+
+      <label>Año del más antiguo regional-local</label>
+      <input type="number" min="1900" max="2026" step="1" id="anoPremioPeriodismoReg" name="anoPremioPeriodismoReg" placeholder="0">
+
+    </div>
+
+    <div class="opciones">
+      <label>
+        <input type="radio" name="premioPeriodismo" value="Sí" onclick="mostrarCantidad('premioPeriodismo')">
+        Sí
+      </label>
+
+      <label>
+        <input type="radio" name="premioPeriodismo" value="No" onclick="ocultarCantidad('premioPeriodismo')">
+        No
+      </label>
+    </div>
+
+  </div>
+</div>
 
     <button type="button" class="button1" onclick="window.location.href='principal.html'">
       Volver al menú

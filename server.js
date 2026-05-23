@@ -196,25 +196,46 @@ pool.query(`
 //Tabla Diseño
 pool.query(`
   CREATE TABLE IF NOT EXISTS respuestas_diseno (
+
     id SERIAL PRIMARY KEY,
+
     usuario TEXT NOT NULL,
+
     seccion TEXT,
 
     obra_diseno TEXT,
+
     cantidad_obra_diseno_inter INTEGER,
+    ano_obra_diseno_inter INTEGER,
+
     cantidad_obra_diseno_nal INTEGER,
+    ano_obra_diseno_nal INTEGER,
+
     cantidad_obra_diseno_reg INTEGER,
+    ano_obra_diseno_reg INTEGER,
+
 
     obra_premiada TEXT,
+
     cantidad_obra_premiada_inter INTEGER,
+    ano_obra_premiada_inter INTEGER,
+
     cantidad_obra_premiada_nal INTEGER,
+    ano_obra_premiada_nal INTEGER,
+
 
     fecha TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+
   )
+
 `).then(() => {
+
   console.log("Tabla respuestas_diseno lista");
+
 }).catch(error => {
+
   console.error("Error creando tabla diseño:", error);
+
 });
 
 //Tabla música
@@ -1081,6 +1102,7 @@ app.get("/descargar-artes", auth, async (req, res) => {
 });
 
 //Guarda Diseño 
+// Guarda Diseño
 app.post("/guardar-diseno", auth, async (req, res) => {
   try {
     const {
@@ -1088,12 +1110,17 @@ app.post("/guardar-diseno", auth, async (req, res) => {
 
       obraDiseno,
       cantidadObraDisenoInter,
+      anoObraDisenoInter,
       cantidadObraDisenoNal,
+      anoObraDisenoNal,
       cantidadObraDisenoReg,
+      anoObraDisenoReg,
 
       obraPremiada,
       cantidadObraPremiadaInter,
-      cantidadObraPremiadaNal
+      anoObraPremiadaInter,
+      cantidadObraPremiadaNal,
+      anoObraPremiadaNal
     } = req.body;
 
     const usuario = req.session.usuario.usuario;
@@ -1105,17 +1132,22 @@ app.post("/guardar-diseno", auth, async (req, res) => {
 
         obra_diseno,
         cantidad_obra_diseno_inter,
+        ano_obra_diseno_inter,
         cantidad_obra_diseno_nal,
+        ano_obra_diseno_nal,
         cantidad_obra_diseno_reg,
+        ano_obra_diseno_reg,
 
         obra_premiada,
         cantidad_obra_premiada_inter,
-        cantidad_obra_premiada_nal
+        ano_obra_premiada_inter,
+        cantidad_obra_premiada_nal,
+        ano_obra_premiada_nal
       )
       VALUES (
         $1, $2,
-        $3, $4, $5, $6,
-        $7, $8, $9
+        $3, $4, $5, $6, $7, $8, $9,
+        $10, $11, $12, $13, $14
       )`,
       [
         usuario,
@@ -1123,12 +1155,17 @@ app.post("/guardar-diseno", auth, async (req, res) => {
 
         obraDiseno,
         numeroONull(cantidadObraDisenoInter),
+        numeroONull(anoObraDisenoInter),
         numeroONull(cantidadObraDisenoNal),
+        numeroONull(anoObraDisenoNal),
         numeroONull(cantidadObraDisenoReg),
+        numeroONull(anoObraDisenoReg),
 
         obraPremiada,
         numeroONull(cantidadObraPremiadaInter),
-        numeroONull(cantidadObraPremiadaNal)
+        numeroONull(anoObraPremiadaInter),
+        numeroONull(cantidadObraPremiadaNal),
+        numeroONull(anoObraPremiadaNal)
       ]
     );
 
@@ -1166,13 +1203,23 @@ app.get("/descargar-diseno", auth, async (req, res) => {
       { header: "Sección", key: "seccion", width: 25 },
 
       { header: "Obra diseño", key: "obra_diseno", width: 22 },
+
       { header: "Obra diseño internacional", key: "cantidad_obra_diseno_inter", width: 28 },
+      { header: "Año obra diseño internacional", key: "ano_obra_diseno_inter", width: 28 },
+
       { header: "Obra diseño nacional", key: "cantidad_obra_diseno_nal", width: 24 },
+      { header: "Año obra diseño nacional", key: "ano_obra_diseno_nal", width: 26 },
+
       { header: "Obra diseño regional-local", key: "cantidad_obra_diseno_reg", width: 28 },
+      { header: "Año obra diseño regional-local", key: "ano_obra_diseno_reg", width: 30 },
 
       { header: "Obra premiada", key: "obra_premiada", width: 24 },
+
       { header: "Premiada internacional", key: "cantidad_obra_premiada_inter", width: 28 },
+      { header: "Año premiada internacional", key: "ano_obra_premiada_inter", width: 28 },
+
       { header: "Premiada nacional", key: "cantidad_obra_premiada_nal", width: 24 },
+      { header: "Año premiada nacional", key: "ano_obra_premiada_nal", width: 26 },
 
       { header: "Fecha", key: "fecha", width: 25 }
     ];

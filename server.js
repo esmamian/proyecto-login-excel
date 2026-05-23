@@ -568,6 +568,8 @@ app.post("/guardar-encabezado", auth, async (req, res) => {
   }
 });
 
+//Descarga encabezado
+
 app.get("/descargar-encabezado", auth, async (req, res) => {
   try {
     if (req.session.usuario.rol !== "admin") {
@@ -634,6 +636,539 @@ app.get("/descargar-encabezado", auth, async (req, res) => {
 });
 
 // Guardar respuestas
+app.post("/guardar-respuestas", auth, async (req, res) => {
+
+  try {
+
+    const {
+
+      seccion,
+
+
+      doctorado,
+      cantidadDoctorado,
+
+
+      magister,
+      cantidadMagister,
+
+
+      especialista,
+      cantidadEspecialista,
+
+
+      pedagogia,
+      cantidadPedagogia,
+
+
+      pregrado,
+      cantidadPregrado,
+
+
+      cursosContinuada,
+      cantidadCursosContinuada,
+      horasCursosContinuada,
+      anoCursosContinuada,
+
+
+      otrosCursosEducacion,
+      cualesOtrosCursosEducacion,
+      anoOtrosCursosEducacion,
+
+
+      inglesC2,
+      cantidadInglesC2,
+      anoInglesC2,
+
+
+      inglesC1,
+      cantidadInglesC1,
+      anoInglesC1,
+
+
+      inglesB2,
+      cantidadInglesB2,
+      anoInglesB2,
+
+
+      expDocente,
+      cantidadExpDocente,
+
+
+      expDocenteOtras,
+      cantidadExpDocenteOtras,
+      anoExpDocenteOtras,
+
+
+      expProfesional,
+      cantidadExpProfesional,
+      anoExpProfesional,
+
+
+      expClinica,
+      cantidadExpClinica,
+      anoExpClinica,
+
+
+      proyInvestigacion,
+      cantidadProyInvestigacion,
+      anoProyInvestigacion,
+
+
+      proySocial,
+      cantidadProySocial,
+      anoProySocial,
+
+
+      expAcademicoAdmin,
+      cantidadExpAcademicoAdmin,
+      anoExpAcademicoAdmin,
+
+
+      libroEditorial,
+      cantidadLibroEditorial,
+      anoLibroEditorial,
+
+
+      patente,
+      cantidadPatente,
+      anoPatente,
+
+
+      capituloLibro,
+      cantidadCapituloLibro,
+      anoCapituloLibro,
+
+
+      articuloA1,
+      cantidadArticuloA1,
+      anoArticuloA1,
+
+
+      articuloA2,
+      cantidadArticuloA2,
+      anoArticuloA2,
+
+
+      articuloB,
+      cantidadArticuloB,
+      anoArticuloB,
+
+
+      articuloC,
+      cantidadArticuloC,
+      anoArticuloC,
+
+
+      eventoInternacional,
+      cantidadEventoInternacional,
+      anoEventoInternacional,
+
+
+      eventoNacional,
+      cantidadEventoNacional,
+      anoEventoNacional,
+
+
+      posgradoLaureado,
+      cantidadPosgradoLaureado,
+
+
+      posgradoMeritorio,
+      cantidadPosgradoMeritorio,
+
+
+      pregradoLaureado,
+      cantidadPregradoLaureado,
+
+
+      pregradoMeritorio,
+      cantidadPregradoMeritorio
+
+    } = req.body;
+
+    const usuario = req.session.usuario.usuario;
+
+    await pool.query(
+
+      `INSERT INTO respuestas (
+
+        usuario,
+        seccion,
+
+
+        doctorado,
+        cantidad_doctorado,
+
+
+        magister,
+        cantidad_magister,
+
+
+        especialista,
+        cantidad_especialista,
+
+
+        pedagogia,
+        cantidad_pedagogia,
+
+
+        pregrado,
+        cantidad_pregrado,
+
+
+        cursos_continuada,
+        cantidad_cursos_continuada,
+        horas_cursos_continuada,
+        ano_cursos_continuada,
+
+
+        otros_cursos_educacion,
+        cuales_otros_cursos_educacion,
+        ano_otros_cursos_educacion,
+
+
+        ingles_c2,
+        cantidad_ingles_c2,
+        ano_ingles_c2,
+
+
+        ingles_c1,
+        cantidad_ingles_c1,
+        ano_ingles_c1,
+
+
+        ingles_b2,
+        cantidad_ingles_b2,
+        ano_ingles_b2,
+
+
+        exp_docente,
+        cantidad_exp_docente,
+
+
+        exp_docente_otras,
+        cantidad_exp_docente_otras,
+        ano_exp_docente_otras,
+
+
+        exp_profesional,
+        cantidad_exp_profesional,
+        ano_exp_profesional,
+
+
+        exp_clinica,
+        cantidad_exp_clinica,
+        ano_exp_clinica,
+
+
+        proy_investigacion,
+        cantidad_proy_investigacion,
+        ano_proy_investigacion,
+
+
+        proy_social,
+        cantidad_proy_social,
+        ano_proy_social,
+
+
+        exp_academico_admin,
+        cantidad_exp_academico_admin,
+        ano_exp_academico_admin,
+
+
+        libro_editorial,
+        cantidad_libro_editorial,
+        ano_libro_editorial,
+
+
+        patente,
+        cantidad_patente,
+        ano_patente,
+
+
+        capitulo_libro,
+        cantidad_capitulo_libro,
+        ano_capitulo_libro,
+
+
+        articulo_a1,
+        cantidad_articulo_a1,
+        ano_articulo_a1,
+
+
+        articulo_a2,
+        cantidad_articulo_a2,
+        ano_articulo_a2,
+
+
+        articulo_b,
+        cantidad_articulo_b,
+        ano_articulo_b,
+
+
+        articulo_c,
+        cantidad_articulo_c,
+        ano_articulo_c,
+
+
+        evento_internacional,
+        cantidad_evento_internacional,
+        ano_evento_internacional,
+
+
+        evento_nacional,
+        cantidad_evento_nacional,
+        ano_evento_nacional,
+
+
+        posgrado_laureado,
+        cantidad_posgrado_laureado,
+
+
+        posgrado_meritorio,
+        cantidad_posgrado_meritorio,
+
+
+        pregrado_laureado,
+        cantidad_pregrado_laureado,
+
+
+        pregrado_meritorio,
+        cantidad_pregrado_meritorio
+
+      )
+
+      VALUES (
+
+        $1, $2,
+
+        $3, $4,
+
+        $5, $6,
+
+        $7, $8,
+
+        $9, $10,
+
+        $11, $12,
+
+        $13, $14, $15, $16,
+
+        $17, $18, $19,
+
+        $20, $21, $22,
+
+        $23, $24, $25,
+
+        $26, $27, $28,
+
+        $29, $30,
+
+        $31, $32, $33,
+
+        $34, $35, $36,
+
+        $37, $38, $39,
+
+        $40, $41, $42,
+
+        $43, $44, $45,
+
+        $46, $47, $48,
+
+        $49, $50, $51,
+
+        $52, $53, $54,
+
+        $55, $56, $57,
+
+        $58, $59, $60,
+
+        $61, $62, $63,
+
+        $64, $65, $66,
+
+        $67, $68, $69,
+
+        $70, $71, $72,
+
+        $73, $74,
+
+        $75, $76,
+
+        $77, $78
+
+      )`,
+
+      [
+
+        usuario,
+        seccion,
+
+
+        doctorado,
+        numeroONull(cantidadDoctorado),
+
+
+        magister,
+        numeroONull(cantidadMagister),
+
+
+        especialista,
+        numeroONull(cantidadEspecialista),
+
+
+        pedagogia,
+        numeroONull(cantidadPedagogia),
+
+
+        pregrado,
+        numeroONull(cantidadPregrado),
+
+
+        cursosContinuada,
+        numeroONull(cantidadCursosContinuada),
+        numeroONull(horasCursosContinuada),
+        numeroONull(anoCursosContinuada),
+
+
+        otrosCursosEducacion,
+        cualesOtrosCursosEducacion,
+        numeroONull(anoOtrosCursosEducacion),
+
+
+        inglesC2,
+        numeroONull(cantidadInglesC2),
+        numeroONull(anoInglesC2),
+
+
+        inglesC1,
+        numeroONull(cantidadInglesC1),
+        numeroONull(anoInglesC1),
+
+
+        inglesB2,
+        numeroONull(cantidadInglesB2),
+        numeroONull(anoInglesB2),
+
+
+        expDocente,
+        numeroONull(cantidadExpDocente),
+
+
+        expDocenteOtras,
+        numeroONull(cantidadExpDocenteOtras),
+        numeroONull(anoExpDocenteOtras),
+
+
+        expProfesional,
+        numeroONull(cantidadExpProfesional),
+        numeroONull(anoExpProfesional),
+
+
+        expClinica,
+        numeroONull(cantidadExpClinica),
+        numeroONull(anoExpClinica),
+
+
+        proyInvestigacion,
+        numeroONull(cantidadProyInvestigacion),
+        numeroONull(anoProyInvestigacion),
+
+
+        proySocial,
+        numeroONull(cantidadProySocial),
+        numeroONull(anoProySocial),
+
+
+        expAcademicoAdmin,
+        numeroONull(cantidadExpAcademicoAdmin),
+        numeroONull(anoExpAcademicoAdmin),
+
+
+        libroEditorial,
+        numeroONull(cantidadLibroEditorial),
+        numeroONull(anoLibroEditorial),
+
+
+        patente,
+        numeroONull(cantidadPatente),
+        numeroONull(anoPatente),
+
+
+        capituloLibro,
+        numeroONull(cantidadCapituloLibro),
+        numeroONull(anoCapituloLibro),
+
+
+        articuloA1,
+        numeroONull(cantidadArticuloA1),
+        numeroONull(anoArticuloA1),
+
+
+        articuloA2,
+        numeroONull(cantidadArticuloA2),
+        numeroONull(anoArticuloA2),
+
+
+        articuloB,
+        numeroONull(cantidadArticuloB),
+        numeroONull(anoArticuloB),
+
+
+        articuloC,
+        numeroONull(cantidadArticuloC),
+        numeroONull(anoArticuloC),
+
+
+        eventoInternacional,
+        numeroONull(cantidadEventoInternacional),
+        numeroONull(anoEventoInternacional),
+
+
+        eventoNacional,
+        numeroONull(cantidadEventoNacional),
+        numeroONull(anoEventoNacional),
+
+
+        posgradoLaureado,
+        numeroONull(cantidadPosgradoLaureado),
+
+
+        posgradoMeritorio,
+        numeroONull(cantidadPosgradoMeritorio),
+
+
+        pregradoLaureado,
+        numeroONull(cantidadPregradoLaureado),
+
+
+        pregradoMeritorio,
+        numeroONull(cantidadPregradoMeritorio)
+
+      ]
+
+    );
+
+    res.json({
+      mensaje: `Respuestas guardadas correctamente para ${usuario}`
+    });
+
+  } catch (error) {
+
+    console.error("Error guardando respuestas:", error);
+
+    res.status(500).json({
+      mensaje: "Error guardando respuestas",
+      detalle: error.message
+    });
+
+  }
+
+});
+
+//Descarga respuestas
 app.get("/descargar-excel", auth, async (req, res) => {
 
   try {
@@ -931,6 +1466,8 @@ app.post("/guardar-artes", auth, async (req, res) => {
   }
 });
 
+//Descarga Artes
+
 app.get("/descargar-artes", auth, async (req, res) => {
   try {
     if (req.session.usuario.rol !== "admin") {
@@ -1082,6 +1619,8 @@ app.post("/guardar-diseno", auth, async (req, res) => {
     });
   }
 });
+
+//Descarga diseño
 
 app.get("/descargar-diseno", auth, async (req, res) => {
   try {
@@ -1261,7 +1800,7 @@ app.post("/guardar-musica", auth, async (req, res) => {
     });
   }
 });
-
+//Descarga Musica
 app.get("/descargar-musica", auth, async (req, res) => {
   try {
     if (req.session.usuario.rol !== "admin") {
@@ -1342,7 +1881,6 @@ app.get("/descargar-musica", auth, async (req, res) => {
   }
 });
 
-//Guarda Comunicación social 
 
 // Guardar Comunicación Social y Periodismo
 app.post("/guardar-comunicacion", auth, async (req, res) => {
@@ -1476,7 +2014,7 @@ app.post("/guardar-comunicacion", auth, async (req, res) => {
 
 });
 
-// Descargar Excel Comunicación
+// Descargar Comunicación
 app.get("/descargar-comunicacion", auth, async (req, res) => {
 
   try {

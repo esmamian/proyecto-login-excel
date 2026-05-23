@@ -1128,24 +1128,34 @@ app.get("/descargar-artes", auth, async (req, res) => {
     const hoja = workbook.addWorksheet("Artes Plásticas");
 
     hoja.columns = [
-      { header: "Usuario", key: "usuario", width: 20 },
-      { header: "Sección", key: "seccion", width: 25 },
+  { header: "Usuario", key: "usuario", width: 20 },
+  { header: "Sección", key: "seccion", width: 25 },
 
-      { header: "Exposición", key: "exposicion", width: 18 },
-      { header: "Cant. Individual", key: "cantidad_exposicion_individual", width: 20 },
-      { header: "Cant. Colectiva", key: "cantidad_exposicion_colectiva", width: 20 },
+  { header: "Exposición", key: "exposicion", width: 18 },
 
-      { header: "Curadurías", key: "curadurias", width: 18 },
-      { header: "Curaduría Internacional", key: "cantidad_curadurias_internacional", width: 25 },
-      { header: "Curaduría Nacional", key: "cantidad_curadurias_nacional", width: 25 },
-      { header: "Curaduría Regional", key: "cantidad_curadurias_regional", width: 25 },
+  { header: "Cant. Individual", key: "cantidad_exposicion_individual", width: 20 },
+  { header: "Año Individual", key: "ano_exposicion_individual", width: 18 },
 
-      { header: "Premios", key: "premios", width: 18 },
-      { header: "Premios Internacional", key: "cantidad_premios_internacional", width: 25 },
-      { header: "Premios Nacional", key: "cantidad_premios_nacional", width: 25 },
+  { header: "Cant. Colectiva", key: "cantidad_exposicion_colectiva", width: 20 },
+  { header: "Año Colectiva", key: "ano_exposicion_colectiva", width: 18 },
 
-      { header: "Fecha", key: "fecha", width: 25 }
-    ];
+  { header: "Curadurías", key: "curadurias", width: 18 },
+
+  { header: "Curaduría Internacional", key: "cantidad_curadurias_internacional", width: 25 },
+  { header: "Año Curaduría Internacional", key: "ano_curadurias_internacional", width: 28 },
+
+  { header: "Curaduría Nacional", key: "cantidad_curadurias_nacional", width: 25 },
+  { header: "Año Curaduría Nacional", key: "ano_curadurias_nacional", width: 25 },
+
+  { header: "Curaduría Regional", key: "cantidad_curadurias_regional", width: 25 },
+  { header: "Año Curaduría Regional", key: "ano_curadurias_regional", width: 25 },
+
+  { header: "Premios", key: "premios", width: 18 },
+  { header: "Premios Internacional", key: "cantidad_premios_internacional", width: 25 },
+  { header: "Premios Nacional", key: "cantidad_premios_nacional", width: 25 },
+
+  { header: "Fecha", key: "fecha", width: 25 }
+];
 
     resultado.rows.forEach(row => {
       hoja.addRow(row);

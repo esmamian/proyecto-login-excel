@@ -168,12 +168,18 @@ pool.query(`
 
     exposicion TEXT,
     cantidad_exposicion_individual INTEGER,
+    ano_exposicion_individual INTEGER,
     cantidad_exposicion_colectiva INTEGER,
+    ano_exposicion_colectiva INTEGER,
+    
 
     curadurias TEXT,
     cantidad_curadurias_internacional INTEGER,
+    ano_curadurias_internacional INTEGER,
     cantidad_curadurias_nacional INTEGER,
+    ano_curadurias_nacional INTEGER,
     cantidad_curadurias_regional INTEGER,
+    ano_curadurias_regional INTEGER,
 
     premios TEXT,
     cantidad_premios_internacional INTEGER,
@@ -929,12 +935,17 @@ app.post("/guardar-artes", auth, async (req, res) => {
 
       exposicion,
       cantidadExposicionIndividual,
+      anoExposicionIndividual,
       cantidadExposicionColectiva,
+      anoExposicionIndividual,
 
       curadurias,
       cantidadCuraduriasInternacional,
+      anoCuraduriasInternacional,
       cantidadCuraduriasNacional,
+      anoCuraduriasNacional,
       cantidadCuraduriasRegional,
+      anoCuraduriasRegional,
 
       premios,
       cantidadPremiosInternacional,
@@ -944,48 +955,57 @@ app.post("/guardar-artes", auth, async (req, res) => {
     const usuario = req.session.usuario.usuario;
 
     await pool.query(
-      `INSERT INTO respuestas_artes (
-        usuario,
-        seccion,
+  `INSERT INTO respuestas_artes (
+    usuario,
+    seccion,
 
-        exposicion,
-        cantidad_exposicion_individual,
-        cantidad_exposicion_colectiva,
+    exposicion,
+    cantidad_exposicion_individual,
+    ano_exposicion_individual,
+    cantidad_exposicion_colectiva,
+    ano_exposicion_colectiva,
 
-        curadurias,
-        cantidad_curadurias_internacional,
-        cantidad_curadurias_nacional,
-        cantidad_curadurias_regional,
+    curadurias,
+    cantidad_curadurias_internacional,
+    ano_curadurias_internacional,
+    cantidad_curadurias_nacional,
+    ano_curadurias_nacional,
+    cantidad_curadurias_regional,
+    ano_curadurias_regional,
 
-        premios,
-        cantidad_premios_internacional,
-        cantidad_premios_nacional
-      )
-      VALUES (
-        $1, $2,
-        $3, $4, $5,
-        $6, $7, $8, $9,
-        $10, $11, $12
-      )`,
-      [
-        usuario,
-        seccion,
+    premios,
+    cantidad_premios_internacional,
+    cantidad_premios_nacional
+  )
+  VALUES (
+    $1, $2,
+    $3, $4, $5, $6, $7,
+    $8, $9, $10, $11, $12, $13, $14,
+    $15, $16, $17
+  )`,
+  [
+    usuario,
+    seccion,
 
-        exposicion,
-        numeroONull(cantidadExposicionIndividual),
-        numeroONull(cantidadExposicionColectiva),
+    exposicion,
+    numeroONull(cantidadExposicionIndividual),
+    numeroONull(anoExposicionIndividual),
+    numeroONull(cantidadExposicionColectiva),
+    numeroONull(anoExposicionColectiva),
 
-        curadurias,
-        numeroONull(cantidadCuraduriasInternacional),
-        numeroONull(cantidadCuraduriasNacional),
-        numeroONull(cantidadCuraduriasRegional),
+    curadurias,
+    numeroONull(cantidadCuraduriasInternacional),
+    numeroONull(anoCuraduriasInternacional),
+    numeroONull(cantidadCuraduriasNacional),
+    numeroONull(anoCuraduriasNacional),
+    numeroONull(cantidadCuraduriasRegional),
+    numeroONull(anoCuraduriasRegional),
 
-        premios,
-        numeroONull(cantidadPremiosInternacional),
-        numeroONull(cantidadPremiosNacional)
-      ]
-    );
-
+    premios,
+    numeroONull(cantidadPremiosInternacional),
+    numeroONull(cantidadPremiosNacional)
+  ]
+);
     res.json({
       mensaje: `Respuestas de Artes guardadas correctamente para ${usuario}`
     });

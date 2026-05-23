@@ -284,23 +284,12 @@ function ocultarCantidad(id) {
   });
 }
 
-document.getElementById("formulariomusica")
-.addEventListener("submit", async function(e) {
-  e.preventDefault();
-
-  if (!formularioCompleto(this)) {
-  return;
-}
-
-  const datos = new FormData(this);
-
-  function formularioCompleto(formulario) {
+function formularioCompleto(formulario) {
   const radios = {};
 
-  formulario.querySelectorAll('input[type="radio"]')
-    .forEach(radio => {
-      radios[radio.name] = true;
-    });
+  formulario.querySelectorAll('input[type="radio"]').forEach(radio => {
+    radios[radio.name] = true;
+  });
 
   for (let nombre in radios) {
     const seleccionado = formulario.querySelector(
@@ -345,78 +334,36 @@ document.getElementById("formulariomusica")
   const datos = new FormData(this);
 
   const res = await fetch("/guardar-musica", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      seccion: "Música",
 
-  method: "POST",
+      obraMusical: datos.get("obraMusical"),
+      cantidadObraMusicalInter: datos.get("numObraMusicalInter"),
+      anoObraMusicalInter: datos.get("anoObraMusicalInter"),
+      cantidadObraMusicalNal: datos.get("numObraMusicalNal"),
+      anoObraMusicalNal: datos.get("anoObraMusicalNal"),
 
-  headers: {
-    "Content-Type": "application/json"
-  },
+      obraMusicalPremiada: datos.get("obraMusicalPremiada"),
+      cantidadObraMusicalPremiadaInter: datos.get("numObraMusicalPremiadaInter"),
+      anoObraMusicalPremiadaInter: datos.get("anoObraMusicalPremiadaInter"),
+      cantidadObraMusicalPremiadaNal: datos.get("numObraMusicalPremiadaNal"),
+      anoObraMusicalPremiadaNal: datos.get("anoObraMusicalPremiadaNal"),
 
-  body: JSON.stringify({
+      premiosMusica: datos.get("premiosMusica"),
+      cantidadPremiosMusicaInter: datos.get("numPremiosMusicaInter"),
+      anoPremiosMusicaInter: datos.get("anoPremiosMusicaInter"),
+      cantidadPremiosMusicaNal: datos.get("numPremiosMusicaNal"),
+      anoPremiosMusicaNal: datos.get("anoPremiosMusicaNal"),
 
-    seccion: "Música",
-
-    obraMusical:
-      datos.get("obraMusical"),
-
-    cantidadObraMusicalInter:
-      datos.get("numObraMusicalInter"),
-
-    anoObraMusicalInter:
-      datos.get("anoObraMusicalInter"),
-
-    cantidadObraMusicalNal:
-      datos.get("numObraMusicalNal"),
-
-    anoObraMusicalNal:
-      datos.get("anoObraMusicalNal"),
-
-    obraMusicalPremiada:
-      datos.get("obraMusicalPremiada"),
-
-    cantidadObraMusicalPremiadaInter:
-      datos.get("numObraMusicalPremiadaInter"),
-
-    anoObraMusicalPremiadaInter:
-      datos.get("anoObraMusicalPremiadaInter"),
-
-    cantidadObraMusicalPremiadaNal:
-      datos.get("numObraMusicalPremiadaNal"),
-
-    anoObraMusicalPremiadaNal:
-      datos.get("anoObraMusicalPremiadaNal"),
-
-
-    premiosMusica:
-      datos.get("premiosMusica"),
-
-    cantidadPremiosMusicaInter:
-      datos.get("numPremiosMusicaInter"),
-
-    anoPremiosMusicaInter:
-      datos.get("anoPremiosMusicaInter"),
-
-    cantidadPremiosMusicaNal:
-      datos.get("numPremiosMusicaNal"),
-
-    anoPremiosMusicaNal:
-      datos.get("anoPremiosMusicaNal"),
-
-
-    interpretacionMusica:
-  datos.get("interpretacionMusica"),
-
-cantidadInterpretacionMusicaInter:
-  datos.get("numInterpretacionMusicaInter"),
-
-anoInterpretacionMusicaInter:
-  datos.get("anoInterpretacionMusicaInter"),
-
-cantidadInterpretacionMusicaNal:
-  datos.get("numInterpretacionMusicaNal"),
-
-anoInterpretacionMusicaNal:
-  datos.get("anoInterpretacionMusicaNal")
+      interpretacionMusica: datos.get("interpretacionMusica"),
+      cantidadInterpretacionMusicaInter: datos.get("numInterpretacionMusicaInter"),
+      anoInterpretacionMusicaInter: datos.get("anoInterpretacionMusicaInter"),
+      cantidadInterpretacionMusicaNal: datos.get("numInterpretacionMusicaNal"),
+      anoInterpretacionMusicaNal: datos.get("anoInterpretacionMusicaNal")
     })
   });
 

@@ -251,27 +251,32 @@ document.getElementById("formularioartes")
 }
 
   const res = await fetch("/guardar-artes", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify({
-      seccion: "Artes Plásticas",
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json"
+  },
+  body: JSON.stringify({
+    seccion: "Artes Plásticas",
 
-      exposicion: datos.get("Expindividual"),
-      cantidadExposicionIndividual: datos.get("numExpindividual"),
-      cantidadExposicionColectiva: datos.get("numExpcolectiva"),
+    exposicion: datos.get("Expindividual"),
+    cantidadExposicionIndividual: datos.get("numExpindividual"),
+    anoExposicionIndividual: datos.get("anoExpindividual"),
+    cantidadExposicionColectiva: datos.get("numExpcolectiva"),
+    anoExposicionColectiva: datos.get("anoExpcolectiva"),
 
-      curadurias: datos.get("curartisticas"),
-      cantidadCuraduriasInternacional: datos.get("numcurartisticasinter"),
-      cantidadCuraduriasNacional: datos.get("numcurartisticasnal"),
-      cantidadCuraduriasRegional: datos.get("numcurartisticasreg"),
+    curadurias: datos.get("curartisticas"),
+    cantidadCuraduriasInternacional: datos.get("numcurartisticasinter"),
+    anoCuraduriasInternacional: datos.get("anocurartisticasinter"),
+    cantidadCuraduriasNacional: datos.get("numcurartisticasnal"),
+    anoCuraduriasNacional: datos.get("anocurartisticasnal"),
+    cantidadCuraduriasRegional: datos.get("numcurartisticasreg"),
+    anoCuraduriasRegional: datos.get("anocurartisticasreg"),
 
-      premios: datos.get("premios"),
-      cantidadPremiosInternacional: datos.get("numpremiosinter"),
-      cantidadPremiosNacional: datos.get("numpremiosnal")
-    })
-  });
+    premios: datos.get("premios"),
+    cantidadPremiosInternacional: datos.get("numpremiosinter"),
+    cantidadPremiosNacional: datos.get("numpremiosnal")
+  })
+});
 
   const data = await res.json();
 

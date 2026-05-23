@@ -931,26 +931,26 @@ app.get("/descargar-excel", auth, async (req, res) => {
 app.post("/guardar-artes", auth, async (req, res) => {
   try {
     const {
-      seccion,
+  seccion,
 
-      exposicion,
-      cantidadExposicionIndividual,
-      anoExposicionIndividual,
-      cantidadExposicionColectiva,
-      anoExposicionIndividual,
+  exposicion,
+  cantidadExposicionIndividual,
+  anoExposicionIndividual,
+  cantidadExposicionColectiva,
+  anoExposicionColectiva,
 
-      curadurias,
-      cantidadCuraduriasInternacional,
-      anoCuraduriasInternacional,
-      cantidadCuraduriasNacional,
-      anoCuraduriasNacional,
-      cantidadCuraduriasRegional,
-      anoCuraduriasRegional,
+  curadurias,
+  cantidadCuraduriasInternacional,
+  anoCuraduriasInternacional,
+  cantidadCuraduriasNacional,
+  anoCuraduriasNacional,
+  cantidadCuraduriasRegional,
+  anoCuraduriasRegional,
 
-      premios,
-      cantidadPremiosInternacional,
-      cantidadPremiosNacional
-    } = req.body;
+  premios,
+  cantidadPremiosInternacional,
+  cantidadPremiosNacional
+} = req.body;
 
     const usuario = req.session.usuario.usuario;
 

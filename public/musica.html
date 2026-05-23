@@ -353,21 +353,82 @@ document.getElementById("formulariomusica")
 
 
   const res = await fetch("/guardar-musica", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify({
-      seccion: "Música",
 
-      obraMusical: datos.get("obraMusical"),
-      cantidadObraMusicalInter: datos.get("numObraMusicalInter"),
-      cantidadObraMusicalNal: datos.get("numObraMusicalNal"),
-      cantidadObraMusicalReg: datos.get("numObraMusicalReg"),
+  method: "POST",
 
-      obraMusicalPremiada: datos.get("obraMusicalPremiada"),
-      cantidadObraMusicalPremiadaInter: datos.get("numObraMusicalPremiadaInter"),
-      cantidadObraMusicalPremiadaNal: datos.get("numObraMusicalPremiadaNal")
+  headers: {
+    "Content-Type": "application/json"
+  },
+
+  body: JSON.stringify({
+
+    seccion: "Música",
+
+    obraMusical:
+      datos.get("obraMusical"),
+
+    cantidadObraMusicalInter:
+      datos.get("numObraMusicalInter"),
+
+    anoObraMusicalInter:
+      datos.get("anoObraMusicalInter"),
+
+    cantidadObraMusicalNal:
+      datos.get("numObraMusicalNal"),
+
+    anoObraMusicalNal:
+      datos.get("anoObraMusicalNal"),
+
+    cantidadObraMusicalReg:
+      datos.get("numObraMusicalReg"),
+
+
+    obraMusicalPremiada:
+      datos.get("obraMusicalPremiada"),
+
+    cantidadObraMusicalPremiadaInter:
+      datos.get("numObraMusicalPremiadaInter"),
+
+    anoObraMusicalPremiadaInter:
+      datos.get("anoObraMusicalPremiadaInter"),
+
+    cantidadObraMusicalPremiadaNal:
+      datos.get("numObraMusicalPremiadaNal"),
+
+    anoObraMusicalPremiadaNal:
+      datos.get("anoObraMusicalPremiadaNal"),
+
+
+    premiosMusica:
+      datos.get("premiosMusica"),
+
+    cantidadPremiosMusicaInter:
+      datos.get("numPremiosMusicaInter"),
+
+    anoPremiosMusicaInter:
+      datos.get("anoPremiosMusicaInter"),
+
+    cantidadPremiosMusicaNal:
+      datos.get("numPremiosMusicaNal"),
+
+    anoPremiosMusicaNal:
+      datos.get("anoPremiosMusicaNal"),
+
+
+    interpretacionMusica:
+      datos.get("interpretacionMusica"),
+
+    cantidadInterpretacionMusicaInter:
+      datos.get("numInterpretacionMusicaInter"),
+
+    anoInterpretacionMusicaInter:
+      datos.get("anoInterpretacionMusicaInter"),
+
+    cantidadInterpretacionMusicaNal:
+      datos.get("numInterpretacionMusicaNal"),
+
+    anoInterpretacionMusicaNal:
+      datos.get("anoInterpretacionMusica
     })
   });
 

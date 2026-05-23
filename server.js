@@ -635,305 +635,518 @@ app.get("/descargar-encabezado", auth, async (req, res) => {
 
 // Guardar respuestas
 app.post("/guardar-respuestas", auth, async (req, res) => {
+
   try {
+
     const {
+
       seccion,
+
 
       doctorado,
       cantidadDoctorado,
 
+
       magister,
       cantidadMagister,
+
 
       especialista,
       cantidadEspecialista,
 
+
       pedagogia,
       cantidadPedagogia,
+
 
       pregrado,
       cantidadPregrado,
 
+
       cursosContinuada,
       cantidadCursosContinuada,
+      horasCursosContinuada,
+      anoCursosContinuada,
+
+
+      otrosCursosEducacion,
+      cualesOtrosCursosEducacion,
+      anoOtrosCursosEducacion,
+
 
       inglesC2,
       cantidadInglesC2,
+      anoInglesC2,
+
 
       inglesC1,
       cantidadInglesC1,
+      anoInglesC1,
+
 
       inglesB2,
       cantidadInglesB2,
+      anoInglesB2,
+
 
       expDocente,
       cantidadExpDocente,
 
+
+      expDocenteOtras,
+      cantidadExpDocenteOtras,
+      anoExpDocenteOtras,
+
+
       expProfesional,
       cantidadExpProfesional,
+      anoExpProfesional,
+
 
       expClinica,
       cantidadExpClinica,
-      
+      anoExpClinica,
+
+
       proyInvestigacion,
       cantidadProyInvestigacion,
-      
+      anoProyInvestigacion,
+
+
       proySocial,
       cantidadProySocial,
-      
+      anoProySocial,
+
+
       expAcademicoAdmin,
       cantidadExpAcademicoAdmin,
+      anoExpAcademicoAdmin,
+
 
       libroEditorial,
       cantidadLibroEditorial,
+      anoLibroEditorial,
+
 
       patente,
       cantidadPatente,
+      anoPatente,
+
 
       capituloLibro,
       cantidadCapituloLibro,
+      anoCapituloLibro,
+
 
       articuloA1,
       cantidadArticuloA1,
+      anoArticuloA1,
+
 
       articuloA2,
       cantidadArticuloA2,
+      anoArticuloA2,
+
 
       articuloB,
       cantidadArticuloB,
+      anoArticuloB,
+
 
       articuloC,
       cantidadArticuloC,
+      anoArticuloC,
+
 
       eventoInternacional,
       cantidadEventoInternacional,
+      anoEventoInternacional,
+
 
       eventoNacional,
       cantidadEventoNacional,
+      anoEventoNacional,
+
 
       posgradoLaureado,
       cantidadPosgradoLaureado,
 
+
       posgradoMeritorio,
       cantidadPosgradoMeritorio,
+
 
       pregradoLaureado,
       cantidadPregradoLaureado,
 
+
       pregradoMeritorio,
       cantidadPregradoMeritorio
+
     } = req.body;
 
     const usuario = req.session.usuario.usuario;
 
     await pool.query(
+
       `INSERT INTO respuestas (
+
         usuario,
         seccion,
+
 
         doctorado,
         cantidad_doctorado,
 
+
         magister,
         cantidad_magister,
+
 
         especialista,
         cantidad_especialista,
 
+
         pedagogia,
         cantidad_pedagogia,
+
 
         pregrado,
         cantidad_pregrado,
 
+
         cursos_continuada,
         cantidad_cursos_continuada,
+        horas_cursos_continuada,
+        ano_cursos_continuada,
+
+
+        otros_cursos_educacion,
+        cuales_otros_cursos_educacion,
+        ano_otros_cursos_educacion,
+
 
         ingles_c2,
         cantidad_ingles_c2,
+        ano_ingles_c2,
+
 
         ingles_c1,
         cantidad_ingles_c1,
+        ano_ingles_c1,
+
 
         ingles_b2,
         cantidad_ingles_b2,
+        ano_ingles_b2,
+
 
         exp_docente,
         cantidad_exp_docente,
-        
+
+
+        exp_docente_otras,
+        cantidad_exp_docente_otras,
+        ano_exp_docente_otras,
+
+
         exp_profesional,
         cantidad_exp_profesional,
-        
+        ano_exp_profesional,
+
+
         exp_clinica,
         cantidad_exp_clinica,
-        
+        ano_exp_clinica,
+
+
         proy_investigacion,
         cantidad_proy_investigacion,
-        
+        ano_proy_investigacion,
+
+
         proy_social,
         cantidad_proy_social,
-        
+        ano_proy_social,
+
+
         exp_academico_admin,
         cantidad_exp_academico_admin,
+        ano_exp_academico_admin,
+
 
         libro_editorial,
         cantidad_libro_editorial,
+        ano_libro_editorial,
+
 
         patente,
         cantidad_patente,
+        ano_patente,
+
 
         capitulo_libro,
         cantidad_capitulo_libro,
+        ano_capitulo_libro,
+
 
         articulo_a1,
         cantidad_articulo_a1,
+        ano_articulo_a1,
+
 
         articulo_a2,
         cantidad_articulo_a2,
+        ano_articulo_a2,
+
 
         articulo_b,
         cantidad_articulo_b,
+        ano_articulo_b,
+
 
         articulo_c,
         cantidad_articulo_c,
+        ano_articulo_c,
+
 
         evento_internacional,
         cantidad_evento_internacional,
+        ano_evento_internacional,
+
 
         evento_nacional,
         cantidad_evento_nacional,
+        ano_evento_nacional,
+
 
         posgrado_laureado,
         cantidad_posgrado_laureado,
 
+
         posgrado_meritorio,
         cantidad_posgrado_meritorio,
+
 
         pregrado_laureado,
         cantidad_pregrado_laureado,
 
+
         pregrado_meritorio,
         cantidad_pregrado_meritorio
+
       )
+
       VALUES (
+
         $1, $2,
+
         $3, $4,
+
         $5, $6,
+
         $7, $8,
+
         $9, $10,
+
         $11, $12,
-        $13, $14,
-        $15, $16,
-        $17, $18,
-        $19, $20,
-        $21, $22,
-        $23, $24,
-        $25, $26,
-        $27, $28,
+
+        $13, $14, $15, $16,
+
+        $17, $18, $19,
+
+        $20, $21, $22,
+
+        $23, $24, $25,
+
+        $26, $27, $28,
+
         $29, $30,
-        $31, $32,
-        $33, $34,
-        $35, $36,
-        $37, $38,
-        $39, $40,
-        $41, $42,
-        $43, $44,
-        $45, $46,
-        $47, $48,
-        $49, $50,
-        $51, $52,
-        $53, $54,
-        $55, $56,
-        $57, $58
+
+        $31, $32, $33,
+
+        $34, $35, $36,
+
+        $37, $38, $39,
+
+        $40, $41, $42,
+
+        $43, $44, $45,
+
+        $46, $47, $48,
+
+        $49, $50, $51,
+
+        $52, $53, $54,
+
+        $55, $56, $57,
+
+        $58, $59, $60,
+
+        $61, $62, $63,
+
+        $64, $65, $66,
+
+        $67, $68, $69,
+
+        $70, $71, $72,
+
+        $73, $74,
+
+        $75, $76,
+
+        $77, $78
+
       )`,
+
       [
+
         usuario,
         seccion,
+
 
         doctorado,
         numeroONull(cantidadDoctorado),
 
+
         magister,
         numeroONull(cantidadMagister),
+
 
         especialista,
         numeroONull(cantidadEspecialista),
 
+
         pedagogia,
         numeroONull(cantidadPedagogia),
+
 
         pregrado,
         numeroONull(cantidadPregrado),
 
+
         cursosContinuada,
         numeroONull(cantidadCursosContinuada),
+        numeroONull(horasCursosContinuada),
+        numeroONull(anoCursosContinuada),
+
+
+        otrosCursosEducacion,
+        cualesOtrosCursosEducacion,
+        numeroONull(anoOtrosCursosEducacion),
+
 
         inglesC2,
         numeroONull(cantidadInglesC2),
+        numeroONull(anoInglesC2),
+
 
         inglesC1,
         numeroONull(cantidadInglesC1),
+        numeroONull(anoInglesC1),
+
 
         inglesB2,
         numeroONull(cantidadInglesB2),
+        numeroONull(anoInglesB2),
+
 
         expDocente,
         numeroONull(cantidadExpDocente),
-        
+
+
+        expDocenteOtras,
+        numeroONull(cantidadExpDocenteOtras),
+        numeroONull(anoExpDocenteOtras),
+
+
         expProfesional,
         numeroONull(cantidadExpProfesional),
-        
+        numeroONull(anoExpProfesional),
+
+
         expClinica,
         numeroONull(cantidadExpClinica),
-        
+        numeroONull(anoExpClinica),
+
+
         proyInvestigacion,
         numeroONull(cantidadProyInvestigacion),
-        
+        numeroONull(anoProyInvestigacion),
+
+
         proySocial,
         numeroONull(cantidadProySocial),
-        
+        numeroONull(anoProySocial),
+
+
         expAcademicoAdmin,
         numeroONull(cantidadExpAcademicoAdmin),
+        numeroONull(anoExpAcademicoAdmin),
+
 
         libroEditorial,
         numeroONull(cantidadLibroEditorial),
+        numeroONull(anoLibroEditorial),
+
 
         patente,
         numeroONull(cantidadPatente),
+        numeroONull(anoPatente),
+
 
         capituloLibro,
         numeroONull(cantidadCapituloLibro),
+        numeroONull(anoCapituloLibro),
+
 
         articuloA1,
         numeroONull(cantidadArticuloA1),
+        numeroONull(anoArticuloA1),
+
 
         articuloA2,
         numeroONull(cantidadArticuloA2),
+        numeroONull(anoArticuloA2),
+
 
         articuloB,
         numeroONull(cantidadArticuloB),
+        numeroONull(anoArticuloB),
+
 
         articuloC,
         numeroONull(cantidadArticuloC),
+        numeroONull(anoArticuloC),
+
 
         eventoInternacional,
         numeroONull(cantidadEventoInternacional),
+        numeroONull(anoEventoInternacional),
+
 
         eventoNacional,
         numeroONull(cantidadEventoNacional),
+        numeroONull(anoEventoNacional),
+
 
         posgradoLaureado,
         numeroONull(cantidadPosgradoLaureado),
 
+
         posgradoMeritorio,
         numeroONull(cantidadPosgradoMeritorio),
+
 
         pregradoLaureado,
         numeroONull(cantidadPregradoLaureado),
 
+
         pregradoMeritorio,
         numeroONull(cantidadPregradoMeritorio)
+
       ]
+
     );
 
     res.json({
@@ -941,20 +1154,29 @@ app.post("/guardar-respuestas", auth, async (req, res) => {
     });
 
   } catch (error) {
+
     console.error("Error guardando respuestas:", error);
 
     res.status(500).json({
       mensaje: "Error guardando respuestas",
       detalle: error.message
     });
+
   }
+
 });
 
 // Descargar Excel
 app.get("/descargar-excel", auth, async (req, res) => {
+
   try {
+
     if (req.session.usuario.rol !== "admin") {
-      return res.status(403).send("Solo el administrador puede descargar");
+
+      return res.status(403).send(
+        "Solo el administrador puede descargar"
+      );
+
     }
 
     const resultado = await pool.query(`
@@ -964,100 +1186,160 @@ app.get("/descargar-excel", auth, async (req, res) => {
     `);
 
     const workbook = new ExcelJS.Workbook();
-    const hoja = workbook.addWorksheet("Respuestas");
 
-   hoja.columns = [
+    const hoja = workbook.addWorksheet("Formulario Completo");
 
-  { header: "Usuario", key: "usuario", width: 20 },
-  { header: "Sección", key: "seccion", width: 25 },
+    hoja.columns = [
 
-  { header: "Doctorado", key: "doctorado", width: 15 },
-  { header: "Cant. Doctorado", key: "cantidad_doctorado", width: 18 },
+      { header: "Usuario", key: "usuario", width: 20 },
+      { header: "Sección", key: "seccion", width: 25 },
 
-  { header: "Magíster", key: "magister", width: 15 },
-  { header: "Cant. Magíster", key: "cantidad_magister", width: 18 },
 
-  { header: "Especialista", key: "especialista", width: 18 },
-  { header: "Cant. Especialista", key: "cantidad_especialista", width: 20 },
+      { header: "Doctorado", key: "doctorado", width: 18 },
+      { header: "Cantidad Doctorado", key: "cantidad_doctorado", width: 22 },
 
-  { header: "Pedagogía", key: "pedagogia", width: 18 },
-  { header: "Cant. Pedagogía", key: "cantidad_pedagogia", width: 20 },
 
-  { header: "Pregrado", key: "pregrado", width: 18 },
-  { header: "Cant. Pregrado", key: "cantidad_pregrado", width: 20 },
+      { header: "Magíster", key: "magister", width: 18 },
+      { header: "Cantidad Magíster", key: "cantidad_magister", width: 22 },
 
-  { header: "Cursos continuada", key: "cursos_continuada", width: 25 },
-  { header: "Cant. Cursos", key: "cantidad_cursos_continuada", width: 18 },
 
-  { header: "Inglés C2", key: "ingles_c2", width: 15 },
-  { header: "Cant. C2", key: "cantidad_ingles_c2", width: 15 },
+      { header: "Especialista", key: "especialista", width: 18 },
+      { header: "Cantidad Especialista", key: "cantidad_especialista", width: 24 },
 
-  { header: "Inglés C1", key: "ingles_c1", width: 15 },
-  { header: "Cant. C1", key: "cantidad_ingles_c1", width: 15 },
 
-  { header: "Inglés B2", key: "ingles_b2", width: 15 },
-  { header: "Cant. B2", key: "cantidad_ingles_b2", width: 15 },
+      { header: "Pedagogía", key: "pedagogia", width: 18 },
+      { header: "Cantidad Pedagogía", key: "cantidad_pedagogia", width: 24 },
 
-  { header: "Exp. Docente", key: "exp_docente", width: 18 },
-  { header: "Cant. Exp. Docente", key: "cantidad_exp_docente", width: 20 },
 
-  { header: "Exp. Profesional", key: "exp_profesional", width: 20 },
-  { header: "Cant. Exp. Profesional", key: "cantidad_exp_profesional", width: 22 },
+      { header: "Pregrado", key: "pregrado", width: 18 },
+      { header: "Cantidad Pregrado", key: "cantidad_pregrado", width: 22 },
 
-  { header: "Exp. Clínica", key: "exp_clinica", width: 18 },
-  { header: "Cant. Exp. Clínica", key: "cantidad_exp_clinica", width: 20 },
 
-  { header: "Proyectos Investigación", key: "proy_investigacion", width: 24 },
-  { header: "Cant. Proyectos Investigación", key: "cantidad_proy_investigacion", width: 28 },
+      { header: "Cursos continuada", key: "cursos_continuada", width: 24 },
+      { header: "Cantidad cursos", key: "cantidad_cursos_continuada", width: 22 },
+      { header: "Horas cursos", key: "horas_cursos_continuada", width: 20 },
+      { header: "Año más antiguo", key: "ano_cursos_continuada", width: 22 },
 
-  { header: "Proyectos Sociales", key: "proy_social", width: 22 },
-  { header: "Cant. Proyectos Sociales", key: "cantidad_proy_social", width: 26 },
 
-  { header: "Exp. Académico-Admin", key: "exp_academico_admin", width: 24 },
-  { header: "Cant. Exp. Académico-Admin", key: "cantidad_exp_academico_admin", width: 28 },
+      { header: "Otros cursos educación", key: "otros_cursos_educacion", width: 28 },
+      { header: "¿Cuáles?", key: "cuales_otros_cursos_educacion", width: 35 },
+      { header: "Año más antiguo", key: "ano_otros_cursos_educacion", width: 22 },
 
-  { header: "Libro Editorial", key: "libro_editorial", width: 22 },
-  { header: "Cant. Libro Editorial", key: "cantidad_libro_editorial", width: 24 },
 
-  { header: "Patente", key: "patente", width: 18 },
-  { header: "Cant. Patente", key: "cantidad_patente", width: 20 },
+      { header: "Inglés C2", key: "ingles_c2", width: 18 },
+      { header: "Cantidad C2", key: "cantidad_ingles_c2", width: 18 },
+      { header: "Año C2", key: "ano_ingles_c2", width: 18 },
 
-  { header: "Capítulo Libro", key: "capitulo_libro", width: 22 },
-  { header: "Cant. Capítulo Libro", key: "cantidad_capitulo_libro", width: 24 },
 
-  { header: "Artículo A1", key: "articulo_a1", width: 18 },
-  { header: "Cant. Artículo A1", key: "cantidad_articulo_a1", width: 20 },
+      { header: "Inglés C1", key: "ingles_c1", width: 18 },
+      { header: "Cantidad C1", key: "cantidad_ingles_c1", width: 18 },
+      { header: "Año C1", key: "ano_ingles_c1", width: 18 },
 
-  { header: "Artículo A2", key: "articulo_a2", width: 18 },
-  { header: "Cant. Artículo A2", key: "cantidad_articulo_a2", width: 20 },
 
-  { header: "Artículo B", key: "articulo_b", width: 18 },
-  { header: "Cant. Artículo B", key: "cantidad_articulo_b", width: 20 },
+      { header: "Inglés B2", key: "ingles_b2", width: 18 },
+      { header: "Cantidad B2", key: "cantidad_ingles_b2", width: 18 },
+      { header: "Año B2", key: "ano_ingles_b2", width: 18 },
 
-  { header: "Artículo C", key: "articulo_c", width: 18 },
-  { header: "Cant. Artículo C", key: "cantidad_articulo_c", width: 20 },
 
-  { header: "Evento Internacional", key: "evento_internacional", width: 24 },
-  { header: "Cant. Evento Internacional", key: "cantidad_evento_internacional", width: 28 },
+      { header: "Experiencia docente", key: "exp_docente", width: 24 },
+      { header: "Cantidad experiencia docente", key: "cantidad_exp_docente", width: 28 },
 
-  { header: "Evento Nacional", key: "evento_nacional", width: 22 },
-  { header: "Cant. Evento Nacional", key: "cantidad_evento_nacional", width: 26 },
 
-  { header: "Posgrado Laureado", key: "posgrado_laureado", width: 24 },
-  { header: "Cant. Posgrado Laureado", key: "cantidad_posgrado_laureado", width: 28 },
+      { header: "Experiencia docente antigua", key: "exp_docente_otras", width: 28 },
+      { header: "Cantidad experiencia antigua", key: "cantidad_exp_docente_otras", width: 30 },
+      { header: "Año experiencia antigua", key: "ano_exp_docente_otras", width: 28 },
 
-  { header: "Posgrado Meritorio", key: "posgrado_meritorio", width: 24 },
-  { header: "Cant. Posgrado Meritorio", key: "cantidad_posgrado_meritorio", width: 28 },
 
-  { header: "Pregrado Laureado", key: "pregrado_laureado", width: 24 },
-  { header: "Cant. Pregrado Laureado", key: "cantidad_pregrado_laureado", width: 28 },
+      { header: "Experiencia profesional", key: "exp_profesional", width: 26 },
+      { header: "Cantidad experiencia profesional", key: "cantidad_exp_profesional", width: 30 },
+      { header: "Año experiencia profesional", key: "ano_exp_profesional", width: 28 },
 
-  { header: "Pregrado Meritorio", key: "pregrado_meritorio", width: 24 },
-  { header: "Cant. Pregrado Meritorio", key: "cantidad_pregrado_meritorio", width: 28 },
 
-  { header: "Fecha", key: "fecha", width: 25 }
+      { header: "Experiencia clínica", key: "exp_clinica", width: 24 },
+      { header: "Cantidad experiencia clínica", key: "cantidad_exp_clinica", width: 28 },
+      { header: "Año experiencia clínica", key: "ano_exp_clinica", width: 26 },
 
-];
+
+      { header: "Proyecto investigación", key: "proy_investigacion", width: 26 },
+      { header: "Cantidad proyectos investigación", key: "cantidad_proy_investigacion", width: 30 },
+      { header: "Año proyecto investigación", key: "ano_proy_investigacion", width: 28 },
+
+
+      { header: "Proyecto social", key: "proy_social", width: 24 },
+      { header: "Cantidad proyectos sociales", key: "cantidad_proy_social", width: 28 },
+      { header: "Año proyecto social", key: "ano_proy_social", width: 26 },
+
+
+      { header: "Experiencia académico-admin", key: "exp_academico_admin", width: 30 },
+      { header: "Cantidad experiencia académico-admin", key: "cantidad_exp_academico_admin", width: 34 },
+      { header: "Año experiencia académico-admin", key: "ano_exp_academico_admin", width: 32 },
+
+
+      { header: "Libro editorial", key: "libro_editorial", width: 22 },
+      { header: "Cantidad libro editorial", key: "cantidad_libro_editorial", width: 26 },
+      { header: "Año libro editorial", key: "ano_libro_editorial", width: 24 },
+
+
+      { header: "Patente", key: "patente", width: 18 },
+      { header: "Cantidad patente", key: "cantidad_patente", width: 22 },
+      { header: "Año patente", key: "ano_patente", width: 20 },
+
+
+      { header: "Capítulo libro", key: "capitulo_libro", width: 22 },
+      { header: "Cantidad capítulo libro", key: "cantidad_capitulo_libro", width: 28 },
+      { header: "Año capítulo libro", key: "ano_capitulo_libro", width: 26 },
+
+
+      { header: "Artículo A1", key: "articulo_a1", width: 20 },
+      { header: "Cantidad A1", key: "cantidad_articulo_a1", width: 20 },
+      { header: "Año A1", key: "ano_articulo_a1", width: 18 },
+
+
+      { header: "Artículo A2", key: "articulo_a2", width: 20 },
+      { header: "Cantidad A2", key: "cantidad_articulo_a2", width: 20 },
+      { header: "Año A2", key: "ano_articulo_a2", width: 18 },
+
+
+      { header: "Artículo B", key: "articulo_b", width: 20 },
+      { header: "Cantidad B", key: "cantidad_articulo_b", width: 20 },
+      { header: "Año B", key: "ano_articulo_b", width: 18 },
+
+
+      { header: "Artículo C", key: "articulo_c", width: 20 },
+      { header: "Cantidad C", key: "cantidad_articulo_c", width: 20 },
+      { header: "Año C", key: "ano_articulo_c", width: 18 },
+
+
+      { header: "Evento internacional", key: "evento_internacional", width: 24 },
+      { header: "Cantidad evento internacional", key: "cantidad_evento_internacional", width: 28 },
+      { header: "Año evento internacional", key: "ano_evento_internacional", width: 26 },
+
+
+      { header: "Evento nacional", key: "evento_nacional", width: 22 },
+      { header: "Cantidad evento nacional", key: "cantidad_evento_nacional", width: 26 },
+      { header: "Año evento nacional", key: "ano_evento_nacional", width: 24 },
+
+
+      { header: "Posgrado laureado", key: "posgrado_laureado", width: 24 },
+      { header: "Cantidad posgrado laureado", key: "cantidad_posgrado_laureado", width: 28 },
+
+
+      { header: "Posgrado meritorio", key: "posgrado_meritorio", width: 24 },
+      { header: "Cantidad posgrado meritorio", key: "cantidad_posgrado_meritorio", width: 28 },
+
+
+      { header: "Pregrado laureado", key: "pregrado_laureado", width: 24 },
+      { header: "Cantidad pregrado laureado", key: "cantidad_pregrado_laureado", width: 28 },
+
+
+      { header: "Pregrado meritorio", key: "pregrado_meritorio", width: 24 },
+      { header: "Cantidad pregrado meritorio", key: "cantidad_pregrado_meritorio", width: 28 },
+
+
+      { header: "Fecha", key: "fecha", width: 25 }
+
+    ];
+
     resultado.rows.forEach(row => {
       hoja.addRow(row);
     });
@@ -1071,16 +1353,21 @@ app.get("/descargar-excel", auth, async (req, res) => {
 
     res.setHeader(
       "Content-Disposition",
-      "attachment; filename=respuestas.xlsx"
+      "attachment; filename=formulario_completo.xlsx"
     );
 
     await workbook.xlsx.write(res);
+
     res.end();
 
   } catch (error) {
+
     console.error("Error generando Excel:", error);
+
     res.status(500).send("Error generando Excel");
+
   }
+
 });
 
 //Guardar artes

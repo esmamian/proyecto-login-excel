@@ -28,11 +28,17 @@
         </div>
 
         <div id="obraMusical" class="cantidad">
-          <label>¿Cuántas internacional en los últimos 10 años?</label>
+          <label>¿Cuántas internacional?</label>
           <input type="number" min="0" step="1" id="numObraMusicalInter" name="numObraMusicalInter" placeholder="0">
+          <label>Año del más antiguo</label>
+          <input type="number" min="0" step="1" id="anoObraMusicalInter" name="anoObraMusicalInter" placeholder="0">
+      
 
-          <label>¿Cuántas nacionales en los últimos 10 años?</label>
+          <label>¿Cuántas nacionales?</label>
           <input type="number" min="0" step="1" id="numObraMusicalNal" name="numObraMusicalNal" placeholder="0">
+          <label>Año del más antiguo</label>
+          <input type="number" min="0" step="1" id="anoObraMusicalNal" name="anoObraMusicalNal" placeholder="0">
+      
 
           <label>¿Cuántas regional/local NO VA?</label>
           <input type="number" min="0" step="1" id="numObraMusicalReg" name="numObraMusicalReg" placeholder="0">
@@ -62,11 +68,17 @@
         </div>
 
         <div id="obraMusicalPremiada" class="cantidad">
-          <label>¿Cuántas internacional en los últimos 10 años?</label>
+          <label>¿Cuántas internacional?</label>
           <input type="number" min="0" step="1" id="numObraMusicalPremiadaInter" name="numObraMusicalPremiadaInter" placeholder="0">
+          
+          <label>Año del más antiguo</label>
+          <input type="number" min="0" step="1" id="anoObraMusicalPremiadaInter" name="anoObraMusicalPremiadaInter" placeholder="0">
 
-          <label>¿Cuántas nacional en los últimos 10 años?</label>
+          <label>¿Cuántas nacional?</label>
           <input type="number" min="0" step="1" id="numObraMusicalPremiadaNal" name="numObraMusicalPremiadaNal" placeholder="0">
+          
+          <label>Año del más antiguo</label>
+          <input type="number" min="0" step="1" id="anoObraMusicalPremiadaNal" name="anoObraMusicalPremiadaNal" placeholder="0">
         </div>
 
         <div class="opciones">
@@ -83,6 +95,150 @@
 
       </div>
     </div>
+
+    <!-- ITEM 2 -->
+<div class="item">
+  <div class="fila">
+
+    <div class="texto">
+      Premios certificados
+    </div>
+
+    <div id="premiosMusica" class="cantidad">
+
+      <label>¿Cuántos internacionales?</label>
+      <input
+        type="number"
+        min="0"
+        step="1"
+        id="numPremiosMusicaInter"
+        name="numPremiosMusicaInter"
+        placeholder="0">
+
+      <label>Año del más antiguo</label>
+      <input
+        type="number"
+        min="0"
+        step="1"
+        id="anoPremiosMusicaInter"
+        name="anoPremiosMusicaInter"
+        placeholder="0">
+
+      <label>¿Cuántos nacionales?</label>
+      <input
+        type="number"
+        min="0"
+        step="1"
+        id="numPremiosMusicaNal"
+        name="numPremiosMusicaNal"
+        placeholder="0">
+
+      <label>Año del más antiguo</label>
+      <input
+        type="number"
+        min="0"
+        step="1"
+        id="anoPremiosMusicaNal"
+        name="anoPremiosMusicaNal"
+        placeholder="0">
+
+    </div>
+
+    <div class="opciones">
+      <label>
+        <input
+          type="radio"
+          name="premiosMusica"
+          value="Sí"
+          onclick="mostrarCantidad('premiosMusica')">
+        Sí
+      </label>
+
+      <label>
+        <input
+          type="radio"
+          name="premiosMusica"
+          value="No"
+          onclick="ocultarCantidad('premiosMusica')">
+        No
+      </label>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- ITEM 3 -->
+<div class="item">
+  <div class="fila">
+
+    <div class="texto">
+      Interpretación certificada como solista, en recital, en música de cámara y/o como director
+    </div>
+
+    <div id="interpretacionMusica" class="cantidad">
+
+      <label>¿Cuántas en evento internacional?</label>
+      <input
+        type="number"
+        min="0"
+        step="1"
+        id="numInterpretacionMusicaInter"
+        name="numInterpretacionMusicaInter"
+        placeholder="0">
+
+      <label>Año de la más antigua</label>
+      <input
+        type="number"
+        min="0"
+        step="1"
+        id="anoInterpretacionMusicaInter"
+        name="anoInterpretacionMusicaInter"
+        placeholder="0">
+
+      <label>¿Cuántas en evento nacional?</label>
+      <input
+        type="number"
+        min="0"
+        step="1"
+        id="numInterpretacionMusicaNal"
+        name="numInterpretacionMusicaNal"
+        placeholder="0">
+
+      <label>Año de la más antigua</label>
+      <input
+        type="number"
+        min="0"
+        step="1"
+        id="anoInterpretacionMusicaNal"
+        name="anoInterpretacionMusicaNal"
+        placeholder="0">
+
+    </div>
+
+    <div class="opciones">
+      <label>
+        <input
+          type="radio"
+          name="interpretacionMusica"
+          value="Sí"
+          onclick="mostrarCantidad('interpretacionMusica')">
+        Sí
+      </label>
+
+      <label>
+        <input
+          type="radio"
+          name="interpretacionMusica"
+          value="No"
+          onclick="ocultarCantidad('interpretacionMusica')">
+        No
+      </label>
+    </div>
+
+  </div>
+</div>
+    
 
     <button type="button" class="button1" onclick="window.location.href='principal.html'">
       Volver al menú

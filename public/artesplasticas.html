@@ -146,12 +146,9 @@
     Guardar respuestas
   </button>
 
-  <p id="mensaje"></p>
+    <p id="mensaje"></p>
 
   </form>
-</div>
-
-</form>
 </div>
 
 <script>
@@ -179,7 +176,6 @@ function mostrarCantidad(id) {
 
 function ocultarCantidad(id) {
   const contenedor = document.getElementById(id);
-
   contenedor.style.display = "none";
 
   const inputs = contenedor.querySelectorAll("input");
@@ -189,65 +185,37 @@ function ocultarCantidad(id) {
   });
 }
 
-document.getElementById("formularioartes")
-.addEventListener("submit", async function(e) {
-  e.preventDefault();
-  
-  if (!formularioCompleto(this)) {
-  return;
-}
-
-  const datos = new FormData(this);
-
-  function formularioCompleto(formulario) {
-
+function formularioCompleto(formulario) {
   const radios = {};
 
-  formulario.querySelectorAll('input[type="radio"]')
-  .forEach(radio => {
+  formulario.querySelectorAll('input[type="radio"]').forEach(radio => {
     radios[radio.name] = true;
   });
 
   for (let nombre in radios) {
-
     const seleccionado = formulario.querySelector(
       `input[name="${nombre}"]:checked`
     );
 
     if (!seleccionado) {
-
-      alert(
-        "Debe responder todas las preguntas antes de guardar."
-      );
-
+      alert("Debe responder todas las preguntas antes de guardar.");
       return false;
     }
 
     if (seleccionado.value === "Sí") {
-
       const item = seleccionado.closest(".item");
-
-      const inputs =
-        item.querySelectorAll('input[type="number"]');
+      const inputs = item.querySelectorAll('input[type="number"]');
 
       let alMenosUno = false;
 
       for (let input of inputs) {
-
-        if (
-          input.value !== "" &&
-          Number(input.value) > 0
-        ) {
+        if (input.value !== "" && Number(input.value) > 0) {
           alMenosUno = true;
         }
       }
 
       if (!alMenosUno) {
-
-        alert(
-          "Debe completar al menos una cantidad cuando responde Sí."
-        );
-
+        alert("Debe completar al menos una cantidad cuando responde Sí.");
         return false;
       }
     }
@@ -256,33 +224,43 @@ document.getElementById("formularioartes")
   return true;
 }
 
+document.getElementById("formularioartes")
+.addEventListener("submit", async function(e) {
+  e.preventDefault();
+
+  if (!formularioCompleto(this)) {
+    return;
+  }
+
+  const datos = new FormData(this);
+
   const res = await fetch("/guardar-artes", {
-  method: "POST",
-  headers: {
-    "Content-Type": "application/json"
-  },
-  body: JSON.stringify({
-    seccion: "Artes Plásticas",
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      seccion: "Artes Plásticas",
 
-    exposicion: datos.get("Expindividual"),
-    cantidadExposicionIndividual: datos.get("numExpindividual"),
-    anoExposicionIndividual: datos.get("anoExpindividual"),
-    cantidadExposicionColectiva: datos.get("numExpcolectiva"),
-    anoExposicionColectiva: datos.get("anoExpcolectiva"),
+      exposicion: datos.get("Expindividual"),
+      cantidadExposicionIndividual: datos.get("numExpindividual"),
+      anoExposicionIndividual: datos.get("anoExpindividual"),
+      cantidadExposicionColectiva: datos.get("numExpcolectiva"),
+      anoExposicionColectiva: datos.get("anoExpcolectiva"),
 
-    curadurias: datos.get("curartisticas"),
-    cantidadCuraduriasInternacional: datos.get("numcurartisticasinter"),
-    anoCuraduriasInternacional: datos.get("anocurartisticasinter"),
-    cantidadCuraduriasNacional: datos.get("numcurartisticasnal"),
-    anoCuraduriasNacional: datos.get("anocurartisticasnal"),
-    cantidadCuraduriasRegional: datos.get("numcurartisticasreg"),
-    anoCuraduriasRegional: datos.get("anocurartisticasreg"),
+      curadurias: datos.get("curartisticas"),
+      cantidadCuraduriasInternacional: datos.get("numcurartisticasinter"),
+      anoCuraduriasInternacional: datos.get("anocurartisticasinter"),
+      cantidadCuraduriasNacional: datos.get("numcurartisticasnal"),
+      anoCuraduriasNacional: datos.get("anocurartisticasnal"),
+      cantidadCuraduriasRegional: datos.get("numcurartisticasreg"),
+      anoCuraduriasRegional: datos.get("anocurartisticasreg"),
 
-    premios: datos.get("premios"),
-    cantidadPremiosInternacional: datos.get("numpremiosinter"),
-    cantidadPremiosNacional: datos.get("numpremiosnal")
-  })
-});
+      premios: datos.get("premios"),
+      cantidadPremiosInternacional: datos.get("numpremiosinter"),
+      cantidadPremiosNacional: datos.get("numpremiosnal")
+    })
+  });
 
   const data = await res.json();
 

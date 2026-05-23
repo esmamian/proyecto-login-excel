@@ -32,6 +32,8 @@ pool.query(`
     usuario TEXT NOT NULL,
     seccion TEXT,
 
+    estado_civil TEXT,
+
     fecha_vinculacion DATE,
     vinculacion_continua TEXT,
     mismo_departamento TEXT,
@@ -323,6 +325,7 @@ app.post("/guardar-encabezado", auth, async (req, res) => {
   try {
     const {
       seccion,
+      estadoCivil,
       fechaVinculacion,
       vinculacionContinua,
       mismoDepartamento,
@@ -340,6 +343,7 @@ app.post("/guardar-encabezado", auth, async (req, res) => {
       `INSERT INTO respuestas_encabezado (
         usuario,
         seccion,
+        estado_civil,
         fecha_vinculacion,
         vinculacion_continua,
         mismo_departamento,
@@ -351,11 +355,12 @@ app.post("/guardar-encabezado", auth, async (req, res) => {
         lineas_investigacion
       )
       VALUES (
-        $1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11
+        $1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12
       )`,
       [
         usuario,
         seccion,
+        estadoCivil,
         fechaVinculacion || null,
         vinculacionContinua,
         mismoDepartamento,

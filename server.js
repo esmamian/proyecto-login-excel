@@ -355,7 +355,6 @@ app.post("/guardar-encabezado", auth, async (req, res) => {
         lugar_nacimiento,
         sexo,
         estado_civil,
-        estado_civil,
         fecha_vinculacion,
         vinculacion_continua,
         mismo_departamento,
@@ -367,7 +366,7 @@ app.post("/guardar-encabezado", auth, async (req, res) => {
         lineas_investigacion
       )
       VALUES (
-        $1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16
+        $1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15
       )`,
       [
         usuario,

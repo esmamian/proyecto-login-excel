@@ -60,7 +60,7 @@ pool.query(`
 });
 
 //Formación Académica
-await pool.query(`
+pool.query(`
   CREATE TABLE IF NOT EXISTS respuestas (
 
     id SERIAL PRIMARY KEY,

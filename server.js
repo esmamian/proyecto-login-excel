@@ -257,8 +257,6 @@ pool.query(`
     cantidad_obra_musical_nal INTEGER,
     ano_obra_musical_nal INTEGER,
 
-    cantidad_obra_musical_reg INTEGER,
-
 
     obra_musical_premiada TEXT,
 

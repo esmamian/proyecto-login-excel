@@ -60,102 +60,169 @@ pool.query(`
 });
 
 //Formación Académica
-pool.query(`
+await pool.query(`
   CREATE TABLE IF NOT EXISTS respuestas (
+
     id SERIAL PRIMARY KEY,
+
     usuario TEXT NOT NULL,
+
     seccion TEXT,
+
 
     doctorado TEXT,
     cantidad_doctorado INTEGER,
 
+
     magister TEXT,
     cantidad_magister INTEGER,
+
 
     especialista TEXT,
     cantidad_especialista INTEGER,
 
+
     pedagogia TEXT,
     cantidad_pedagogia INTEGER,
+
 
     pregrado TEXT,
     cantidad_pregrado INTEGER,
 
+
     cursos_continuada TEXT,
     cantidad_cursos_continuada INTEGER,
+    horas_cursos_continuada INTEGER,
+    ano_cursos_continuada INTEGER,
+
+
+    otros_cursos_educacion TEXT,
+    cuales_otros_cursos_educacion TEXT,
+    ano_otros_cursos_educacion INTEGER,
+
 
     ingles_c2 TEXT,
     cantidad_ingles_c2 INTEGER,
+    ano_ingles_c2 INTEGER,
+
 
     ingles_c1 TEXT,
     cantidad_ingles_c1 INTEGER,
+    ano_ingles_c1 INTEGER,
+
 
     ingles_b2 TEXT,
     cantidad_ingles_b2 INTEGER,
+    ano_ingles_b2 INTEGER,
+
 
     exp_docente TEXT,
     cantidad_exp_docente INTEGER,
 
+
+    exp_docente_otras TEXT,
+    cantidad_exp_docente_otras INTEGER,
+    ano_exp_docente_otras INTEGER,
+
+
     exp_profesional TEXT,
     cantidad_exp_profesional INTEGER,
+    ano_exp_profesional INTEGER,
+
 
     exp_clinica TEXT,
     cantidad_exp_clinica INTEGER,
+    ano_exp_clinica INTEGER,
+
 
     proy_investigacion TEXT,
     cantidad_proy_investigacion INTEGER,
+    ano_proy_investigacion INTEGER,
+
 
     proy_social TEXT,
     cantidad_proy_social INTEGER,
+    ano_proy_social INTEGER,
+
 
     exp_academico_admin TEXT,
     cantidad_exp_academico_admin INTEGER,
+    ano_exp_academico_admin INTEGER,
+
 
     libro_editorial TEXT,
     cantidad_libro_editorial INTEGER,
+    ano_libro_editorial INTEGER,
+
 
     patente TEXT,
     cantidad_patente INTEGER,
+    ano_patente INTEGER,
+
 
     capitulo_libro TEXT,
     cantidad_capitulo_libro INTEGER,
+    ano_capitulo_libro INTEGER,
+
 
     articulo_a1 TEXT,
     cantidad_articulo_a1 INTEGER,
+    ano_articulo_a1 INTEGER,
+
 
     articulo_a2 TEXT,
     cantidad_articulo_a2 INTEGER,
+    ano_articulo_a2 INTEGER,
+
 
     articulo_b TEXT,
     cantidad_articulo_b INTEGER,
+    ano_articulo_b INTEGER,
+
 
     articulo_c TEXT,
     cantidad_articulo_c INTEGER,
+    ano_articulo_c INTEGER,
+
 
     evento_internacional TEXT,
     cantidad_evento_internacional INTEGER,
+    ano_evento_internacional INTEGER,
+
 
     evento_nacional TEXT,
     cantidad_evento_nacional INTEGER,
+    ano_evento_nacional INTEGER,
+
 
     posgrado_laureado TEXT,
     cantidad_posgrado_laureado INTEGER,
 
+
     posgrado_meritorio TEXT,
     cantidad_posgrado_meritorio INTEGER,
+
 
     pregrado_laureado TEXT,
     cantidad_pregrado_laureado INTEGER,
 
+
     pregrado_meritorio TEXT,
     cantidad_pregrado_meritorio INTEGER,
 
+
     fecha TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+
   )
+
 `).then(() => {
+
   console.log("Tabla respuestas lista");
+
 }).catch(error => {
-  console.error("Error creando tabla:", error);
+
+  console.error("Error creando tabla respuestas:", error);
+
 });
 
 //Tabla Artes

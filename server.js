@@ -303,33 +303,65 @@ pool.query(`
 
 //Tabla Comunicación Social
 
+// Crear tabla Comunicación Social y Periodismo
 pool.query(`
   CREATE TABLE IF NOT EXISTS respuestas_comunicacion (
+
     id SERIAL PRIMARY KEY,
+
     usuario TEXT NOT NULL,
+
     seccion TEXT,
 
+
     producto_investigacion TEXT,
+
     cantidad_producto_investigacion_inter INTEGER,
+    ano_producto_investigacion_inter INTEGER,
+
     cantidad_producto_investigacion_nal INTEGER,
+    ano_producto_investigacion_nal INTEGER,
+
     cantidad_producto_investigacion_reg INTEGER,
+    ano_producto_investigacion_reg INTEGER,
+
 
     producto_comunicacion TEXT,
+
     cantidad_producto_comunicacion_inter INTEGER,
+    ano_producto_comunicacion_inter INTEGER,
+
     cantidad_producto_comunicacion_nal INTEGER,
+    ano_producto_comunicacion_nal INTEGER,
+
     cantidad_producto_comunicacion_reg INTEGER,
+    ano_producto_comunicacion_reg INTEGER,
+
 
     premio_periodismo TEXT,
+
     cantidad_premio_periodismo_inter INTEGER,
+    ano_premio_periodismo_inter INTEGER,
+
     cantidad_premio_periodismo_nal INTEGER,
+    ano_premio_periodismo_nal INTEGER,
+
     cantidad_premio_periodismo_reg INTEGER,
+    ano_premio_periodismo_reg INTEGER,
+
 
     fecha TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+
   )
+
 `).then(() => {
+
   console.log("Tabla respuestas_comunicacion lista");
+
 }).catch(error => {
+
   console.error("Error creando tabla comunicación:", error);
+
 });
 
 
@@ -1487,74 +1519,119 @@ app.get("/descargar-musica", auth, async (req, res) => {
 
 //Guarda Comunicación social 
 
+// Guardar Comunicación Social y Periodismo
 app.post("/guardar-comunicacion", auth, async (req, res) => {
+
   try {
+
     const {
+
       seccion,
 
       productoInvestigacion,
       cantidadProductoInvestigacionInter,
+      anoProductoInvestigacionInter,
       cantidadProductoInvestigacionNal,
+      anoProductoInvestigacionNal,
       cantidadProductoInvestigacionReg,
+      anoProductoInvestigacionReg,
 
       productoComunicacion,
       cantidadProductoComunicacionInter,
+      anoProductoComunicacionInter,
       cantidadProductoComunicacionNal,
+      anoProductoComunicacionNal,
       cantidadProductoComunicacionReg,
+      anoProductoComunicacionReg,
 
       premioPeriodismo,
       cantidadPremioPeriodismoInter,
+      anoPremioPeriodismoInter,
       cantidadPremioPeriodismoNal,
-      cantidadPremioPeriodismoReg
+      anoPremioPeriodismoNal,
+      cantidadPremioPeriodismoReg,
+      anoPremioPeriodismoReg
+
     } = req.body;
 
     const usuario = req.session.usuario.usuario;
 
     await pool.query(
+
       `INSERT INTO respuestas_comunicacion (
+
         usuario,
         seccion,
 
         producto_investigacion,
         cantidad_producto_investigacion_inter,
+        ano_producto_investigacion_inter,
         cantidad_producto_investigacion_nal,
+        ano_producto_investigacion_nal,
         cantidad_producto_investigacion_reg,
+        ano_producto_investigacion_reg,
 
         producto_comunicacion,
         cantidad_producto_comunicacion_inter,
+        ano_producto_comunicacion_inter,
         cantidad_producto_comunicacion_nal,
+        ano_producto_comunicacion_nal,
         cantidad_producto_comunicacion_reg,
+        ano_producto_comunicacion_reg,
 
         premio_periodismo,
         cantidad_premio_periodismo_inter,
+        ano_premio_periodismo_inter,
         cantidad_premio_periodismo_nal,
-        cantidad_premio_periodismo_reg
+        ano_premio_periodismo_nal,
+        cantidad_premio_periodismo_reg,
+        ano_premio_periodismo_reg
+
       )
+
       VALUES (
+
         $1, $2,
-        $3, $4, $5, $6,
-        $7, $8, $9, $10,
-        $11, $12, $13, $14
+
+        $3, $4, $5, $6, $7, $8, $9,
+
+        $10, $11, $12, $13, $14, $15, $16,
+
+        $17, $18, $19, $20, $21, $22, $23
+
       )`,
+
       [
+
         usuario,
         seccion,
 
         productoInvestigacion,
         numeroONull(cantidadProductoInvestigacionInter),
+        numeroONull(anoProductoInvestigacionInter),
         numeroONull(cantidadProductoInvestigacionNal),
+        numeroONull(anoProductoInvestigacionNal),
         numeroONull(cantidadProductoInvestigacionReg),
+        numeroONull(anoProductoInvestigacionReg),
 
         productoComunicacion,
         numeroONull(cantidadProductoComunicacionInter),
+        numeroONull(anoProductoComunicacionInter),
         numeroONull(cantidadProductoComunicacionNal),
+        numeroONull(anoProductoComunicacionNal),
         numeroONull(cantidadProductoComunicacionReg),
+        numeroONull(anoProductoComunicacionReg),
 
         premioPeriodismo,
         numeroONull(cantidadPremioPeriodismoInter),
+        numeroONull(anoPremioPeriodismoInter),
         numeroONull(cantidadPremioPeriodismoNal),
-        numeroONull(cantidadPremioPeriodismoReg)
+        numeroONull(anoPremioPeriodismoNal),
+        numeroONull(cantidadPremioPeriodismoReg),
+        numeroONull(anoPremioPeriodismoReg)
+
       ]
+
     );
 
     res.json({
@@ -1562,17 +1639,23 @@ app.post("/guardar-comunicacion", auth, async (req, res) => {
     });
 
   } catch (error) {
+
     console.error("Error guardando respuestas de Comunicación:", error);
 
     res.status(500).json({
       mensaje: "Error guardando respuestas de Comunicación",
       detalle: error.message
     });
+
   }
+
 });
 
+// Descargar Excel Comunicación
 app.get("/descargar-comunicacion", auth, async (req, res) => {
+
   try {
+
     if (req.session.usuario.rol !== "admin") {
       return res.status(403).send("Solo el administrador puede descargar");
     }
@@ -1584,28 +1667,51 @@ app.get("/descargar-comunicacion", auth, async (req, res) => {
     `);
 
     const workbook = new ExcelJS.Workbook();
+
     const hoja = workbook.addWorksheet("Comunicación");
 
     hoja.columns = [
-      { header: "Usuario", key: "usuario", width: 20 },
-      { header: "Sección", key: "seccion", width: 35 },
 
-      { header: "Producto investigación", key: "producto_investigacion", width: 28 },
-      { header: "Inv. Internacional", key: "cantidad_producto_investigacion_inter", width: 22 },
-      { header: "Inv. Nacional", key: "cantidad_producto_investigacion_nal", width: 18 },
-      { header: "Inv. Regional-Local", key: "cantidad_producto_investigacion_reg", width: 24 },
+      { header: "Usuario", key: "usuario", width: 20 },
+      { header: "Sección", key: "seccion", width: 25 },
+
+      { header: "Producto investigación", key: "producto_investigacion", width: 30 },
+
+      { header: "Investigación internacional", key: "cantidad_producto_investigacion_inter", width: 30 },
+      { header: "Año investigación internacional", key: "ano_producto_investigacion_inter", width: 32 },
+
+      { header: "Investigación nacional", key: "cantidad_producto_investigacion_nal", width: 28 },
+      { header: "Año investigación nacional", key: "ano_producto_investigacion_nal", width: 30 },
+
+      { header: "Investigación regional", key: "cantidad_producto_investigacion_reg", width: 28 },
+      { header: "Año investigación regional", key: "ano_producto_investigacion_reg", width: 30 },
+
 
       { header: "Producto comunicación", key: "producto_comunicacion", width: 30 },
-      { header: "Com. Internacional", key: "cantidad_producto_comunicacion_inter", width: 22 },
-      { header: "Com. Nacional", key: "cantidad_producto_comunicacion_nal", width: 18 },
-      { header: "Com. Regional-Local", key: "cantidad_producto_comunicacion_reg", width: 24 },
 
-      { header: "Premio periodismo", key: "premio_periodismo", width: 25 },
-      { header: "Premio Internacional", key: "cantidad_premio_periodismo_inter", width: 24 },
-      { header: "Premio Nacional", key: "cantidad_premio_periodismo_nal", width: 20 },
-      { header: "Premio Regional-Local", key: "cantidad_premio_periodismo_reg", width: 25 },
+      { header: "Comunicación internacional", key: "cantidad_producto_comunicacion_inter", width: 30 },
+      { header: "Año comunicación internacional", key: "ano_producto_comunicacion_inter", width: 32 },
+
+      { header: "Comunicación nacional", key: "cantidad_producto_comunicacion_nal", width: 28 },
+      { header: "Año comunicación nacional", key: "ano_producto_comunicacion_nal", width: 30 },
+
+      { header: "Comunicación regional", key: "cantidad_producto_comunicacion_reg", width: 28 },
+      { header: "Año comunicación regional", key: "ano_producto_comunicacion_reg", width: 30 },
+
+
+      { header: "Premio periodismo", key: "premio_periodismo", width: 28 },
+
+      { header: "Premio internacional", key: "cantidad_premio_periodismo_inter", width: 28 },
+      { header: "Año premio internacional", key: "ano_premio_periodismo_inter", width: 30 },
+
+      { header: "Premio nacional", key: "cantidad_premio_periodismo_nal", width: 26 },
+      { header: "Año premio nacional", key: "ano_premio_periodismo_nal", width: 28 },
+
+      { header: "Premio regional", key: "cantidad_premio_periodismo_reg", width: 26 },
+      { header: "Año premio regional", key: "ano_premio_periodismo_reg", width: 28 },
 
       { header: "Fecha", key: "fecha", width: 25 }
+
     ];
 
     resultado.rows.forEach(row => {
@@ -1621,16 +1727,21 @@ app.get("/descargar-comunicacion", auth, async (req, res) => {
 
     res.setHeader(
       "Content-Disposition",
-      "attachment; filename=comunicacion_social_periodismo.xlsx"
+      "attachment; filename=comunicacion.xlsx"
     );
 
     await workbook.xlsx.write(res);
+
     res.end();
 
   } catch (error) {
+
     console.error("Error generando Excel de Comunicación:", error);
+
     res.status(500).send("Error generando Excel de Comunicación");
+
   }
+
 });
 
 

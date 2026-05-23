@@ -1409,98 +1409,125 @@ document.getElementById("formulario")
 }
 
   const res = await fetch("/guardar-respuestas", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify({
-      seccion: "Formulario completo",
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json"
+  },
+  body: JSON.stringify({
+    seccion: "Formulario completo",
 
-      doctorado: datos.get("doctorado"),
-      cantidadDoctorado: datos.get("numDoctorado"),
+    doctorado: datos.get("doctorado"),
+    cantidadDoctorado: datos.get("numDoctorado"),
 
-      magister: datos.get("magister"),
-      cantidadMagister: datos.get("numMagister"),
+    magister: datos.get("magister"),
+    cantidadMagister: datos.get("numMagister"),
 
-      especialista: datos.get("especialista"),
-      cantidadEspecialista: datos.get("numEspecialista"),
+    especialista: datos.get("especialista"),
+    cantidadEspecialista: datos.get("numEspecialista"),
 
-      pedagogia: datos.get("pedagogia"),
-      cantidadPedagogia: datos.get("numPedagogia"),
+    pedagogia: datos.get("pedagogia"),
+    cantidadPedagogia: datos.get("numPedagogia"),
 
-      pregrado: datos.get("pregrado"),
-      cantidadPregrado: datos.get("numPregrado"),
+    pregrado: datos.get("pregrado"),
+    cantidadPregrado: datos.get("numPregrado"),
 
-      cursosContinuada: datos.get("cursoscontinuada"),
-      cantidadCursosContinuada: datos.get("numCursosContinuada"),
+    cursosContinuada: datos.get("cursoscontinuada"),
+    cantidadCursosContinuada: datos.get("numCursosContinuada"),
+    horasCursosContinuada: datos.get("horasCursosContinuada"),
+    anoCursosContinuada: datos.get("anoCursosContinuada"),
 
-      inglesC2: datos.get("inglesC2"),
-      cantidadInglesC2: datos.get("numInglesC2"),
+    otrosCursosEducacion: datos.get("otrosCursosEducacion"),
+    cualesOtrosCursosEducacion: datos.get("cualesOtrosCursosEducacion"),
+    anoOtrosCursosEducacion: datos.get("anoOtrosCursosEducacion"),
 
-      inglesC1: datos.get("inglesC1"),
-      cantidadInglesC1: datos.get("numInglesC1"),
+    inglesC2: datos.get("inglesC2"),
+    cantidadInglesC2: datos.get("numInglesC2"),
+    anoInglesC2: datos.get("anoInglesC2"),
 
-      inglesB2: datos.get("inglesB2"),
-      cantidadInglesB2: datos.get("numInglesB2"),
+    inglesC1: datos.get("inglesC1"),
+    cantidadInglesC1: datos.get("numInglesC1"),
+    anoInglesC1: datos.get("anoInglesC1"),
 
-      expDocente: datos.get("expDocente"),
-      cantidadExpDocente: datos.get("numExpDocente"),
+    inglesB2: datos.get("inglesB2"),
+    cantidadInglesB2: datos.get("numInglesB2"),
+    anoInglesB2: datos.get("anoInglesB2"),
 
-      expProfesional: datos.get("expProfesional"),
-      cantidadExpProfesional: datos.get("numExpProfesional"),
+    expDocente: datos.get("expDocente"),
+    cantidadExpDocente: datos.get("numExpDocente"),
 
-      expClinica: datos.get("expClinica"),
-      cantidadExpClinica: datos.get("numExpClinica"),
+    expDocenteOtras: datos.get("expDocenteOtras"),
+    cantidadExpDocenteOtras: datos.get("numExpDocenteOtras"),
+    anoExpDocenteOtras: datos.get("anoExpDocenteOtras"),
 
-      proyInvestigacion: datos.get("proyInvestigacion"),
-      cantidadProyInvestigacion: datos.get("numProyInvestigacion"),
+    expProfesional: datos.get("expProfesional"),
+    cantidadExpProfesional: datos.get("numExpProfesional"),
+    anoExpProfesional: datos.get("anoExpProfesional"),
 
-      proySocial: datos.get("proySocial"),
-      cantidadProySocial: datos.get("numProySocial"),
+    expClinica: datos.get("expClinica"),
+    cantidadExpClinica: datos.get("numExpClinica"),
+    anoExpClinica: datos.get("anonumExpClinica"),
 
-      expAcademicoAdmin: datos.get("expAcademicoAdmin"),
-      cantidadExpAcademicoAdmin: datos.get("numExpAcademicoAdmin"),
+    proyInvestigacion: datos.get("proyInvestigacion"),
+    cantidadProyInvestigacion: datos.get("numProyInvestigacion"),
+    anoProyInvestigacion: datos.get("anoProyInvestigacion"),
 
-      libroEditorial: datos.get("libroEditorial"),
-      cantidadLibroEditorial: datos.get("numLibroEditorial"),
+    proySocial: datos.get("proySocial"),
+    cantidadProySocial: datos.get("numProySocial"),
+    anoProySocial: datos.get("anoProySocial"),
 
-      patente: datos.get("patente"),
-      cantidadPatente: datos.get("numPatente"),
+    expAcademicoAdmin: datos.get("expAcademicoAdmin"),
+    cantidadExpAcademicoAdmin: datos.get("numExpAcademicoAdmin"),
+    anoExpAcademicoAdmin: datos.get("anoExpAcademicoAdmin"),
 
-      capituloLibro: datos.get("capituloLibro"),
-      cantidadCapituloLibro: datos.get("numCapituloLibro"),
+    libroEditorial: datos.get("libroEditorial"),
+    cantidadLibroEditorial: datos.get("numLibroEditorial"),
+    anoLibroEditorial: datos.get("anoLibroEditorial"),
 
-      articuloA1: datos.get("articuloA1"),
-      cantidadArticuloA1: datos.get("numArticuloA1"),
+    patente: datos.get("patente"),
+    cantidadPatente: datos.get("numPatente"),
+    anoPatente: datos.get("anoPatente"),
 
-      articuloA2: datos.get("articuloA2"),
-      cantidadArticuloA2: datos.get("numArticuloA2"),
+    capituloLibro: datos.get("capituloLibro"),
+    cantidadCapituloLibro: datos.get("numCapituloLibro"),
+    anoCapituloLibro: datos.get("anoCapituloLibro"),
 
-      articuloB: datos.get("articuloB"),
-      cantidadArticuloB: datos.get("numArticuloB"),
+    articuloA1: datos.get("articuloA1"),
+    cantidadArticuloA1: datos.get("numArticuloA1"),
+    anoArticuloA1: datos.get("anoArticuloA1"),
 
-      articuloC: datos.get("articuloC"),
-      cantidadArticuloC: datos.get("numArticuloC"),
+    articuloA2: datos.get("articuloA2"),
+    cantidadArticuloA2: datos.get("numArticuloA2"),
+    anoArticuloA2: datos.get("anoArticuloA2"),
 
-      eventoInternacional: datos.get("eventoInternacional"),
-      cantidadEventoInternacional: datos.get("numEventoInternacional"),
+    articuloB: datos.get("articuloB"),
+    cantidadArticuloB: datos.get("numArticuloB"),
+    anoArticuloB: datos.get("anoArticuloB"),
 
-      eventoNacional: datos.get("eventoNacional"),
-      cantidadEventoNacional: datos.get("numEventoNacional"),
+    articuloC: datos.get("articuloC"),
+    cantidadArticuloC: datos.get("numArticuloC"),
+    anoArticuloC: datos.get("anoArticuloC"),
 
-      posgradoLaureado: datos.get("posgradoLaureado"),
-      cantidadPosgradoLaureado: datos.get("numPosgradoLaureado"),
+    eventoInternacional: datos.get("eventoInternacional"),
+    cantidadEventoInternacional: datos.get("numEventoInternacional"),
+    anoEventoInternacional: datos.get("anoEventoInternacional"),
 
-      posgradoMeritorio: datos.get("posgradoMeritorio"),
-      cantidadPosgradoMeritorio: datos.get("numPosgradoMeritorio"),
+    eventoNacional: datos.get("eventoNacional"),
+    cantidadEventoNacional: datos.get("numEventoNacional"),
+    anoEventoNacional: datos.get("anoEventoNacional"),
 
-      pregradoLaureado: datos.get("pregradoLaureado"),
-      cantidadPregradoLaureado: datos.get("numPregradoLaureado"),
+    posgradoLaureado: datos.get("posgradoLaureado"),
+    cantidadPosgradoLaureado: datos.get("numPosgradoLaureado"),
 
-      pregradoMeritorio: datos.get("pregradoMeritorio"),
-      cantidadPregradoMeritorio: datos.get("numPregradoMeritorio")
-    })
-  });
+    posgradoMeritorio: datos.get("posgradoMeritorio"),
+    cantidadPosgradoMeritorio: datos.get("numPosgradoMeritorio"),
+
+    pregradoLaureado: datos.get("pregradoLaureado"),
+    cantidadPregradoLaureado: datos.get("numPregradoLaureado"),
+
+    pregradoMeritorio: datos.get("pregradoMeritorio"),
+    cantidadPregradoMeritorio: datos.get("numPregradoMeritorio")
+  })
+});
 
   const data = await res.json();
 

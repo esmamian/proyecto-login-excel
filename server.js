@@ -241,25 +241,64 @@ pool.query(`
 //Tabla música
 pool.query(`
   CREATE TABLE IF NOT EXISTS respuestas_musica (
+
     id SERIAL PRIMARY KEY,
+
     usuario TEXT NOT NULL,
+
     seccion TEXT,
 
+
     obra_musical TEXT,
+
     cantidad_obra_musical_inter INTEGER,
+    ano_obra_musical_inter INTEGER,
+
     cantidad_obra_musical_nal INTEGER,
+    ano_obra_musical_nal INTEGER,
+
     cantidad_obra_musical_reg INTEGER,
 
+
     obra_musical_premiada TEXT,
+
     cantidad_obra_musical_premiada_inter INTEGER,
+    ano_obra_musical_premiada_inter INTEGER,
+
     cantidad_obra_musical_premiada_nal INTEGER,
+    ano_obra_musical_premiada_nal INTEGER,
+
+
+    premios_musica TEXT,
+
+    cantidad_premios_musica_inter INTEGER,
+    ano_premios_musica_inter INTEGER,
+
+    cantidad_premios_musica_nal INTEGER,
+    ano_premios_musica_nal INTEGER,
+
+
+    interpretacion_musica TEXT,
+
+    cantidad_interpretacion_musica_inter INTEGER,
+    ano_interpretacion_musica_inter INTEGER,
+
+    cantidad_interpretacion_musica_nal INTEGER,
+    ano_interpretacion_musica_nal INTEGER,
+
 
     fecha TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+
   )
+
 `).then(() => {
+
   console.log("Tabla respuestas_musica lista");
+
 }).catch(error => {
+
   console.error("Error creando tabla música:", error);
+
 });
 
 //Tabla Comunicación Social
@@ -1101,7 +1140,7 @@ app.get("/descargar-artes", auth, async (req, res) => {
   }
 });
 
-//Guarda Diseño 
+ 
 // Guarda Diseño
 app.post("/guardar-diseno", auth, async (req, res) => {
   try {
@@ -1257,12 +1296,28 @@ app.post("/guardar-musica", auth, async (req, res) => {
 
       obraMusical,
       cantidadObraMusicalInter,
+      anoObraMusicalInter,
       cantidadObraMusicalNal,
+      anoObraMusicalNal,
       cantidadObraMusicalReg,
 
       obraMusicalPremiada,
       cantidadObraMusicalPremiadaInter,
-      cantidadObraMusicalPremiadaNal
+      anoObraMusicalPremiadaInter,
+      cantidadObraMusicalPremiadaNal,
+      anoObraMusicalPremiadaNal,
+
+      premiosMusica,
+      cantidadPremiosMusicaInter,
+      anoPremiosMusicaInter,
+      cantidadPremiosMusicaNal,
+      anoPremiosMusicaNal,
+
+      interpretacionMusica,
+      cantidadInterpretacionMusicaInter,
+      anoInterpretacionMusicaInter,
+      cantidadInterpretacionMusicaNal,
+      anoInterpretacionMusicaNal
     } = req.body;
 
     const usuario = req.session.usuario.usuario;
@@ -1274,17 +1329,35 @@ app.post("/guardar-musica", auth, async (req, res) => {
 
         obra_musical,
         cantidad_obra_musical_inter,
+        ano_obra_musical_inter,
         cantidad_obra_musical_nal,
+        ano_obra_musical_nal,
         cantidad_obra_musical_reg,
 
         obra_musical_premiada,
         cantidad_obra_musical_premiada_inter,
-        cantidad_obra_musical_premiada_nal
+        ano_obra_musical_premiada_inter,
+        cantidad_obra_musical_premiada_nal,
+        ano_obra_musical_premiada_nal,
+
+        premios_musica,
+        cantidad_premios_musica_inter,
+        ano_premios_musica_inter,
+        cantidad_premios_musica_nal,
+        ano_premios_musica_nal,
+
+        interpretacion_musica,
+        cantidad_interpretacion_musica_inter,
+        ano_interpretacion_musica_inter,
+        cantidad_interpretacion_musica_nal,
+        ano_interpretacion_musica_nal
       )
       VALUES (
         $1, $2,
-        $3, $4, $5, $6,
-        $7, $8, $9
+        $3, $4, $5, $6, $7, $8,
+        $9, $10, $11, $12, $13,
+        $14, $15, $16, $17, $18,
+        $19, $20, $21, $22, $23
       )`,
       [
         usuario,
@@ -1292,12 +1365,28 @@ app.post("/guardar-musica", auth, async (req, res) => {
 
         obraMusical,
         numeroONull(cantidadObraMusicalInter),
+        numeroONull(anoObraMusicalInter),
         numeroONull(cantidadObraMusicalNal),
+        numeroONull(anoObraMusicalNal),
         numeroONull(cantidadObraMusicalReg),
 
         obraMusicalPremiada,
         numeroONull(cantidadObraMusicalPremiadaInter),
-        numeroONull(cantidadObraMusicalPremiadaNal)
+        numeroONull(anoObraMusicalPremiadaInter),
+        numeroONull(cantidadObraMusicalPremiadaNal),
+        numeroONull(anoObraMusicalPremiadaNal),
+
+        premiosMusica,
+        numeroONull(cantidadPremiosMusicaInter),
+        numeroONull(anoPremiosMusicaInter),
+        numeroONull(cantidadPremiosMusicaNal),
+        numeroONull(anoPremiosMusicaNal),
+
+        interpretacionMusica,
+        numeroONull(cantidadInterpretacionMusicaInter),
+        numeroONull(anoInterpretacionMusicaInter),
+        numeroONull(cantidadInterpretacionMusicaNal),
+        numeroONull(anoInterpretacionMusicaNal)
       ]
     );
 
@@ -1335,13 +1424,38 @@ app.get("/descargar-musica", auth, async (req, res) => {
       { header: "Sección", key: "seccion", width: 25 },
 
       { header: "Obra musical", key: "obra_musical", width: 22 },
+
       { header: "Obra musical internacional", key: "cantidad_obra_musical_inter", width: 28 },
+      { header: "Año obra musical internacional", key: "ano_obra_musical_inter", width: 30 },
+
       { header: "Obra musical nacional", key: "cantidad_obra_musical_nal", width: 24 },
+      { header: "Año obra musical nacional", key: "ano_obra_musical_nal", width: 28 },
+
       { header: "Obra musical regional-local", key: "cantidad_obra_musical_reg", width: 28 },
 
-      { header: "Obra musical premiada", key: "obra_musical_premiada", width: 26 },
-      { header: "Premiada internacional", key: "cantidad_obra_musical_premiada_inter", width: 28 },
-      { header: "Premiada nacional", key: "cantidad_obra_musical_premiada_nal", width: 24 },
+      { header: "Arreglos musicales", key: "obra_musical_premiada", width: 26 },
+
+      { header: "Arreglos internacional", key: "cantidad_obra_musical_premiada_inter", width: 28 },
+      { header: "Año arreglos internacional", key: "ano_obra_musical_premiada_inter", width: 30 },
+
+      { header: "Arreglos nacional", key: "cantidad_obra_musical_premiada_nal", width: 24 },
+      { header: "Año arreglos nacional", key: "ano_obra_musical_premiada_nal", width: 28 },
+
+      { header: "Premios música", key: "premios_musica", width: 24 },
+
+      { header: "Premios internacional", key: "cantidad_premios_musica_inter", width: 26 },
+      { header: "Año premios internacional", key: "ano_premios_musica_inter", width: 28 },
+
+      { header: "Premios nacional", key: "cantidad_premios_musica_nal", width: 24 },
+      { header: "Año premios nacional", key: "ano_premios_musica_nal", width: 26 },
+
+      { header: "Interpretación música", key: "interpretacion_musica", width: 30 },
+
+      { header: "Interpretación internacional", key: "cantidad_interpretacion_musica_inter", width: 30 },
+      { header: "Año interpretación internacional", key: "ano_interpretacion_musica_inter", width: 32 },
+
+      { header: "Interpretación nacional", key: "cantidad_interpretacion_musica_nal", width: 28 },
+      { header: "Año interpretación nacional", key: "ano_interpretacion_musica_nal", width: 30 },
 
       { header: "Fecha", key: "fecha", width: 25 }
     ];

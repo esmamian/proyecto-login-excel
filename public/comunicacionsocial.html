@@ -268,30 +268,86 @@ document.getElementById("formulariocomunicacion")
 }
 
 
-  const res = await fetch("/guardar-comunicacion", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify({
-      seccion: "Comunicación Social y Periodismo",
+ const res = await fetch("/guardar-comunicacion", {
 
-      productoInvestigacion: datos.get("productoInvestigacion"),
-      cantidadProductoInvestigacionInter: datos.get("numProductoInvestigacionInter"),
-      cantidadProductoInvestigacionNal: datos.get("numProductoInvestigacionNal"),
-      cantidadProductoInvestigacionReg: datos.get("numProductoInvestigacionReg"),
+  method: "POST",
 
-      productoComunicacion: datos.get("productoComunicacion"),
-      cantidadProductoComunicacionInter: datos.get("numProductoComunicacionInter"),
-      cantidadProductoComunicacionNal: datos.get("numProductoComunicacionNal"),
-      cantidadProductoComunicacionReg: datos.get("numProductoComunicacionReg"),
+  headers: {
+    "Content-Type": "application/json"
+  },
 
-      premioPeriodismo: datos.get("premioPeriodismo"),
-      cantidadPremioPeriodismoInter: datos.get("numPremioPeriodismoInter"),
-      cantidadPremioPeriodismoNal: datos.get("numPremioPeriodismoNal"),
-      cantidadPremioPeriodismoReg: datos.get("numPremioPeriodismoReg")
-    })
-  });
+  body: JSON.stringify({
+
+    seccion: "Comunicación Social y Periodismo",
+
+    productoInvestigacion:
+      datos.get("productoInvestigacion"),
+
+    cantidadProductoInvestigacionInter:
+      datos.get("numProductoInvestigacionInter"),
+
+    anoProductoInvestigacionInter:
+      datos.get("anoProductoInvestigacionInter"),
+
+    cantidadProductoInvestigacionNal:
+      datos.get("numProductoInvestigacionNal"),
+
+    anoProductoInvestigacionNal:
+      datos.get("anoProductoInvestigacionNal"),
+
+    cantidadProductoInvestigacionReg:
+      datos.get("numProductoInvestigacionReg"),
+
+    anoProductoInvestigacionReg:
+      datos.get("anoProductoInvestigacionReg"),
+
+
+    productoComunicacion:
+      datos.get("productoComunicacion"),
+
+    cantidadProductoComunicacionInter:
+      datos.get("numProductoComunicacionInter"),
+
+    anoProductoComunicacionInter:
+      datos.get("anoProductoComunicacionInter"),
+
+    cantidadProductoComunicacionNal:
+      datos.get("numProductoComunicacionNal"),
+
+    anoProductoComunicacionNal:
+      datos.get("anoProductoComunicacionNal"),
+
+    cantidadProductoComunicacionReg:
+      datos.get("numProductoComunicacionReg"),
+
+    anoProductoComunicacionReg:
+      datos.get("anoProductoComunicacionReg"),
+
+
+    premioPeriodismo:
+      datos.get("premioPeriodismo"),
+
+    cantidadPremioPeriodismoInter:
+      datos.get("numPremioPeriodismoInter"),
+
+    anoPremioPeriodismoInter:
+      datos.get("anoPremioPeriodismoInter"),
+
+    cantidadPremioPeriodismoNal:
+      datos.get("numPremioPeriodismoNal"),
+
+    anoPremioPeriodismoNal:
+      datos.get("anoPremioPeriodismoNal"),
+
+    cantidadPremioPeriodismoReg:
+      datos.get("numPremioPeriodismoReg"),
+
+    anoPremioPeriodismoReg:
+      datos.get("anoPremioPeriodismoReg")
+
+  })
+
+});
 
   const data = await res.json();
 

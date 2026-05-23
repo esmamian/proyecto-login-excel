@@ -41,6 +41,7 @@ pool.query(`
     fecha_vinculacion DATE,
     vinculacion_continua TEXT,
     mismo_departamento TEXT,
+    cual_mismodpto TEXT,
 
     periodos_otc INTEGER,
     periodos_omt INTEGER,
@@ -337,6 +338,7 @@ app.post("/guardar-encabezado", auth, async (req, res) => {
       fechaVinculacion,
       vinculacionContinua,
       mismoDepartamento,
+      cualmismoDpto,
       periodosOTC,
       periodosOMT,
       periodosCatedra,
@@ -358,6 +360,7 @@ app.post("/guardar-encabezado", auth, async (req, res) => {
         fecha_vinculacion,
         vinculacion_continua,
         mismo_departamento,
+        cual_mismodpto,
         periodos_otc,
         periodos_omt,
         periodos_catedra,
@@ -366,7 +369,7 @@ app.post("/guardar-encabezado", auth, async (req, res) => {
         lineas_investigacion
       )
       VALUES (
-        $1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15
+        $1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16
       )`,
       [
         usuario,
@@ -378,6 +381,7 @@ app.post("/guardar-encabezado", auth, async (req, res) => {
         fechaVinculacion || null,
         vinculacionContinua,
         mismoDepartamento,
+        cualmismoDpto,
         numeroONull(periodosOTC),
         numeroONull(periodosOMT),
         numeroONull(periodosCatedra),
@@ -427,7 +431,8 @@ app.get("/descargar-encabezado", auth, async (req, res) => {
 
       { header: "Fecha vinculación", key: "fecha_vinculacion", width: 20 },
       { header: "Vinculación continua", key: "vinculacion_continua", width: 25 },
-      { header: "Mismo departamento", key: "mismo_departamento", width: 25 },
+      { header: "Mismo Departamento", key: "mismo_departamento", width: 25 },
+      { header: "Cuál mismo Departamento", key: "cual_mismodpto", width: 25 },
 
       { header: "Periodos OTC", key: "periodos_otc", width: 18 },
       { header: "Periodos OMT", key: "periodos_omt", width: 18 },

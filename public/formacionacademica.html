@@ -191,13 +191,15 @@
   <div class="fila">
 
     <div class="texto">
-      Cursos de formación continuada relacionados con el área objeto de la convocatoria o en docencia universitaria en los últimos 5 años
+      Cursos de formación continuada relacionados con el área objeto de la convocatoria o en docencia universitaria
     </div>
 
     <div id="cantCursosContinuada" class="cantidad">
       <label>¿Cuántos?</label>
       <input type="number" min="0" step="1" id="numCursosContinuada" name="numCursosContinuada" placeholder="0">
       <label>¿Cuántas horas certificadas en total?</label>
+      <input type="number" min="0" step="1" id="horasCursosContinuada" name="horasCursosContinuada" placeholder="0">      
+      <label>Año del más antiguo</label>
       <input type="number" min="0" step="1" id="horasCursosContinuada" name="horasCursosContinuada" placeholder="0">
       
     </div>
@@ -212,6 +214,7 @@
         <input type="radio" name="cursoscontinuada" value="No" onclick="ocultarCantidad('cantCursosContinuada')">
         No
       </label>
+
     </div>
 
   </div>

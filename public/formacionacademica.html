@@ -216,6 +216,57 @@
   </div>
 </div>
 
+<!-- ITEM: Cursos de educación continuada -->
+
+<div class="item">
+  <div class="fila">
+
+    <div class="texto">
+      ¿Cuenta con otros cursos de educación continuada relacionados con la educación superior?
+      <br>
+      <small>
+        Ejemplo: derechos humanos, violencias basadas en género, política educativa,
+        derechos laborales, presupuestos participativos, etc.
+      </small>
+    </div>
+
+    <div id="otrosCursosEducacion" class="cantidad">
+
+      <label>¿Cuáles?</label>
+
+      <textarea
+        id="cualesOtrosCursosEducacion"
+        name="cualesOtrosCursosEducacion"
+        rows="4"
+        placeholder="Escriba aquí los cursos"></textarea>
+
+    </div>
+
+    <div class="opciones">
+
+      <label>
+        <input
+          type="radio"
+          name="otrosCursosEducacion"
+          value="Sí"
+          onclick="mostrarCantidad('otrosCursosEducacion')">
+        Sí
+      </label>
+
+      <label>
+        <input
+          type="radio"
+          name="otrosCursosEducacion"
+          value="No"
+          onclick="ocultarCantidad('otrosCursosEducacion')">
+        No
+      </label>
+
+    </div>
+
+  </div>
+</div>
+
 <!-- ITEM 7 -->
 
 <div class="item">
@@ -394,6 +445,56 @@
   </div>
 </div>
 
+<!-- ITEM: Experiencia profesional mayor a 10 años -->
+
+<div class="item">
+  <div class="fila">
+
+    <div class="texto">
+      ¿Tiene experiencia profesional obtenida hace más de 10 años?
+    </div>
+
+    <div id="expProfesional10" class="cantidad">
+
+      <label>¿Cuántos años?</label>
+
+      <input
+        type="number"
+        min="0"
+        step="1"
+        id="numExpProfesional10"
+        name="numExpProfesional10"
+        placeholder="0">
+
+    </div>
+
+    <div class="opciones">
+
+      <label>
+        <input
+          type="radio"
+          name="expProfesional10"
+          value="Sí"
+          onclick="mostrarCantidad('expProfesional10')">
+
+        Sí
+      </label>
+
+      <label>
+        <input
+          type="radio"
+          name="expProfesional10"
+          value="No"
+          onclick="ocultarCantidad('expProfesional10')">
+
+        No
+      </label>
+
+    </div>
+
+  </div>
+</div>
+
 <!-- ITEM 12 -->
 
 <div class="item">
@@ -482,6 +583,56 @@
   </div>
 </div>
 
+<!-- ITEM: Proyectos de investigación hace más de 10 años -->
+
+<div class="item">
+  <div class="fila">
+
+    <div class="texto">
+      ¿Participó en proyectos de investigación hace más de 10 años?
+    </div>
+
+    <div id="proyInvestigacion10" class="cantidad">
+
+      <label>¿Cuántos proyectos/año?</label>
+
+      <input
+        type="number"
+        min="0"
+        step="1"
+        id="numProyInvestigacion10"
+        name="numProyInvestigacion10"
+        placeholder="0">
+
+    </div>
+
+    <div class="opciones">
+
+      <label>
+        <input
+          type="radio"
+          name="proyInvestigacion10"
+          value="Sí"
+          onclick="mostrarCantidad('proyInvestigacion10')">
+
+        Sí
+      </label>
+
+      <label>
+        <input
+          type="radio"
+          name="proyInvestigacion10"
+          value="No"
+          onclick="ocultarCantidad('proyInvestigacion10')">
+
+        No
+      </label>
+
+    </div>
+
+  </div>
+</div>
+
 <!-- ITEM 14 -->
 
 <div class="item">
@@ -521,6 +672,55 @@
           onclick="ocultarCantidad('cantProySocial')">
         No
       </label>
+    </div>
+
+  </div>
+</div>
+<!-- ITEM: Proyectos de proyección social hace más de 5 años -->
+
+<div class="item">
+  <div class="fila">
+
+    <div class="texto">
+      ¿Participó en proyectos de proyección social hace más de 5 años?
+    </div>
+
+    <div id="proySocial5" class="cantidad">
+
+      <label>¿Cuántos años?</label>
+
+      <input
+        type="number"
+        min="0"
+        step="1"
+        id="numProySocial5"
+        name="numProySocial5"
+        placeholder="0">
+
+    </div>
+
+    <div class="opciones">
+
+      <label>
+        <input
+          type="radio"
+          name="proySocial5"
+          value="Sí"
+          onclick="mostrarCantidad('proySocial5')">
+
+        Sí
+      </label>
+
+      <label>
+        <input
+          type="radio"
+          name="proySocial5"
+          value="No"
+          onclick="ocultarCantidad('proySocial5')">
+
+        No
+      </label>
+
     </div>
 
   </div>
@@ -565,6 +765,56 @@
           onclick="ocultarCantidad('cantExpAcademicoAdmin')">
         No
       </label>
+    </div>
+
+  </div>
+</div>    
+
+<!-- ITEM: Funciones académico-administrativas hace más de 10 años -->
+
+<div class="item">
+  <div class="fila">
+
+    <div class="texto">
+      ¿Ejerció funciones académico-administrativas registradas en su labor docente, hace más de 10 años?
+    </div>
+
+    <div id="expAcademicoAdmin10" class="cantidad">
+
+      <label>¿Cuántos años?</label>
+
+      <input
+        type="number"
+        min="0"
+        step="1"
+        id="numExpAcademicoAdmin10"
+        name="numExpAcademicoAdmin10"
+        placeholder="0">
+
+    </div>
+
+    <div class="opciones">
+
+      <label>
+        <input
+          type="radio"
+          name="expAcademicoAdmin10"
+          value="Sí"
+          onclick="mostrarCantidad('expAcademicoAdmin10')">
+
+        Sí
+      </label>
+
+      <label>
+        <input
+          type="radio"
+          name="expAcademicoAdmin10"
+          value="No"
+          onclick="ocultarCantidad('expAcademicoAdmin10')">
+
+        No
+      </label>
+
     </div>
 
   </div>

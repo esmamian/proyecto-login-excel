@@ -39,8 +39,8 @@
 
           <input
             type="date"
-            id="fechaNascimiento"
-            name="fechaNascimiento"
+            id="fechaNacimiento"
+            name="fechaNacimiento"
             min="1945-01-01"
             max="2006-12-31"
             required>
@@ -63,8 +63,8 @@
         <div class="cantidadTexto">
 
           <textarea
-            id="lugarNascimiento"
-            name="lugarNascimiento"
+            id="lugarNacimiento"
+            name="lugarNacimiento"
             rows="4"
             placeholder="Municipio, Departamento"></textarea>
 
@@ -537,6 +537,15 @@ document.getElementById("formularioencabezado")
     body: JSON.stringify({
 
       seccion: "Información General",
+
+      fechaNacimiento:
+        datos.get("fechaNacimiento"),
+
+      lugarNacimiento:
+        datos.get("lugarNacimiento"),
+
+       sexo:
+         datos.get("sexo"),
 
       estadoCivil: datos.get("estadoCivil"),
 
